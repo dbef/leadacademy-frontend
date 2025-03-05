@@ -188,24 +188,6 @@ export function OverviewFileView() {
                 onOpen={newFolderDialog.onTrue}
               />
 
-              <Scrollbar sx={{ mb: 3, minHeight: 186 }}>
-                <Box sx={{ gap: 3, display: 'flex' }}>
-                  {_folders.map((folder) => (
-                    <FileManagerFolderItem
-                      key={folder.id}
-                      folder={folder}
-                      onDelete={() => console.info('DELETE', folder.id)}
-                      sx={{
-                        ...(_folders.length > 3 && {
-                          width: 240,
-                          flexShrink: 0,
-                        }),
-                      }}
-                    />
-                  ))}
-                </Box>
-              </Scrollbar>
-
               <FileManagerPanel
                 title="Recent files"
                 link={paths.dashboard.fileManager}

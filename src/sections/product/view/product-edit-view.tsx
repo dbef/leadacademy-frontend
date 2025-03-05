@@ -2,13 +2,14 @@
 
 import type { IProductItem } from 'src/types/product';
 
+import { Typography } from '@mui/material';
+
 import { paths } from 'src/routes/paths';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { ProductNewEditForm } from '../product-new-edit-form';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +31,9 @@ export function ProductEditView({ product }: Props) {
         sx={{ mb: { xs: 3, md: 5 } }}
       />
 
-      <ProductNewEditForm currentProduct={product} />
+       <Typography>
+        Product
+       </Typography>
     </DashboardContent>
   );
 }
