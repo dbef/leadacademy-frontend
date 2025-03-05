@@ -29,7 +29,7 @@ const apiClient = async <
     ? R
     : unknown
 > => {
-  let url = `http://localhost:8080${path}`;
+  let url = `${process.env.NEXT_PUBLIC_API_URL}${path}`;
 
   // ✅ Replace path parameters dynamically
   if (options?.pathParams) {
