@@ -17,8 +17,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { Iconify } from 'src/components/iconify';
 import { CustomPopover } from 'src/components/custom-popover';
 
-// ----------------------------------------------------------------------
-
 type Props = {
   filters: UseSetStateReturn<IProductTableFilters>;
   options: {
