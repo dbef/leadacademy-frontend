@@ -1,4 +1,5 @@
-import { components } from 'interfaces/interface';
+import type { components } from 'interfaces/interface';
+
 import type { IDateValue, IDatePickerControl } from './common';
 
 // ----------------------------------------------------------------------

@@ -492,7 +492,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get all courses */
-        get: operations["CoursesController_findAll"];
+        get: operations["CoursesController_findAllCourses"];
         put?: never;
         post?: never;
         delete?: never;
@@ -509,7 +509,7 @@ export interface paths {
             cookie?: never;
         };
         /** Get course by id */
-        get: operations["CoursesController_findOne"];
+        get: operations["CoursesController_findOneCourse"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1924,7 +1924,7 @@ export interface operations {
             };
         };
     };
-    CoursesController_findAll: {
+    CoursesController_findAllCourses: {
         parameters: {
             query?: never;
             header?: never;
@@ -1944,7 +1944,7 @@ export interface operations {
             };
         };
     };
-    CoursesController_findOne: {
+    CoursesController_findOneCourse: {
         parameters: {
             query?: never;
             header?: never;
