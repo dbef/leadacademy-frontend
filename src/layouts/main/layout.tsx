@@ -78,7 +78,7 @@ export function MainLayout({
       ),
       leftArea: (
         <>
-          {/** @slot Nav mobile */}
+          {/** @slot Nav mobiles */}
           <MenuButton
             onClick={onOpen}
             sx={(theme) => ({
