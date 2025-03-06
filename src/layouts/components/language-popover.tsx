@@ -80,7 +80,7 @@ export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProp
         ]}
         {...other}
       >
-        <FlagIcon code={language === 'KA' ? 'GE' : 'GB'} />
+        <FlagIcon code={language === Language.KA ? 'GE' : 'GB'} />
       </IconButton>
 
       {renderMenuList()}

@@ -8,8 +8,9 @@ import { styled, useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
-import { logoClasses } from './classes';
 import { Language, useLanguage } from 'src/contexts/language-context';
+
+import { logoClasses } from './classes';
 
 // ----------------------------------------------------------------------
 
