@@ -6,19 +6,25 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
 
+import { useLanguage } from 'src/contexts/language-context';
 import { MaintenanceIllustration } from 'src/assets/illustrations';
 
 // ----------------------------------------------------------------------
 
 export function MaintenanceView() {
+  const { renderLanguage } = useLanguage();
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <Typography variant="h3" sx={{ mb: 2 }}>
-        Website currently under maintenance
+      <Typography variant="h3" sx={{ mb: 2, fontFeatureSettings: "'case' on" }}>
+        {renderLanguage('ვებგვერდი დამუშავების პროცესშია', 'Website under construction')}
       </Typography>
 
       <Typography sx={{ color: 'text.secondary' }}>
-        We are currently working hard on this page!
+        {renderLanguage(
+          'ძალიან მალე შეძლებთ ვებგვერდით სარგებლობას',
+          'You can visit the website later'
+        )}
       </Typography>
 
       <MaintenanceIllustration sx={{ my: { xs: 5, sm: 10 } }} />

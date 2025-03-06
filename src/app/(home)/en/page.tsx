@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import apiClient from 'src/api/apiClient';
 
 import { HomeView } from 'src/sections/home/view';
+import { MaintenanceView } from 'src/sections/maintenance/view';
 
 // ----------------------------------------------------------------------
 
@@ -15,5 +16,5 @@ export const metadata: Metadata = {
 export default async function Page() {
   const courses = await apiClient('/api/v1/courses', 'get');
 
-  return <HomeView products={courses} />;
+  return <MaintenanceView />;
 }
