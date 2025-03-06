@@ -95,7 +95,7 @@ export function SelectCourse({
             setActiveStep(1);
           }}
         >
-          {renderLanguage('მოსწავლე', 'Child')}
+          {renderLanguage('მშობელი', 'Parent')}
         </Button>
       </Stack>
     </Stack>

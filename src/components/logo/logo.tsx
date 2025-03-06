@@ -9,6 +9,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { RouterLink } from 'src/routes/components';
 
 import { logoClasses } from './classes';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 // ----------------------------------------------------------------------
 
@@ -28,6 +29,8 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
   const PRIMARY_LIGHT = theme.vars.palette.primary.light;
   const PRIMARY_MAIN = theme.vars.palette.primary.main;
   const PRIMARY_DARKER = theme.vars.palette.primary.dark;
+
+  const { language } = useLanguage();
 
   /*
     * OR using local (public folder)
@@ -186,7 +189,7 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
     <LogoRoot
       ref={ref}
       component={RouterLink}
-      href={href}
+      href={language === Language.KA ? '/' : '/en'}
       aria-label="Logo"
       underline="none"
       className={mergeClasses([logoClasses.root, className])}

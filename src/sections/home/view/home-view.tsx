@@ -53,7 +53,7 @@ export function HomeView({ products }: HomeProps) {
       button_ka: `დარეგისტრირდი ახლავე`,
       button_en: 'Register now',
       type: 'video',
-      link: '/courses/register',
+      link: 'courses/register',
     },
   ];
 

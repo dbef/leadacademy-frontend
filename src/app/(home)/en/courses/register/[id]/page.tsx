@@ -8,7 +8,7 @@ import { RegisterOnCourseView } from 'src/sections/courses/course-register-view'
 
 // ----------------------------------------------------------------------
 
-export const metadata: Metadata = { title: `დარეგისტრირდი ახლავე - ${CONFIG.appName}` };
+export const metadata: Metadata = { title: `Register on program | - ${CONFIG.appName}` };
 
 type Props = {
   params: { id: string };

@@ -39,18 +39,18 @@ import { ParentInfoType } from './course-register-view';
 export type RegisterParentSchema = zod.infer<typeof RegisterParentSchema>;
 
 export const RegisterParentSchema = zod.object({
-  parent_name: zod.string().min(1),
-  parent_lastname: zod.string().min(1),
-  parent_pn: zod.string().min(1),
-  parent_email: zod.string().email(),
-  parent_phone: zod.string().min(1),
+  parent_name: zod.string().min(1, { message: '' }),
+  parent_lastname: zod.string().min(1, { message: '' }),
+  parent_pn: zod.string().min(1, { message: '' }),
+  parent_email: zod.string().email({ message: '' }),
+  parent_phone: zod.string().min(1, { message: '' }),
   relation: zod.string().default('parent'),
-  parent_dob: zod.string().min(1),
-  gender: zod.string().min(1).default('male'),
-  nationality: zod.string().min(1).default('Georgia'),
-  country: zod.string().min(1).default('Georgia'),
-  address: zod.string().min(1),
-  city: zod.string().min(1),
+  parent_dob: zod.string().min(1, { message: '' }),
+  gender: zod.string().min(1, { message: '' }).default('male'),
+  nationality: zod.string().min(1, { message: '' }).default('Georgia'),
+  country: zod.string().min(1, { message: '' }).default('Georgia'),
+  address: zod.string().min(1, { message: '' }),
+  city: zod.string().min(1, { message: '' }),
 });
 
 type ParentInfoProps = {
@@ -62,10 +62,6 @@ type ParentInfoProps = {
 
 export function RegisterParentView(props: ParentInfoProps) {
   const { course, parentInfo, setParentInfo, setActiveStep } = props;
-
-  const router = useRouter();
-
-  const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(new Date()));
 
   const { renderLanguage } = useLanguage();
 
@@ -99,8 +95,6 @@ export function RegisterParentView(props: ParentInfoProps) {
   } = methods;
 
   const values = watch();
-
-  console.log('VALUES:', values);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -141,9 +135,8 @@ export function RegisterParentView(props: ParentInfoProps) {
           openTo="year"
           views={['year', 'month', 'day']}
           label={renderLanguage('დაბადების თარიღი', 'date of birth')}
-          value={startDate}
+          value={values.parent_dob ? dayjs(values.parent_dob) : null}
           onChange={(newValue) => {
-            setStartDate(newValue);
             setValue('parent_dob', dayjs(newValue).format('YYYY-MM-DD hh:mm'));
           }}
           slotProps={{ textField: { fullWidth: true } }}
@@ -267,8 +260,14 @@ export function RegisterParentView(props: ParentInfoProps) {
           {renderAddress()}
           {renderContactInfo()}
           <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
-            <Button variant="outlined" onClick={() => setActiveStep(0)}>
-              {renderLanguage('უკან', 'Back')}
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setParentInfo(values);
+                setActiveStep(0);
+              }}
+            >
+              {renderLanguage('კურსის არჩევა', 'Select Course')}
             </Button>
             <Button
               variant="contained"

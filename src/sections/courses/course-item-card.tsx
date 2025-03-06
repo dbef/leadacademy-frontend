@@ -2,6 +2,7 @@ import type { CardProps } from '@mui/material/Card';
 import type { components } from 'interfaces/interface';
 
 import parser from 'html-react-parser';
+import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -9,9 +10,7 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 
-import { useRouter } from 'src/routes/hooks';
-
-import { useLanguage } from 'src/contexts/language-context';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
@@ -120,7 +119,11 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
         fullWidth
         color="primary"
         onClick={() => {
-          router.push(`courses/register/${item.course_id}`);
+          router.push(
+            language === Language.KA
+              ? `/courses/register/${item.course_id}`
+              : `/en/courses/register/${item.course_id}`
+          );
         }}
       >
         {renderLanguage('რეგისტრაცია', 'Join')}
@@ -140,7 +143,11 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
           sx={(theme) => ({
             ...theme.mixins.maxLine({ line: 2.2, persistent: theme.typography.subtitle2 }),
           })}
-          href={`courses/${item.course_id}`}
+          href={
+            language === Language.KA
+              ? `/courses/${item.course_id}`
+              : `/en/courses/${item.course_id}`
+          }
         >
           {renderLanguage(item.title_ka, item.title_en)}
         </Link>

@@ -4,11 +4,11 @@ import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
 import axios, { endpoints } from 'src/lib/axios';
 
-import { RegisterOnCourseView } from 'src/sections/courses/course-register-view';
+import { CourseDetailsView } from 'src/sections/courses/course-details-view';
 
 // ----------------------------------------------------------------------
 
-export const metadata: Metadata = { title: `დარეგისტრირდი ახლავე - ${CONFIG.appName}` };
+export const metadata: Metadata = { title: `Program details | - ${CONFIG.appName}` };
 
 type Props = {
   params: { id: string };
@@ -23,7 +23,7 @@ export default async function Page({ params }: Props) {
     },
   });
 
-  return <RegisterOnCourseView course={course} />;
+  return <CourseDetailsView course={course} />;
 }
 
 // ----------------------------------------------------------------------

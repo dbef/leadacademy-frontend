@@ -8,7 +8,7 @@ import { CourseDetailsView } from 'src/sections/courses/course-details-view';
 
 // ----------------------------------------------------------------------
 
-export const metadata: Metadata = { title: `Product details | Dashboard - ${CONFIG.appName}` };
+export const metadata: Metadata = { title: `პროგრამის დეტალები - ${CONFIG.appName}` };
 
 type Props = {
   params: { id: string };

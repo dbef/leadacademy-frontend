@@ -1,47 +1,52 @@
+// src/contexts/language-context.tsx
+
 'use client';
 
+import { useRouter, usePathname } from 'next/navigation';
 import React, { useState, useEffect, useContext, createContext } from 'react';
 
 export enum Language {
-  KA = 'KA',
-  ENG = 'ENG',
+  KA = 'ka',
+  ENG = 'en',
 }
 
 interface LanguageContextType {
   language: Language;
-  changeLanguage: (newLanguage: Language) => Language;
+  changeLanguage: (newLanguage: Language) => void;
+  localizedRoute: (path: string) => string;
   renderLanguage: (ka: string, eng: string) => string;
 }
 
-const defaultLanguageContext: LanguageContextType = {
-  language: Language.KA,
-  renderLanguage: (ka: string) => ka,
-  changeLanguage: (newLanguage: Language) => newLanguage,
-};
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageContext = createContext<LanguageContextType>(defaultLanguageContext);
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [language, setLanguage] = useState<Language>(Language.ENG);
+  const pathname = usePathname();
+  const router = useRouter();
 
-export function LanguageProvider({ children }: { children: React.ReactNode }): React.ReactElement {
-  const [language, setLanguage] = useState(Language.ENG);
+  // Detect language from URL or localStorage
+  useEffect(() => {
+    const storedLang = localStorage.getItem('language') as Language;
+    const urlLang = pathname.split('/')[1] as Language;
 
-  const changeLanguage = (newLanguage: Language): Language => {
-    setLanguage(newLanguage);
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('language', newLanguage);
+    if (urlLang && Object.values(Language).includes(urlLang)) {
+      setLanguage(urlLang);
+    } else {
+      setLanguage(Language.KA);
     }
+  }, [pathname]);
 
-    return newLanguage;
+  const changeLanguage = (newLanguage: Language) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+
+    const newPath = `${newLanguage === Language.KA ? '' : '/en'}${pathname.replace(/^\/(en|ka)/, '')}`;
+
+    router.push(newPath);
   };
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const currLang = (window.localStorage.getItem('language') as Language) || Language.ENG;
-
-      if (currLang) {
-        setLanguage(currLang);
-      }
-    }
-  }, []);
+  // Helper function to add language prefix
+  const localizedRoute = (path: string) => `/${language}${path}`;
 
   const renderLanguage = (ka: string, eng: string): string => {
     if (language === Language.KA) {
@@ -54,10 +59,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }): R
   };
 
   return (
-    <LanguageContext.Provider value={{ language, changeLanguage, renderLanguage }}>
+    <LanguageContext.Provider value={{ language, changeLanguage, localizedRoute, renderLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
 }
 
-export const useLanguage = () => useContext(LanguageContext);
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};

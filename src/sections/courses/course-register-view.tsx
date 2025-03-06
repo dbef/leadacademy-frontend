@@ -12,22 +12,17 @@ import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import CardHeader from '@mui/material/CardHeader';
-import { Step, Stepper, StepLabel } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Step, Stepper, StepLabel, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
 import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
 
-import { Image } from 'src/components/image';
 import { toast } from 'src/components/snackbar';
-import { Field } from 'src/components/hook-form';
 
+import { MedicalInfo } from './medical-info';
 import { RegisterParentView } from './parent-info';
 import { SelectCourse } from './select-course-view';
 import { RegisterStudentInfo } from './student-info';
@@ -80,13 +75,19 @@ export type StudentInfoType = {
   student_pn: string;
   student_email: string;
   student_phone: string;
-  relation: string;
+  student_class: string;
   student_dob: string;
   gender: string;
-  nationality: string;
-  country: string;
-  address: string;
-  city: string;
+};
+
+export type MedicalInfoType = {
+  alergens: string | null;
+  medicaments: string | null;
+  diet_restrictions: string | null;
+  physical_disabilities: string | null;
+  additional_info: string | null;
+  medical_terms: boolean;
+  terms_and_conditions: boolean;
 };
 
 export function RegisterOnCourseView(props: CourseEditViewProps) {
@@ -100,7 +101,6 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
 
   const router = useRouter();
 
-  const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(new Date()));
   const [completed, setCompleted] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [parentInfo, setParentInfo] = useState<ParentInfoType>({
@@ -123,13 +123,18 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     student_pn: '',
     student_email: '',
     student_phone: '',
-    relation: '',
     student_dob: '',
-    address: '',
-    city: '',
-    country: 'Georgia',
     gender: 'male',
-    nationality: 'Georgia',
+    student_class: '',
+  });
+  const [medicalInfo, setMedicalInfo] = useState<MedicalInfoType>({
+    additional_info: null,
+    alergens: null,
+    diet_restrictions: null,
+    medicaments: null,
+    physical_disabilities: null,
+    medical_terms: false,
+    terms_and_conditions: false,
   });
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
   const steps = [
@@ -192,8 +197,6 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
   } = methods;
 
   const values = watch();
-
-  console.log('VALUES:', errors);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -267,6 +270,14 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
                 course={selectedCourse}
                 studentInfo={studentInfo}
                 setStudentInfo={setStudentInfo}
+                setActiveStep={setActiveStep}
+              />
+            )}
+            {activeStep === 3 && selectedCourse && (
+              <MedicalInfo
+                course={selectedCourse}
+                medicalInfo={medicalInfo}
+                setMedicalInfo={setMedicalInfo}
                 setActiveStep={setActiveStep}
               />
             )}

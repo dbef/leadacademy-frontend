@@ -58,6 +58,7 @@ type RootLayoutProps = {
 };
 
 async function getAppConfig() {
+  // const language = detectInitialLanguage(pathname);
   if (CONFIG.isStaticExport) {
     return {
       lang: 'en',
@@ -78,6 +79,7 @@ async function getAppConfig() {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
+
   const appConfig = await getAppConfig();
 
   return (

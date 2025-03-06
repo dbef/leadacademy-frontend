@@ -7,7 +7,7 @@ import { CourseListMain } from 'src/sections/courses/courses-view';
 
 // ----------------------------------------------------------------------
 
-export const metadata: Metadata = { title: `პროგრამები - ${CONFIG.appName}` };
+export const metadata: Metadata = { title: `Programs - ${CONFIG.appName}` };
 
 export default async function Page() {
   const courses = await apiClient('/api/v1/courses', 'get');

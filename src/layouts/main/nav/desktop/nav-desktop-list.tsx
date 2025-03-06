@@ -1,8 +1,10 @@
 import { useBoolean } from 'minimal-shared/hooks';
 import { useRef, useEffect, useCallback } from 'react';
-import { isEqualPath, isActiveLink, isExternalLink } from 'minimal-shared/utils';
+import { isEqualPath, isExternalLink } from 'minimal-shared/utils';
 
 import { usePathname } from 'src/routes/hooks';
+
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { NavItem } from './nav-desktop-item';
 import { Nav, NavLi, NavUl, NavDropdown } from '../components';
@@ -16,8 +18,18 @@ export function NavList({ data, sx, ...other }: NavListProps) {
   const pathname = usePathname();
   const navItemRef = useRef<HTMLButtonElement | null>(null);
 
-  const isActive = isActiveLink(pathname, data.path, !!data.children);
+  const { language } = useLanguage();
+
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
+
+  const renderIsActive = () => {
+    const currPath = language === Language.ENG ? `/en${data.path}` : data.path;
+
+    if (pathname === currPath) {
+      return true;
+    }
+    return false;
+  };
 
   useEffect(() => {
     if (open) {
@@ -36,11 +48,11 @@ export function NavList({ data, sx, ...other }: NavListProps) {
     <NavItem
       ref={navItemRef}
       // slots
-      path={data.path}
+      path={language === Language.ENG ? `/en/${data.path}` : data.path}
       title={data.title}
       // state
       open={open}
-      active={isActive}
+      active={renderIsActive()}
       // options
       hasChild={!!data.children}
       externalLink={isExternalLink(data.path)}

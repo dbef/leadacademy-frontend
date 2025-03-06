@@ -16,10 +16,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
   Radio,
   Button,
+  Select,
+  MenuItem,
   RadioGroup,
   Typography,
   FormControl,
   FormControlLabel,
+  InputLabel,
 } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
@@ -30,25 +33,21 @@ import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 import { CountrySelect } from 'src/components/country-select';
 
-import { ParentInfoType, StudentInfoType } from './course-register-view';
+import type { StudentInfoType } from './course-register-view';
 
 // ----------------------------------------------------------------------
 
 export type RegisterStudentSchema = zod.infer<typeof RegisterStudentSchema>;
 
 export const RegisterStudentSchema = zod.object({
-  student_name: zod.string().min(1),
-  student_lastname: zod.string().min(1),
-  student_pn: zod.string().min(1),
-  student_email: zod.string().email(),
-  student_phone: zod.string().min(1),
-  relation: zod.string().default('student'),
-  student_dob: zod.string().min(1),
-  gender: zod.string().min(1).default('male'),
-  nationality: zod.string().min(1).default('Georgia'),
-  country: zod.string().min(1).default('Georgia'),
-  address: zod.string().min(1),
-  city: zod.string().min(1),
+  student_name: zod.string().min(1, { message: '' }),
+  student_lastname: zod.string().min(1, { message: '' }),
+  student_pn: zod.string().min(1, { message: '' }),
+  student_email: zod.string().email({ message: '' }),
+  student_phone: zod.string().min(1, { message: '' }),
+  student_class: zod.string().min(1, { message: '' }),
+  student_dob: zod.string().min(1, { message: '' }),
+  gender: zod.string().min(1, { message: '' }).default('male'),
 });
 
 type StudentInfoProps = {
@@ -61,9 +60,9 @@ type StudentInfoProps = {
 export function RegisterStudentInfo(props: StudentInfoProps) {
   const { course, studentInfo, setStudentInfo, setActiveStep } = props;
 
-  const router = useRouter();
+  const classes = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
 
-  const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(new Date()));
+  const router = useRouter();
 
   const { renderLanguage } = useLanguage();
 
@@ -73,13 +72,9 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
     student_pn: studentInfo.student_pn,
     student_email: studentInfo.student_email,
     student_phone: studentInfo.student_phone,
-    relation: studentInfo.relation,
+    student_class: studentInfo.student_class,
     student_dob: studentInfo.student_dob,
     gender: studentInfo.gender,
-    nationality: studentInfo.nationality,
-    country: studentInfo.country,
-    address: studentInfo.address,
-    city: studentInfo.city,
   };
 
   const methods = useForm<RegisterStudentSchema>({
@@ -97,8 +92,6 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
   } = methods;
 
   const values = watch();
-
-  console.log('VALUES:', values);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -142,9 +135,8 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           openTo="year"
           views={['year', 'month', 'day']}
           label={renderLanguage('დაბადების თარიღი', 'date of birth')}
-          value={startDate}
+          value={values.student_dob ? dayjs(values.student_dob) : null}
           onChange={(newValue) => {
-            setStartDate(newValue);
             setValue('student_dob', dayjs(newValue).format('YYYY-MM-DD hh:mm'));
           }}
           slotProps={{ textField: { fullWidth: true } }}
@@ -172,35 +164,23 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
         </FormControl>
       </Stack>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-        <CountrySelect
-          sx={{ width: '100%' }}
-          label={renderLanguage('მოქალაქეობა', 'Nationality')}
-          defaultValue={values.nationality}
-          onChange={(e, value) => setValue('nationality', value)}
-        />
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">{renderLanguage('კლასი', 'Class')}</InputLabel>
+          <Select
+            id="demo-simple-select"
+            value={values.student_class}
+            label={renderLanguage('კლასი', 'Class')}
+            onChange={(event) => setValue('student_class', event.target.value)}
+          >
+            {classes.map((classItem, index) => (
+              <MenuItem key={classItem} value={classItem}>
+                {classItem}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         {/* <Field.Text name="student_name" label={renderLanguage('მოსწავლის სახელი', 'Student name')} /> */}
         <Field.Text name="student_pn" label={renderLanguage('პირადი ნომერი', 'Personal number')} />
-      </Stack>
-    </Stack>
-  );
-
-  const renderAddress = () => (
-    <Stack spacing={3} sx={{ p: 3 }}>
-      <Typography
-        sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
-        variant="subtitle2"
-      >
-        {renderLanguage('მისამართი', 'Address')}
-      </Typography>
-      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-        <Field.Text name="address" label={renderLanguage('მისამართი', 'Address')} />
-        <Field.Text name="city" label={renderLanguage('ქალაქი', 'City')} />
-        <CountrySelect
-          sx={{ width: '100%' }}
-          label={renderLanguage('ქვეყანა', 'Country')}
-          defaultValue={values.country}
-          onChange={(e, value) => setValue('country', value)}
-        />
       </Stack>
     </Stack>
   );
@@ -211,7 +191,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
         sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         variant="subtitle2"
       >
-        {renderLanguage('მისამართი', 'Address')}
+        {renderLanguage('საკონტაქტო ინფორმაცია', 'Contact Info')}
       </Typography>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
         <Field.Text name="student_email" label={renderLanguage('ელ.ფოსტა', 'Email')} />
@@ -265,11 +245,16 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
         <Card>
           <Divider />
           {renderBasicInfo()}
-          {renderAddress()}
           {renderContactInfo()}
           <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
-            <Button variant="outlined" onClick={() => setActiveStep(1)}>
-              {renderLanguage('უკან', 'Back')}
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setStudentInfo(values);
+                setActiveStep(1);
+              }}
+            >
+              {renderLanguage('მშობელი', 'Parent')}
             </Button>
             <Button
               variant="contained"
