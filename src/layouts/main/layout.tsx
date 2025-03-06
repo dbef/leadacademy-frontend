@@ -2,13 +2,12 @@
 
 import type { Breakpoint } from '@mui/material/styles';
 
-import { useEffect } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 
-import { useRouter, usePathname } from 'src/routes/hooks';
+import { usePathname } from 'src/routes/hooks';
 
 import { allLangs } from 'src/locales';
 
@@ -31,6 +30,7 @@ import type { NavMainProps } from './nav/types';
 import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+
 // ----------------------------------------------------------------------
 
 type LayoutBaseProps = Pick<LayoutSectionProps, 'sx' | 'children' | 'cssVars'>;
@@ -54,13 +54,7 @@ export function MainLayout({
   slotProps,
   layoutQuery = 'md',
 }: MainLayoutProps) {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Example: redirect to the home page if some condition is met
-    router.push('/'); // You can specify the URL to redirect to
-  }, [router]);
-
+  
   const pathname = usePathname();
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
@@ -78,7 +72,7 @@ export function MainLayout({
       ),
       leftArea: (
         <>
-          {/** @slot Nav mobiles */}
+          {/** @slot Nav mobile */}
           <MenuButton
             onClick={onOpen}
             sx={(theme) => ({
@@ -142,11 +136,11 @@ export function MainLayout({
       /** **************************************
        * @Header
        *************************************** */
-      // headerSection={renderHeader()}
+      headerSection={renderHeader()}
       /** **************************************
        * @Footer
        *************************************** */
-      // footerSection={renderFooter()}
+      footerSection={renderFooter()}
       /** **************************************
        * @Styles
        *************************************** */
