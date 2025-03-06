@@ -142,11 +142,11 @@ export function MainLayout({
       /** **************************************
        * @Header
        *************************************** */
-      headerSection={renderHeader()}
+      // headerSection={renderHeader()}
       /** **************************************
        * @Footer
        *************************************** */
-      footerSection={renderFooter()}
+      // footerSection={renderFooter()}
       /** **************************************
        * @Styles
        *************************************** */
