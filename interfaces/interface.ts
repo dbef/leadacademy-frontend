@@ -620,6 +620,10 @@ export interface components {
              */
             location: string;
         };
+        NewUploadedFiles: {
+            name: string;
+            type: string;
+        };
         FolderDto: {
             /** @description Folder name */
             folder_id: string;
@@ -1286,10 +1290,9 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description List of files to upload */
         requestBody: {
             content: {
-                "multipart/form-data": components["schemas"];
+                "application/json": components["schemas"]["NewUploadedFiles"][];
             };
         };
         responses: {
