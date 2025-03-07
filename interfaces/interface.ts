@@ -518,6 +518,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/gallery": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GalleryController_findAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1965,6 +1981,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CourseDto"];
+                };
+            };
+        };
+    };
+    GalleryController_findAll: {
+        parameters: {
+            query: {
+                /** @description Number of rows per page */
+                rowsPerPage: number;
+                /** @description Current page number */
+                page: number;
+                /** @description Text to search for */
+                searchText?: string;
+                /** @description Field to sort by */
+                sortBy: string;
+                /** @description Direction of sorting */
+                direction: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description List of all media files */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FileDtoRt"];
                 };
             };
         };
