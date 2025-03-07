@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
-import { varAlpha, isActiveLink, isExternalLink } from 'minimal-shared/utils';
+import { varAlpha, isExternalLink } from 'minimal-shared/utils';
 
 import Collapse from '@mui/material/Collapse';
 
@@ -8,6 +8,7 @@ import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { CONFIG } from 'src/global-config';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { navSectionClasses, NavSectionVertical } from 'src/components/nav-section';
 
@@ -26,7 +27,22 @@ export function NavList({ data, sx, ...other }: NavListProps) {
   const isNotComponentsPath = !pathname.startsWith(paths.components);
   const isOpenPath = !!data.children && isNotRootOrDocs && isNotComponentsPath;
 
-  const isActive = isActiveLink(pathname, data.path, !!data.children);
+  const { language } = useLanguage();
+
+  const renderIsActive = () => {
+    const currPath = language === Language.ENG ? `/en${data.path}/` : `${data.path}/`;
+
+    if (currPath === '/en//' && pathname === '/en/') {
+      return true;
+    }
+    if (currPath === '//' && pathname === '/') {
+      return true;
+    }
+    if (pathname === currPath) {
+      return true;
+    }
+    return false;
+  };
 
   const { value: open, onToggle } = useBoolean(isOpenPath);
 
@@ -45,7 +61,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
       title={data.title}
       // state
       open={open}
-      active={isActive}
+      active={renderIsActive()}
       // options
       hasChild={!!data.children}
       externalLink={isExternalLink(data.path)}
