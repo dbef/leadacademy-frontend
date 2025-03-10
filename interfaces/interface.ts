@@ -541,7 +541,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["CampusController_findAll"];
+        get: operations["CampusController_findAllCampuses"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2039,7 +2039,7 @@ export interface operations {
             };
         };
     };
-    CampusController_findAll: {
+    CampusController_findAllCampuses: {
         parameters: {
             query?: never;
             header?: never;
