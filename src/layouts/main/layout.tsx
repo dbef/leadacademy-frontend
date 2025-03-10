@@ -6,16 +6,17 @@ import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-
-import { usePathname } from 'src/routes/hooks';
+import { SpeedDial, SpeedDialAction } from '@mui/material';
 
 import { allLangs } from 'src/locales';
+import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
 import { Logo } from 'src/components/logo';
+import { Iconify } from 'src/components/iconify';
 
+import { Footer } from './footer';
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
-import { Footer, HomeFooter } from './footer';
 import { MainSection } from '../core/main-section';
 import { MenuButton } from '../components/menu-button';
 import { LayoutSection } from '../core/layout-section';
@@ -28,8 +29,8 @@ import { LanguagePopover } from '../components/language-popover';
 import type { FooterProps } from './footer';
 import type { NavMainProps } from './nav/types';
 import type { MainSectionProps } from '../core/main-section';
-import type { HeaderSectionProps } from '../core/header-section';
 import type { LayoutSectionProps } from '../core/layout-section';
+import type { HeaderSectionProps } from '../core/header-section';
 
 // ----------------------------------------------------------------------
 
@@ -54,12 +55,7 @@ export function MainLayout({
   slotProps,
   layoutQuery = 'md',
 }: MainLayoutProps) {
-  
-  const pathname = usePathname();
-
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
-
-  const isHomePage = pathname === '/';
 
   const navData = slotProps?.nav?.data ?? mainNavData;
 
@@ -122,14 +118,16 @@ export function MainLayout({
     );
   };
 
-  const renderFooter = () =>
-    isHomePage ? (
-      <HomeFooter sx={slotProps?.footer?.sx} />
-    ) : (
-      <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />
-    );
+  const renderFooter = () => <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />;
 
   const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
+
+  const actions = [
+    { icon: <TwitterIcon />, name: 'Copy' },
+    { icon: <LinkedinIcon />, name: 'Save' },
+    { icon: <InstagramIcon />, name: 'Print' },
+    { icon: <FacebookIcon />, name: 'Share' },
+  ];
 
   return (
     <LayoutSection
@@ -148,6 +146,20 @@ export function MainLayout({
       sx={sx}
     >
       {renderMain()}
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{
+          position: 'fixed', // Fix to viewport
+          bottom: 16, // Distance from bottom
+          right: 16, // Distance from left
+          zIndex: 1100, // Ensure it's on top of content
+        }}
+        icon={<Iconify icon="ic:baseline-contact-support" color="#fff" />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
+        ))}
+      </SpeedDial>
     </LayoutSection>
   );
 }

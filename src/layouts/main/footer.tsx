@@ -9,10 +9,10 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { _socials } from 'src/_mock';
+import { useLanguage } from 'src/contexts/language-context';
 import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
 import { Logo } from 'src/components/logo';
@@ -21,21 +21,31 @@ import { Logo } from 'src/components/logo';
 
 const LINKS = [
   {
-    headline: 'Minimal',
+    headline: 'About LeadAcademy',
+    headline_ka: 'ლიდაკადემიის შესახებ',
     children: [
-      { name: 'About us', href: paths.about },
-      { name: 'Contact us', href: paths.contact },
-      { name: 'FAQs', href: paths.faqs },
+      { name: 'Mission', name_ka: 'მისია', href: '/' },
+      { name: 'Mission and Vision', name_ka: 'მისია და ხედვა', href: '/' },
+      { name: 'Values', name_ka: 'ღირებულებები', href: '/' },
+      { name: 'Team', name_ka: 'გუნდი', href: '' },
     ],
   },
   {
-    headline: 'Legal',
+    headline: 'Locations',
+    headline_ka: 'ლოკაციები',
     children: [
-      { name: 'Terms and condition', href: '#' },
-      { name: 'Privacy policy', href: '#' },
+      { name: 'Manglisi', name_ka: 'მანგლისი', href: '#' },
+      { name: 'Tsinandali', name_ka: 'წინანდალი', href: '#' },
     ],
   },
-  { headline: 'Contact', children: [{ name: 'support@minimals.cc', href: '#' }] },
+  {
+    headline: 'Contact',
+    headline_ka: 'საკონტაქტო ინფორმაცია',
+    children: [
+      { name: 'info@leadacademy.edu.ge', name_ka: 'info@leadacademy.edu.ge', href: '#' },
+      { name: '243 34 35 36', name_ka: '243 34 35 36', href: '#' },
+    ],
+  },
 ];
 
 // ----------------------------------------------------------------------
@@ -52,6 +62,8 @@ export function Footer({
   layoutQuery = 'md',
   ...other
 }: FooterProps & { layoutQuery?: Breakpoint }) {
+  const { renderLanguage } = useLanguage();
+
   return (
     <FooterRoot sx={sx} {...other}>
       <Divider />
@@ -85,8 +97,11 @@ export function Footer({
                 [theme.breakpoints.up(layoutQuery)]: { mx: 'unset' },
               })}
             >
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+              {renderLanguage(
+                'არაფორმალური განათლების პრინციპებსა და საშუალებებზე დაყრდნობით ლიდერების, მომავლის მოქალაქეების აღზრდა',
+                `Educating leaders and citizens of the future based on the principles and means of non-formal education
+`
+              )}
             </Typography>
 
             <Box
@@ -131,7 +146,7 @@ export function Footer({
                   })}
                 >
                   <Typography component="div" variant="overline">
-                    {list.headline}
+                    {renderLanguage(list.headline_ka, list.headline)}
                   </Typography>
 
                   {list.children.map((link) => (
@@ -142,7 +157,7 @@ export function Footer({
                       color="inherit"
                       variant="body2"
                     >
-                      {link.name}
+                      {renderLanguage(link.name_ka, link.name)}
                     </Link>
                   ))}
                 </Box>
@@ -152,7 +167,7 @@ export function Footer({
         </Grid>
 
         <Typography variant="body2" sx={{ mt: 10 }}>
-          © All rights reserved.
+          {renderLanguage('© ყველა უფლება დაცულია', '© All rights reserved.')}
         </Typography>
       </Container>
     </FooterRoot>

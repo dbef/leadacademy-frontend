@@ -534,6 +534,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/campus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CampusController_findAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1945,7 +1961,14 @@ export interface operations {
     };
     CoursesController_findAllCourses: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Location of the course */
+                location?: string;
+                /** @description Location of the course */
+                season?: string;
+                /** @description Location of the course */
+                limit?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -2012,6 +2035,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["FileDtoRt"];
+                };
+            };
+        };
+    };
+    CampusController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Get all campuses */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampusDto"][];
                 };
             };
         };

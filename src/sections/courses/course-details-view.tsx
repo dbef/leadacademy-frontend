@@ -1,34 +1,24 @@
 'use client';
 
 import type { components } from 'interfaces/interface';
-import type { IDatePickerControl } from 'src/types/common';
 
-import dayjs from 'dayjs';
 import { z as zod } from 'zod';
-import { useState } from 'react';
 import parser from 'html-react-parser';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import CardHeader from '@mui/material/CardHeader';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { Button, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
-import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
 
-import { toast } from 'src/components/snackbar';
-import { Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
 
 import { renderDate } from './helpers';
-import { CourseThankYou } from './thank-you/thank-you';
 import { CarouselThumbsY } from '../_examples/extra/carousel-view/carousel-thumbs-y';
 // ----------------------------------------------------------------------
 
