@@ -12,7 +12,7 @@ export function SignInButton({ sx, ...other }: ButtonProps) {
   const { renderLanguage } = useLanguage();
   return (
     <Button component={RouterLink} href='courses/register'variant="contained" sx={sx} {...other}>
-      {renderLanguage('სააპლიკაციო ფორმა', 'Application Form')}
+      {renderLanguage('რეგისტრაცია', 'Register')}
     </Button>
   );
 }
