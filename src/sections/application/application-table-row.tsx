@@ -31,6 +31,7 @@ type Props = {
 export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
   const confirmDialog = useBoolean();
   const rejectDialog = useBoolean();
+  const confirmPaymentDialog = useBoolean();
   const menuActions = usePopover();
 
   const { renderLanguage } = useLanguage();
@@ -48,21 +49,107 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
             <Box component="span" sx={{ color: 'text.disabled' }}>
               {row.relation}
             </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_pn}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_phone}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_city}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_nationality}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_country}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_address}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.parent_gender}
+            </Box>
           </Stack>
         </Box>
       </TableCell>
       <TableCell>
         <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
           <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
-            <Box component="span">{`${row.child_name} ${row.child_lastname}`}</Box>
+            <Box component="span">{`${row.student_name} ${row.student_lastname}`}</Box>
 
             <Box component="span" sx={{ color: 'text.disabled' }}>
-              {row.child_email}
+              {row.student_email}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.student_pn}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.student_phone}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.student_class}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.student_gender}
             </Box>
           </Stack>
         </Box>
       </TableCell>
-
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.alergens}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.medicaments}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.diet_restrictions}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.physical_disabilities}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.additional_info}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.potential_roommate}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
       <TableCell>
         <ListItemText
           primary={fDate(row.created_at)}
@@ -111,6 +198,17 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
       <MenuList>
         <MenuItem
           onClick={() => {
+            confirmPaymentDialog.onTrue();
+            menuActions.onClose();
+          }}
+          sx={{ color: 'warning.main' }}
+        >
+          <Iconify icon="solar:user-check-bold" />
+          {renderLanguage('დადასტურება (გადახდილია)', 'Approve (Paid)')}
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
             confirmDialog.onTrue();
             menuActions.onClose();
           }}
@@ -145,8 +243,29 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
           variant="contained"
           color="success"
           onClick={() => {
-            handleApproveOrReject(row.application_id, 'approved');
+            handleApproveOrReject(row.application_id || '', 'pending-payment');
             confirmDialog.onFalse();
+          }}
+        >
+          {renderLanguage('დადასტურება', 'Approve')}
+        </Button>
+      }
+    />
+  );
+
+  const renderPaymentWithoutCard = () => (
+    <ConfirmDialog
+      open={confirmPaymentDialog.value}
+      onClose={confirmPaymentDialog.onFalse}
+      title={renderLanguage('დადასტურება (გადმორიცხულია)', 'Approve (Paid)')}
+      content={renderLanguage('გსურთ აპლიკანტის დადასტურება?', 'Confirm this applicant')}
+      action={
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            handleApproveOrReject(row.application_id || '', 'approved');
+            confirmPaymentDialog.onFalse();
           }}
         >
           {renderLanguage('დადასტურება', 'Approve')}
@@ -166,7 +285,7 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
           variant="contained"
           color="error"
           onClick={() => {
-            handleApproveOrReject(row.application_id, 'rejected');
+            handleApproveOrReject(row.application_id || '', 'rejected');
             rejectDialog.onFalse();
           }}
         >
@@ -182,6 +301,7 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
       {renderMenuActions()}
       {renderApproveDialog()}
       {renderRejectDialog()}
+      {renderPaymentWithoutCard()}
     </>
   );
 }

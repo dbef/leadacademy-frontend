@@ -62,7 +62,7 @@ export type ParentInfoType = {
   parent_phone: string;
   relation: string;
   parent_dob: string;
-  gender: string;
+  parent_gender: string;
   nationality: string;
   country: string;
   address: string;
@@ -77,7 +77,9 @@ export type StudentInfoType = {
   student_phone: string;
   student_class: string;
   student_dob: string;
-  gender: string;
+  student_gender: string;
+  program: string;
+  potential_roommate: string | null;
 };
 
 export type MedicalInfoType = {
@@ -109,12 +111,12 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     parent_pn: '',
     parent_email: '',
     parent_phone: '',
-    relation: '',
+    relation: 'parent',
     parent_dob: '',
     address: '',
     city: '',
     country: 'Georgia',
-    gender: 'male',
+    parent_gender: 'male',
     nationality: 'Georgia',
   });
   const [studentInfo, setStudentInfo] = useState<StudentInfoType>({
@@ -124,8 +126,10 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     student_email: '',
     student_phone: '',
     student_dob: '',
-    gender: 'male',
+    student_gender: 'male',
     student_class: '',
+    program: 'georgian',
+    potential_roommate: null,
   });
   const [medicalInfo, setMedicalInfo] = useState<MedicalInfoType>({
     additional_info: null,
@@ -136,6 +140,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     medical_terms: false,
     terms_and_conditions: false,
   });
+
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
   const steps = [
     {
@@ -169,54 +174,6 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
 
   const { renderLanguage } = useLanguage();
 
-  const defaultValues: components['schemas']['CreateApplicationDto'] = {
-    child_dob: '',
-    child_lastname: '',
-    child_name: '',
-    course_id: selectedCourse ? selectedCourse.course_id : '',
-    parent_email: '',
-    parent_lastname: '',
-    parent_name: '',
-    parent_phone: '',
-    parent_pn: '',
-    relation: '',
-    child_email: '',
-  };
-
-  const methods = useForm<NewCourseSchema>({
-    resolver: zodResolver(CreateCourseSchema),
-    defaultValues,
-  });
-
-  const {
-    reset,
-    watch,
-    setValue,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = methods;
-
-  const values = watch();
-
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await apiClient('/api/v1/application', 'post', {
-        body: {
-          ...data,
-          child_email: data.child_email || undefined,
-        },
-      });
-
-      toast.success(
-        renderLanguage('აპლიკაცია წარმატებით გაიგზავნა', 'Application sent succesfully')
-      );
-
-      setCompleted(true);
-    } catch (error) {
-      console.log('SMTHIN', error);
-    }
-  });
-
   return (
     <Stack spacing={{ xs: 3, md: 5 }}>
       <Box sx={{ mb: 5 }} />
@@ -230,6 +187,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
           zIndex: 10,
           bgcolor: 'background.paper',
           marginTop: '100px',
+          padding: '15px 0px',
         }}
       >
         {steps.map((label) => (
@@ -279,6 +237,8 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
                 medicalInfo={medicalInfo}
                 setMedicalInfo={setMedicalInfo}
                 setActiveStep={setActiveStep}
+                parentInfo={parentInfo}
+                studentInfo={studentInfo}
               />
             )}
           </>

@@ -3,6 +3,7 @@
 import type { components } from 'interfaces/interface';
 
 import { z as zod } from 'zod';
+import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -20,12 +21,13 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
+import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
-import type { MedicalInfoType } from './course-register-view';
+import type { ParentInfoType, MedicalInfoType, StudentInfoType } from './course-register-view';
 
 // ----------------------------------------------------------------------
 
@@ -34,10 +36,12 @@ type MedicalInfoProps = {
   medicalInfo: MedicalInfoType;
   setMedicalInfo: (info: MedicalInfoType) => void;
   setActiveStep: (step: number) => void;
+  parentInfo: ParentInfoType;
+  studentInfo: StudentInfoType;
 };
 
 export function MedicalInfo(props: MedicalInfoProps) {
-  const { course, medicalInfo, setMedicalInfo, setActiveStep } = props;
+  const { course, medicalInfo, setMedicalInfo, setActiveStep, parentInfo, studentInfo } = props;
 
   const { renderLanguage } = useLanguage();
   type MedicalInfoSchema = zod.infer<typeof MedicalInfoSchema>;
@@ -92,11 +96,30 @@ export function MedicalInfo(props: MedicalInfoProps) {
 
   const values = watch();
 
-  console.log('VALUES:', values, errors);
-
   const onSubmit = handleSubmit(async (data) => {
     try {
       setMedicalInfo(data);
+      await apiClient('/api/v1/application', 'post', {
+        body: {
+          ...parentInfo,
+          ...studentInfo,
+          ...medicalInfo,
+          potential_roommate: studentInfo.potential_roommate ? studentInfo.potential_roommate : '',
+          diet_restrictions: values.diet_restrictions ? values.diet_restrictions : '',
+          alergens: values.alergens ? values.alergens : '',
+          medicaments: values.medicaments ? values.medicaments : '',
+          physical_disabilities: values.physical_disabilities
+            ? values.physical_disabilities
+            : '',
+          additional_info: values.additional_info ? values.additional_info : '',
+          course_id: course?.course_id || '',
+        },
+      });
+
+      toast.success(
+        renderLanguage('აპლიკაცია წარმატებით გაიგზავნა', 'Application sent succesfully')
+      );
+
       setActiveStep(4);
     } catch (error) {
       console.log('SMTHIN', error);
@@ -141,7 +164,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
           {values.alergens !== null && (
             <Field.Text
               name="alergens"
-              label={renderLanguage('გთხოვთ ჩამოწეროთ ალერგიები', 'Please write alergens')}
+              label={renderLanguage('გთხოვთ, დააზუსტოთ', 'Please specify')}
               fullWidth
               multiline
               rows={3}
@@ -167,7 +190,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
             >
               {renderLanguage(
                 'აქვს თუ არა სტუდენტს დიეტური შეზღუდვები?',
-                'Does student have diet restrictions?'
+                'Does student have dietary restrictions?'
               )}
             </Typography>
             <Stack spacing={3} direction="row">
@@ -186,7 +209,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
           {values.diet_restrictions !== null && (
             <Field.Text
               name="diet_restrictions"
-              label={renderLanguage('გთხოვთ ჩამოწეროთ შეზღუდვები', 'Please write restrictions')}
+              label={renderLanguage('გთხოვთ, დააზუსტოთ', 'Please specify')}
               fullWidth
               multiline
               rows={3}
@@ -214,7 +237,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
             >
               {renderLanguage(
                 'იღებს თუ არა სტუდენტი რაიმე სახის მედიკამენტებს?',
-                'Does student take any medical pills??'
+                'Does student take any medication?'
               )}
             </Typography>
             <Stack spacing={3} direction="row">
@@ -233,7 +256,10 @@ export function MedicalInfo(props: MedicalInfoProps) {
           {values.medicaments !== null && (
             <Field.Text
               name="medicaments"
-              label={renderLanguage('გთხოვთ ჩამოწეროთ მედიკამენტები', 'Please write medicaments')}
+              label={renderLanguage(
+                'გთხოვთ, დააზუსტოთ მედიკამენტი და დოზა',
+                'Please specify medication and dosage'
+              )}
               fullWidth
               multiline
               rows={3}
@@ -278,7 +304,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
           {values.physical_disabilities !== null && (
             <Field.Text
               name="physical_disabilities"
-              label={renderLanguage('გთხოვთ ჩამოწეროთ', 'Please write')}
+              label={renderLanguage('გთხოვთ, განმარტოთ', 'Please explain')}
               fullWidth
               multiline
               rows={3}
@@ -399,7 +425,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
               endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
               type="submit"
             >
-              {renderLanguage('სამედიცინო ინფორმაცია', 'Medical Info')}
+              {renderLanguage('აპლიკაციის გაგზავნა', 'Send Application')}
             </Button>
           </Stack>
         </Card>

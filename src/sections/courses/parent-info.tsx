@@ -21,6 +21,9 @@ import {
   Typography,
   FormControl,
   FormControlLabel,
+  Select,
+  MenuItem,
+  InputLabel,
 } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
@@ -46,7 +49,7 @@ export const RegisterParentSchema = zod.object({
   parent_phone: zod.string().min(1, { message: '' }),
   relation: zod.string().default('parent'),
   parent_dob: zod.string().min(1, { message: '' }),
-  gender: zod.string().min(1, { message: '' }).default('male'),
+  parent_gender: zod.string().min(1, { message: '' }).default('male'),
   nationality: zod.string().min(1, { message: '' }).default('Georgia'),
   country: zod.string().min(1, { message: '' }).default('Georgia'),
   address: zod.string().min(1, { message: '' }),
@@ -63,6 +66,19 @@ type ParentInfoProps = {
 export function RegisterParentView(props: ParentInfoProps) {
   const { course, parentInfo, setParentInfo, setActiveStep } = props;
 
+  const relations = [
+    {
+      title_ka: 'მშობელი',
+      title_en: 'Parent',
+      value: 'parent',
+    },
+    {
+      title_ka: 'მეურვე',
+      title_en: 'Guardian',
+      value: 'guardian',
+    },
+  ];
+
   const { renderLanguage } = useLanguage();
 
   const defaultValues = {
@@ -73,7 +89,7 @@ export function RegisterParentView(props: ParentInfoProps) {
     parent_phone: parentInfo.parent_phone,
     relation: parentInfo.relation,
     parent_dob: parentInfo.parent_dob,
-    gender: parentInfo.gender,
+    parent_gender: parentInfo.parent_gender,
     nationality: parentInfo.nationality,
     country: parentInfo.country,
     address: parentInfo.address,
@@ -144,20 +160,20 @@ export function RegisterParentView(props: ParentInfoProps) {
         <FormControl sx={{ width: '100%' }}>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            value={values.gender}
+            value={values.parent_gender}
             name="radio-buttons-group"
-            onChange={(e) => setValue('gender', e.target.value)}
+            onChange={(e) => setValue('parent_gender', e.target.value)}
           >
             <Stack spacing={3} direction="row">
               <FormControlLabel
                 value="male"
                 control={<Radio />}
-                label={renderLanguage('კაცი', 'Male')}
+                label={renderLanguage('მამრობითი', 'Male')}
               />
               <FormControlLabel
                 value="female"
                 control={<Radio />}
-                label={renderLanguage('ქალი', 'Femaie')}
+                label={renderLanguage('მდედრობითი', 'Femaie')}
               />
             </Stack>
           </RadioGroup>
@@ -170,8 +186,26 @@ export function RegisterParentView(props: ParentInfoProps) {
           defaultValue={values.nationality}
           onChange={(e, value) => setValue('nationality', value)}
         />
-        {/* <Field.Text name="parent_name" label={renderLanguage('მშობლის სახელი', 'Parent name')} /> */}
         <Field.Text name="parent_pn" label={renderLanguage('პირადი ნომერი', 'Personal number')} />
+      </Stack>
+      <Stack>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">
+            {renderLanguage('კავშირი მოსწავლესთან', 'Relation with student')}
+          </InputLabel>
+          <Select
+            id="demo-simple-select"
+            value={values.relation}
+            label={renderLanguage('კავშირი მოსწავლესთან', 'Relation with student')}
+            onChange={(event) => setValue('relation', event.target.value)}
+          >
+            {relations.map((relation, index) => (
+              <MenuItem key={relation.value} value={relation.value}>
+                {renderLanguage(relation.title_ka, relation.title_en)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </Stack>
     </Stack>
   );
@@ -203,7 +237,7 @@ export function RegisterParentView(props: ParentInfoProps) {
         sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         variant="subtitle2"
       >
-        {renderLanguage('მისამართი', 'Address')}
+        {renderLanguage('საკონტაქტო ინფორმაცია', 'Contact Info')}
       </Typography>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
         <Field.Text name="parent_email" label={renderLanguage('ელ.ფოსტა', 'Email')} />

@@ -47,7 +47,9 @@ export const RegisterStudentSchema = zod.object({
   student_phone: zod.string().min(1, { message: '' }),
   student_class: zod.string().min(1, { message: '' }),
   student_dob: zod.string().min(1, { message: '' }),
-  gender: zod.string().min(1, { message: '' }).default('male'),
+  student_gender: zod.string().min(1, { message: '' }).default('male'),
+  program: zod.string().min(1, { message: '' }),
+  potential_roommate: zod.string().nullable(),
 });
 
 type StudentInfoProps = {
@@ -60,7 +62,7 @@ type StudentInfoProps = {
 export function RegisterStudentInfo(props: StudentInfoProps) {
   const { course, studentInfo, setStudentInfo, setActiveStep } = props;
 
-  const classes = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+  const classes = ['IX', 'X', 'XI', 'XII'];
 
   const router = useRouter();
 
@@ -74,7 +76,9 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
     student_phone: studentInfo.student_phone,
     student_class: studentInfo.student_class,
     student_dob: studentInfo.student_dob,
-    gender: studentInfo.gender,
+    student_gender: studentInfo.student_gender,
+    program: studentInfo.program,
+    potential_roommate: studentInfo.potential_roommate,
   };
 
   const methods = useForm<RegisterStudentSchema>({
@@ -144,20 +148,20 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
         <FormControl sx={{ width: '100%' }}>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            value={values.gender}
+            value={values.student_gender}
             name="radio-buttons-group"
-            onChange={(e) => setValue('gender', e.target.value)}
+            onChange={(e) => setValue('student_gender', e.target.value)}
           >
             <Stack spacing={3} direction="row">
               <FormControlLabel
                 value="male"
                 control={<Radio />}
-                label={renderLanguage('კაცი', 'Male')}
+                label={renderLanguage('მამრობითი', 'Male')}
               />
               <FormControlLabel
                 value="female"
                 control={<Radio />}
-                label={renderLanguage('ქალი', 'Femaie')}
+                label={renderLanguage('მდედრობითი', 'Femaie')}
               />
             </Stack>
           </RadioGroup>
@@ -180,7 +184,36 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           </Select>
         </FormControl>
         {/* <Field.Text name="student_name" label={renderLanguage('მოსწავლის სახელი', 'Student name')} /> */}
-        <Field.Text name="student_pn" label={renderLanguage('პირადი ნომერი', 'Personal number')} />
+        <Field.Text
+          name="student_pn"
+          label={renderLanguage(
+            'პირადი ნომერი/პასპორტის ნომერი',
+            'Personal ID number/Passport Number'
+          )}
+        />
+      </Stack>
+      <Stack spacing={1}>
+        <Typography
+          variant="subtitle2"
+          sx={{
+            fontFeatureSettings: "'case' on",
+          }}
+        >
+          {renderLanguage('პოტენციური რუმმეითი', 'Potential Roommate')}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'gray', fontSize: '0.8rem' }}>
+          {renderLanguage(
+            'პოტენციური რუმმეითი - ვისთან ერთად მოვდივარ (მიუთითეთ ერთი ან ორი პოტენციური რუმმეითი. აკადემია, შესაძლებლობის ფარგლებში, გაითვალისწინებს მიწოდებულ ინფორმაციას განთავსების დროს.)',
+            'Potential Roommate - Who I Am Coming With (Please indicate one or two potential roommates. The academy will consider the provided information during the placement process.)'
+          )}
+        </Typography>
+        <Field.Text
+          name="potential_roommate"
+          label={renderLanguage('პოტენციური რუმმეითი', 'Potential Roommate')}
+          fullWidth
+          multiline
+          rows={3}
+        />
       </Stack>
     </Stack>
   );

@@ -458,7 +458,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["ApplicationController_findAll"];
+        get?: never;
         put?: never;
         /** Create application */
         post: operations["ApplicationController_create"];
@@ -466,22 +466,6 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
-        trace?: never;
-    };
-    "/api/v1/application/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["ApplicationController_findOne"];
-        put?: never;
-        post?: never;
-        delete: operations["ApplicationController_remove"];
-        options?: never;
-        head?: never;
-        patch: operations["ApplicationController_update"];
         trace?: never;
     };
     "/api/v1/courses": {
@@ -936,39 +920,80 @@ export interface components {
         ApplicationDto: {
             /**
              * Format: uuid
-             * @description Unique application ID
+             * @description Unique identifier for the application
              */
             application_id: string;
-            /** @description Course ID */
+            /**
+             * Format: uuid
+             * @description Unique identifier for the course
+             */
             course_id: string;
             /**
              * @description Application status
              * @default pending
              */
             status: string;
-            /** @description Parent first name */
+            /** @description Parent First Name */
             parent_name: string;
-            /** @description Parent last name */
+            /** @description Parent Last Name */
             parent_lastname: string;
-            /** @description Parent personal number */
+            /** @description Parent Personal Number */
             parent_pn: string;
-            /** @description Parent email */
+            /** @description Parent Email */
             parent_email: string;
-            /** @description Parent phone number */
+            /** @description Parent Phone Number */
             parent_phone: string;
             /**
-             * @description Relation to the child
+             * @description Relationship to Student
              * @default parent
              */
             relation: string;
-            /** @description Child first name */
-            child_name: string;
-            /** @description Child last name */
-            child_lastname: string;
-            /** @description Child email */
-            child_email?: string;
-            /** @description Child date of birth */
-            child_dob: string;
+            /** @description Parent Date of Birth */
+            parent_dob: string;
+            /** @description Parent Gender */
+            parent_gender: string;
+            /** @description Parent Nationality */
+            parent_nationality: string;
+            /** @description Country of Residence */
+            parent_country: string;
+            /** @description Home Address */
+            parent_address: string;
+            /** @description City */
+            parent_city: string;
+            /** @description Student First Name */
+            student_name: string;
+            /** @description Student Last Name */
+            student_lastname: string;
+            /** @description Student Personal Number */
+            student_pn: string;
+            /** @description Student Email */
+            student_email: string;
+            /** @description Student Phone Number */
+            student_phone: string;
+            /** @description Student Class */
+            student_class: string;
+            /** @description Student Date of Birth */
+            student_dob: string;
+            /** @description Student Gender */
+            student_gender: string;
+            /** @description Educational Program */
+            program: string;
+            /** @description Potential Roommate */
+            potential_roommate?: string;
+            /** @description Allergens */
+            alergens?: string;
+            /** @description Medications */
+            medicaments?: string;
+            /** @description Dietary Restrictions */
+            diet_restrictions?: string;
+            /** @description Physical Disabilities */
+            physical_disabilities?: string;
+            /** @description Additional Medical Information */
+            additional_info?: string;
+            /** @description Medical Terms Agreement */
+            medical_terms: boolean;
+            /** @description Terms and Conditions Agreement */
+            terms_and_conditions: boolean;
             /** @description Child date of birth */
             created_at: string;
             /** @description Child date of birth */
@@ -1014,71 +1039,64 @@ export interface components {
              * @description Unique identifier for the course
              */
             course_id: string;
-            /** @description Parent's first name */
+            /** @description Parent First Name */
             parent_name: string;
-            /** @description Parent's last name */
+            /** @description Parent Last Name */
             parent_lastname: string;
-            /** @description Parent's personal number */
+            /** @description Parent Personal Number */
             parent_pn: string;
-            /**
-             * Format: email
-             * @description Parent's email address
-             */
+            /** @description Parent Email */
             parent_email: string;
-            /** @description Parent's phone number */
+            /** @description Parent Phone Number */
             parent_phone: string;
-            /**
-             * @description Relation to the child
-             * @default parent
-             */
+            /** @description Relationship to Student */
             relation: string;
-            /** @description Child's first name */
-            child_name: string;
-            /** @description Child's last name */
-            child_lastname: string;
-            /**
-             * Format: email
-             * @description Child's email address
-             */
-            child_email?: string;
-            /** @description Child's date of birth */
-            child_dob: string;
-        };
-        UpdateApplicationDto: {
-            /**
-             * Format: uuid
-             * @description Unique identifier for the course
-             */
-            course_id?: string;
-            /** @description Parent's first name */
-            parent_name?: string;
-            /** @description Parent's last name */
-            parent_lastname?: string;
-            /** @description Parent's personal number */
-            parent_pn?: string;
-            /**
-             * Format: email
-             * @description Parent's email address
-             */
-            parent_email?: string;
-            /** @description Parent's phone number */
-            parent_phone?: string;
-            /**
-             * @description Relation to the child
-             * @default parent
-             */
-            relation: string;
-            /** @description Child's first name */
-            child_name?: string;
-            /** @description Child's last name */
-            child_lastname?: string;
-            /**
-             * Format: email
-             * @description Child's email address
-             */
-            child_email?: string;
-            /** @description Child's date of birth */
-            child_dob?: string;
+            /** @description Parent Date of Birth */
+            parent_dob: string;
+            /** @description Parent Gender */
+            parent_gender: string;
+            /** @description Parent Gender */
+            student_gender: string;
+            /** @description Parent Nationality */
+            nationality: string;
+            /** @description Country of Residence */
+            country: string;
+            /** @description Home Address */
+            address: string;
+            /** @description City */
+            city: string;
+            /** @description Student First Name */
+            student_name: string;
+            /** @description Student Last Name */
+            student_lastname: string;
+            /** @description Student Personal Number */
+            student_pn: string;
+            /** @description Student Email */
+            student_email: string;
+            /** @description Student Phone Number */
+            student_phone: string;
+            /** @description Student Class */
+            student_class: string;
+            /** @description Student Date of Birth */
+            student_dob: string;
+            /** @description Educational Program */
+            program: string;
+            /** @description Potential Roommate */
+            potential_roommate: string;
+            /** @description Allergens */
+            alergens: string;
+            /** @description Medications */
+            medicaments: string;
+            /** @description Dietary Restrictions */
+            diet_restrictions: string;
+            /** @description Physical Disabilities */
+            physical_disabilities?: string;
+            /** @description Additional Medical Information */
+            additional_info?: string;
+            /** @description Medical Terms Agreement */
+            medical_terms: boolean;
+            /** @description Terms and Conditions Agreement */
+            terms_and_conditions: boolean;
         };
     };
     responses: never;
@@ -1859,23 +1877,6 @@ export interface operations {
             };
         };
     };
-    ApplicationController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
     ApplicationController_create: {
         parameters: {
             query?: never;
@@ -1890,67 +1891,6 @@ export interface operations {
         };
         responses: {
             /** @description Application successfully created */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ApplicationController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ApplicationController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ApplicationController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateApplicationDto"];
-            };
-        };
-        responses: {
             200: {
                 headers: {
                     [name: string]: unknown;
