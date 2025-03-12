@@ -63,6 +63,28 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
   const { course, studentInfo, setStudentInfo, setActiveStep } = props;
 
   const classes = ['IX', 'X', 'XI', 'XII'];
+  const programs = [
+    {
+      title_ka: 'ამერიკული პროგრამა',
+      title_en: 'American Program',
+      value: 'american',
+    },
+    {
+      title_ka: 'ქართული პროგრამა',
+      title_en: 'Georgian Program',
+      value: 'georgian',
+    },
+    {
+      title_ka: 'IB',
+      title_en: 'IB',
+      value: 'ib',
+    },
+    {
+      title_ka: 'DYP',
+      title_en: 'DYP',
+      value: 'dyp',
+    },
+  ];
 
   const router = useRouter();
 
@@ -215,6 +237,23 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           rows={3}
         />
       </Stack>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">
+          {renderLanguage('პროგრამა', 'Program')}
+        </InputLabel>
+        <Select
+          id="demo-simple-select"
+          value={values.program}
+          label={renderLanguage('პროგრამა', 'Program')}
+          onChange={(event) => setValue('program', event.target.value)}
+        >
+          {programs.map((classItem, index) => (
+            <MenuItem key={classItem.value} value={classItem.value}>
+              {renderLanguage(classItem.title_ka, classItem.title_en)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </Stack>
   );
 
