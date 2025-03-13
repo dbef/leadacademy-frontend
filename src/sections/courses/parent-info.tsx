@@ -309,7 +309,7 @@ export function RegisterParentView(props: ParentInfoProps) {
               endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
               type="submit"
             >
-              {renderLanguage('მოსწავლე', 'Child')}
+              {renderLanguage('მოსწავლე', 'Student')}
             </Button>
           </Stack>
         </Card>

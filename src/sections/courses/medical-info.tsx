@@ -4,12 +4,14 @@ import type { components } from 'interfaces/interface';
 
 import { z as zod } from 'zod';
 import { toast } from 'sonner';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Radio,
   Button,
@@ -45,6 +47,8 @@ type MedicalInfoProps = {
 
 export function MedicalInfo(props: MedicalInfoProps) {
   const { course, medicalInfo, setMedicalInfo, setActiveStep, parentInfo, studentInfo } = props;
+
+  const [loading, setLoading] = useState(false)
 
   const emergencyRelations = [
     {
@@ -123,6 +127,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setMedicalInfo(data);
+      setLoading(true)
       await apiClient('/api/v1/application', 'post', {
         body: {
           ...parentInfo,
@@ -153,6 +158,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
         },
       });
 
+      setLoading(false)
       toast.success(
         renderLanguage('აპლიკაცია წარმატებით გაიგზავნა', 'Application sent succesfully')
       );
@@ -548,14 +554,15 @@ export function MedicalInfo(props: MedicalInfoProps) {
             >
               {renderLanguage('მოსწავლე', 'Student')}
             </Button>
-            <Button
+            <LoadingButton
               variant="contained"
               color="primary"
               endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
               type="submit"
+              loading={loading}
             >
               {renderLanguage('აპლიკაციის გაგზავნა', 'Send Application')}
-            </Button>
+            </LoadingButton>
           </Stack>
         </Card>
       </Stack>
