@@ -990,6 +990,20 @@ export interface components {
             physical_disabilities?: string;
             /** @description Additional Medical Information */
             additional_info?: string;
+            /** @description Additional Medical Information */
+            special_needs?: string;
+            /** @description Additional Medical Information */
+            relationship_with_peers?: string;
+            /** @description Additional Medical Information */
+            social_skills?: string;
+            /** @description Additional Medical Information */
+            emergency_relation?: string;
+            /** @description Additional Medical Information */
+            emergency_contact_name?: string;
+            /** @description Additional Medical Information */
+            emergency_contact_phone?: string;
+            /** @description Additional Medical Information */
+            additional_comfort_info?: string;
             /** @description Medical Terms Agreement */
             medical_terms: boolean;
             /** @description Terms and Conditions Agreement */
@@ -1093,6 +1107,20 @@ export interface components {
             physical_disabilities?: string;
             /** @description Additional Medical Information */
             additional_info?: string;
+            /** @description Additional Medical Information */
+            special_needs?: string;
+            /** @description Additional Medical Information */
+            relationship_with_peers?: string;
+            /** @description Additional Medical Information */
+            social_skills?: string;
+            /** @description Additional Medical Information */
+            emergency_relation?: string;
+            /** @description Additional Medical Information */
+            emergency_contact_name?: string;
+            /** @description Additional Medical Information */
+            emergency_contact_phone?: string;
+            /** @description Additional Medical Information */
+            additional_comfort_info?: string;
             /** @description Medical Terms Agreement */
             medical_terms: boolean;
             /** @description Terms and Conditions Agreement */

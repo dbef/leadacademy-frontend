@@ -151,6 +151,56 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
         </Box>
       </TableCell>
       <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.special_needs}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span">{row.emergency_contact_name}</Box>
+
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.emergency_contact_phone}
+            </Box>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.emergency_relation}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.relationship_with_peers}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.social_skills}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.additional_comfort_info}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
         <ListItemText
           primary={fDate(row.created_at)}
           secondary={fTime(row.created_at)}

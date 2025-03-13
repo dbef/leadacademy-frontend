@@ -80,6 +80,9 @@ export type StudentInfoType = {
   student_gender: string;
   program: string;
   potential_roommate: string | null;
+  special_needs: string | null;
+  relationship_with_peers: string | null;
+  social_skills: string | null;
 };
 
 export type MedicalInfoType = {
@@ -88,6 +91,10 @@ export type MedicalInfoType = {
   diet_restrictions: string | null;
   physical_disabilities: string | null;
   additional_info: string | null;
+  emergency_relation: string | null;
+  emergency_contact_name: string | null;
+  emergency_contact_phone: string | null;
+  additional_comfort_info: string | null;
   medical_terms: boolean;
   terms_and_conditions: boolean;
 };
@@ -128,8 +135,11 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     student_dob: '',
     student_gender: 'male',
     student_class: '',
-    program: 'georgian',
+    program: '',
     potential_roommate: null,
+    special_needs: null,
+    relationship_with_peers: null,
+    social_skills: null,
   });
   const [medicalInfo, setMedicalInfo] = useState<MedicalInfoType>({
     additional_info: null,
@@ -139,6 +149,10 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     physical_disabilities: null,
     medical_terms: false,
     terms_and_conditions: false,
+    emergency_relation: null,
+    emergency_contact_name: null,
+    emergency_contact_phone: null,
+    additional_comfort_info: null,
   });
 
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
@@ -171,6 +185,10 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
       setSelectedCourse(course);
     }
   }, [course]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeStep]);
 
   const { renderLanguage } = useLanguage();
 
@@ -229,6 +247,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
                 studentInfo={studentInfo}
                 setStudentInfo={setStudentInfo}
                 setActiveStep={setActiveStep}
+                parentInfo={parentInfo}
               />
             )}
             {activeStep === 3 && selectedCourse && (

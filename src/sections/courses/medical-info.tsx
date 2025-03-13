@@ -13,9 +13,12 @@ import Divider from '@mui/material/Divider';
 import {
   Radio,
   Button,
+  Select,
   Checkbox,
+  MenuItem,
   RadioGroup,
   Typography,
+  InputLabel,
   FormControl,
   FormHelperText,
   FormControlLabel,
@@ -43,6 +46,19 @@ type MedicalInfoProps = {
 export function MedicalInfo(props: MedicalInfoProps) {
   const { course, medicalInfo, setMedicalInfo, setActiveStep, parentInfo, studentInfo } = props;
 
+  const emergencyRelations = [
+    {
+      title_ka: 'მშობელი',
+      title_en: 'Parent',
+      value: 'parent',
+    },
+    {
+      title_ka: 'მეურვე',
+      title_en: 'Guardian',
+      value: 'guardian',
+    },
+  ];
+
   const { renderLanguage } = useLanguage();
   type MedicalInfoSchema = zod.infer<typeof MedicalInfoSchema>;
   const MedicalInfoSchema = zod
@@ -52,6 +68,10 @@ export function MedicalInfo(props: MedicalInfoProps) {
       diet_restrictions: zod.string().min(1, { message: '' }).nullable(),
       physical_disabilities: zod.string().min(1, { message: '' }).nullable(),
       additional_info: zod.string().min(1, { message: '' }).nullable(),
+      emergency_relation: zod.string().nullable(),
+      emergency_contact_name: zod.string().nullable(),
+      emergency_contact_phone: zod.string().nullable(),
+      additional_comfort_info: zod.string().nullable(),
       medical_terms: zod.boolean().default(false),
       terms_and_conditions: zod.boolean().default(false),
     })
@@ -78,6 +98,10 @@ export function MedicalInfo(props: MedicalInfoProps) {
     additional_info: medicalInfo.additional_info,
     medical_terms: medicalInfo.medical_terms,
     terms_and_conditions: medicalInfo.terms_and_conditions,
+    emergency_relation: medicalInfo.emergency_relation,
+    emergency_contact_name: medicalInfo.emergency_contact_name,
+    emergency_contact_phone: medicalInfo.emergency_contact_phone,
+    additional_comfort_info: medicalInfo.additional_comfort_info,
   };
 
   const methods = useForm<MedicalInfoSchema>({
@@ -108,10 +132,23 @@ export function MedicalInfo(props: MedicalInfoProps) {
           diet_restrictions: values.diet_restrictions ? values.diet_restrictions : '',
           alergens: values.alergens ? values.alergens : '',
           medicaments: values.medicaments ? values.medicaments : '',
-          physical_disabilities: values.physical_disabilities
-            ? values.physical_disabilities
-            : '',
+          physical_disabilities: values.physical_disabilities ? values.physical_disabilities : '',
           additional_info: values.additional_info ? values.additional_info : '',
+          additional_comfort_info: values.additional_comfort_info
+            ? values.additional_comfort_info
+            : '',
+          emergency_relation: values.emergency_relation ? values.emergency_relation : '',
+          emergency_contact_name: values.emergency_contact_name
+            ? values.emergency_contact_name
+            : '',
+          emergency_contact_phone: values.emergency_contact_phone
+            ? values.emergency_contact_phone
+            : '',
+          special_needs: studentInfo.special_needs ? studentInfo.special_needs : '',
+          relationship_with_peers: studentInfo.relationship_with_peers
+            ? studentInfo.relationship_with_peers
+            : '',
+          social_skills: studentInfo.social_skills ? studentInfo.social_skills : '',
           course_id: course?.course_id || '',
         },
       });
@@ -359,6 +396,96 @@ export function MedicalInfo(props: MedicalInfoProps) {
           )}
         </FormControl>
       </Stack>
+      <Stack>
+        <Typography
+          variant="subtitle2"
+          sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
+        >
+          {renderLanguage(
+            'ნებისმიერი ინფორმაცია, რაც კურსის ფარგლებში აპლიკანტის კომფორტისა და ჯანმრთელობისთვის მნიშვნელოვანი შეიძლება იყოს',
+            `Any information that may be important for the applicant's comfort and well-being during the course`
+          )}
+        </Typography>
+        <Field.Text
+          name="additional_comfort_info"
+          label={renderLanguage('გთხოვთ ჩამოწეროთ', 'Please write')}
+          fullWidth
+          multiline
+          rows={3}
+        />
+      </Stack>
+      <Typography
+        variant="subtitle2"
+        sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
+      >
+        {renderLanguage('სანდო კონტაქტი', 'Emergency Contact')}
+      </Typography>
+      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+        <Field.Text
+          name="emergency_contact_name"
+          label={renderLanguage('სახელი/გვარი', 'Name/Surname')}
+          fullWidth
+        />
+      </Stack>
+      <Stack spacing={3} direction={{ xs: 'row', md: 'row' }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">
+            {renderLanguage('კავშირი მოსწავლესთან', 'Relation with student')}
+          </InputLabel>
+          <Select
+            id="demo-simple-select"
+            value={values.emergency_relation}
+            label={renderLanguage('კავშირი მოსწავლესთან', 'Relation with student')}
+            onChange={(event) => setValue('emergency_relation', event.target.value)}
+          >
+            {emergencyRelations.map((relation, index) => (
+              <MenuItem key={relation.value} value={relation.value}>
+                {renderLanguage(relation.title_ka, relation.title_en)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Field.Text
+          name="emergency_contact_phone"
+          label={renderLanguage('ტელეფონის ნომერი', 'Phone number')}
+          placeholder="+995 5XX XXX XXX"
+          value={values.emergency_contact_phone}
+          onChange={(e) => {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+
+            // Handle complete deletion
+            if (value === '') {
+              setValue('emergency_contact_phone', '');
+              return;
+            }
+
+            // If the user deletes back to just "+99", reset to "+995" or clear
+            if (value === '99') {
+              setValue('emergency_contact_phone', '+995');
+              return;
+            }
+
+            // Handle backspace properly
+            if (value.startsWith('995')) {
+              value = value.slice(3); // Remove the country code for easier handling
+            }
+
+            let formattedValue = '+995';
+
+            if (value.length > 0) {
+              formattedValue += ` ${value.slice(0, 3)}`;
+            }
+            if (value.length > 3) {
+              formattedValue += ` ${value.slice(3, 6)}`;
+            }
+            if (value.length > 6) {
+              formattedValue += ` ${value.slice(6, 9)}`;
+            }
+
+            setValue('emergency_contact_phone', formattedValue.trim());
+          }}
+        />
+      </Stack>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
         <FormControl sx={{ width: '100%' }}>
           <FormControlLabel
@@ -366,7 +493,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
             control={<Checkbox value={values.medical_terms} />}
             onChange={(e) => setValue('medical_terms', values.medical_terms ? false : true)}
             label={renderLanguage(
-              'ფორმის შევსებით, ვადასტურებ, რომ გავეცი ყველა მნიშვნელოვანი და შესაბამისი ინფორმაცია ჩემი შვილის ჯანმრთელობისა და სამედიცინო ისტორიაზე.',
+              'ფორმის შევსებით ვადასტურებ, რომ გავეცი ყველა მნიშვნელოვანი და შესაბამისი ინფორმაცია ჩემი შვილის ჯანმრთელობისა და სამედიცინო ისტორიის შესახებ',
               "By completing the form, I confirm that I have provided all relevant and relevant information about my child's health and medical history."
             )}
             labelPlacement="end"
@@ -387,10 +514,12 @@ export function MedicalInfo(props: MedicalInfoProps) {
             label={
               <Typography variant="body2">
                 {renderLanguage(
-                  'აპლიკაციის გაგზავნით ვადასტურებ რომ გავეცანი',
+                  'პლიკაციის გაგზავნით ვადასტურებ, რომ გავეცანი',
                   'By sending application I agree on'
                 )}{' '}
-                <a>{renderLanguage('წესებსა და პირობებს', 'Terms and conditions')}</a>
+                <a href="https://www.google.com" target="_blank" rel="noreferrer">
+                  {renderLanguage('წესებსა და პირობებს', 'Terms and conditions')}
+                </a>
               </Typography>
             }
             labelPlacement="end"

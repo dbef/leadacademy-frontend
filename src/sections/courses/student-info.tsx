@@ -33,7 +33,7 @@ import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 import { CountrySelect } from 'src/components/country-select';
 
-import type { StudentInfoType } from './course-register-view';
+import type { ParentInfoType, StudentInfoType } from './course-register-view';
 
 // ----------------------------------------------------------------------
 
@@ -50,6 +50,9 @@ export const RegisterStudentSchema = zod.object({
   student_gender: zod.string().min(1, { message: '' }).default('male'),
   program: zod.string().min(1, { message: '' }),
   potential_roommate: zod.string().nullable(),
+  special_needs: zod.string().nullable(),
+  relationship_with_peers: zod.string().nullable(),
+  social_skills: zod.string().nullable(),
 });
 
 type StudentInfoProps = {
@@ -57,10 +60,11 @@ type StudentInfoProps = {
   studentInfo: StudentInfoType;
   setStudentInfo: (info: StudentInfoType) => void;
   setActiveStep: (step: number) => void;
+  parentInfo: ParentInfoType;
 };
 
 export function RegisterStudentInfo(props: StudentInfoProps) {
-  const { course, studentInfo, setStudentInfo, setActiveStep } = props;
+  const { course, studentInfo, setStudentInfo, setActiveStep, parentInfo } = props;
 
   const classes = ['IX', 'X', 'XI', 'XII'];
   const programs = [
@@ -101,6 +105,9 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
     student_gender: studentInfo.student_gender,
     program: studentInfo.program,
     potential_roommate: studentInfo.potential_roommate,
+    special_needs: studentInfo.special_needs,
+    relationship_with_peers: studentInfo.relationship_with_peers,
+    social_skills: studentInfo.social_skills,
   };
 
   const methods = useForm<RegisterStudentSchema>({
@@ -130,6 +137,17 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
             'Phone number format is incorrect'
           ),
         });
+      }
+
+      if (parentInfo.parent_pn === values.student_pn) {
+        setError('student_pn', {
+          message: renderLanguage(
+            'მშობელი და მოსწავლეს პირადი ნომერი ერთი და იგივეა',
+            "Parent and student's personal ID number is the same"
+          ),
+        });
+
+        return;
       }
       setStudentInfo(data);
       setActiveStep(3);
@@ -196,6 +214,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
             id="demo-simple-select"
             value={values.student_class}
             label={renderLanguage('კლასი', 'Class')}
+            error={Boolean(errors.student_class)}
             onChange={(event) => setValue('student_class', event.target.value)}
           >
             {classes.map((classItem, index) => (
@@ -214,29 +233,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           )}
         />
       </Stack>
-      <Stack spacing={1}>
-        <Typography
-          variant="subtitle2"
-          sx={{
-            fontFeatureSettings: "'case' on",
-          }}
-        >
-          {renderLanguage('პოტენციური რუმმეითი', 'Potential Roommate')}
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'gray', fontSize: '0.8rem' }}>
-          {renderLanguage(
-            'პოტენციური რუმმეითი - ვისთან ერთად მოვდივარ (მიუთითეთ ერთი ან ორი პოტენციური რუმმეითი. აკადემია, შესაძლებლობის ფარგლებში, გაითვალისწინებს მიწოდებულ ინფორმაციას განთავსების დროს.)',
-            'Potential Roommate - Who I Am Coming With (Please indicate one or two potential roommates. The academy will consider the provided information during the placement process.)'
-          )}
-        </Typography>
-        <Field.Text
-          name="potential_roommate"
-          label={renderLanguage('პოტენციური რუმმეითი', 'Potential Roommate')}
-          fullWidth
-          multiline
-          rows={3}
-        />
-      </Stack>
+
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">
           {renderLanguage('პროგრამა', 'Program')}
@@ -244,6 +241,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
         <Select
           id="demo-simple-select"
           value={values.program}
+          error={Boolean(errors.program)}
           label={renderLanguage('პროგრამა', 'Program')}
           onChange={(event) => setValue('program', event.target.value)}
         >
@@ -307,6 +305,79 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
             setValue('student_phone', formattedValue.trim());
           }}
         />
+      </Stack>
+      <Stack spacing={3}>
+        <Typography
+          variant="subtitle2"
+          sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
+        >
+          {renderLanguage(
+            'აქვს თუ არა სტუდენტს რაიმე სპეციალური საგანმანათლებლო საჭიროება?',
+            'Does student have any special educational needs?'
+          )}
+        </Typography>
+        <Field.Text
+          name="special_needs"
+          label={renderLanguage('გთხოვთ ჩამოწეროთ', 'Please write')}
+          fullWidth
+          multiline
+          rows={3}
+        />
+        <Typography
+          variant="subtitle2"
+          sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
+        >
+          {renderLanguage(
+            'როგორ ურთიერთობს მოსწავლე თანატოლებთან?',
+            'How does student interact with peers?'
+          )}
+        </Typography>
+        <Field.Text
+          name="relationship_with_peers"
+          label={renderLanguage('გთხოვთ ჩამოწეროთ', 'Please write')}
+          fullWidth
+          multiline
+          rows={3}
+        />
+        <Typography
+          variant="subtitle2"
+          sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
+        >
+          {renderLanguage(
+            'არის თუ არა რაიმე, რაც უნდა ვიცოდეთ სტუდენტის ქცევისა და სოციალურ უნარების შესახებ?',
+            'Is there anything we should know about students’ behaviour or social skills?'
+          )}
+        </Typography>
+        <Field.Text
+          name="social_skills"
+          label={renderLanguage('გთხოვთ ჩამოწეროთ', 'Please write')}
+          fullWidth
+          multiline
+          rows={3}
+        />
+        <Stack spacing={1}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontFeatureSettings: "'case' on",
+            }}
+          >
+            {renderLanguage('პოტენციური რუმმეითი', 'Potential Roommate')}
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'gray', fontSize: '0.8rem' }}>
+            {renderLanguage(
+              'პოტენციური რუმმეითი - ვისთან ერთად მოვდივარ (მიუთითეთ ერთი ან ორი პოტენციური რუმმეითი. აკადემია, შესაძლებლობის ფარგლებში, გაითვალისწინებს მიწოდებულ ინფორმაციას განთავსების დროს.)',
+              'Potential Roommate - Who I Am Coming With (Please indicate one or two potential roommates. The academy will consider the provided information during the placement process.)'
+            )}
+          </Typography>
+          <Field.Text
+            name="potential_roommate"
+            label={renderLanguage('პოტენციური რუმმეითი', 'Potential Roommate')}
+            fullWidth
+            multiline
+            rows={3}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );
