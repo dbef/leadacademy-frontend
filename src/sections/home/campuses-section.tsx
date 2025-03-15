@@ -23,8 +23,6 @@ export function LocationsSection() {
   const [campuses, setCampuses] = useState<CampusDto[]>([]);
   const [selectedCampuse, setSelectedCampuse] = useState<CampusDto | undefined>();
 
-  console.log('SelectedCampuse', selectedCampuse);
-
   const [selectedTab, setSelectedTab] = useState('Tsinandali');
 
   const fetchCampuses = useCallback(async () => {

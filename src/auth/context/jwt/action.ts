@@ -34,8 +34,6 @@ export const signInWithPassword = async ({ email, password }: SignInParams): Pro
       },
     });
 
-    console.log('Data:', res)
-
     const { accessToken, refreshToken } = res;
 
     if (!accessToken) {

@@ -34,7 +34,6 @@ export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProp
 
   const handleChangeLang = useCallback(
     (newLang: LanguageValue) => {
-      console.log('new Lang:', newLang)
       changeLanguage(newLang === 'ka' ? Language.KA : Language.ENG);
       onClose();
     },
@@ -57,8 +56,6 @@ export function LanguagePopover({ data = [], sx, ...other }: LanguagePopoverProp
       </MenuList>
     </CustomPopover>
   );
-
-  console.log('Language:', language)
 
   return (
     <>

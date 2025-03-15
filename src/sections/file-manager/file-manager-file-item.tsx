@@ -47,7 +47,7 @@ export function FileManagerFileItem({ file, selected, onSelect, onDelete, sx, ..
   const renderIcon = () => (
     <Box sx={{ display: 'inline-flex', width: '230px', height: 80 }}>
       {file.type.includes('image') ? (
-        <Image alt="LeadAcademy" src={file.media_url} ratio="1/16" />
+        <Image alt="Sabado" src={file.media_url} ratio="1/16" />
       ) : (
         <FileThumbnail file={file.type} sx={{ width: 1, height: 1 }} />
       )}
@@ -66,7 +66,9 @@ export function FileManagerFileItem({ file, selected, onSelect, onDelete, sx, ..
           width: '200px',
         })}
       >
-        <a href={file.media_url} target='_blank' rel="noreferrer">{file.media_name}</a>
+        <a href={file.media_url} target="_blank" rel="noreferrer">
+          {file.media_name}
+        </a>
       </Typography>
 
       <Box

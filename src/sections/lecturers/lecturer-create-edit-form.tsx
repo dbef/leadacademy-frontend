@@ -176,7 +176,6 @@ export function LecturerCreateEditFrom({ id }: LecturerProps) {
         body: bodyToUpload,
       });
 
-      console.log('New course:', newLecturer);
       toast.success('Create success!');
       // router.push(paths.dashboard.product.root);
     } catch (error) {

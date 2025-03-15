@@ -145,8 +145,6 @@ export function FileManagerNewFolderDialog({
     setFiles([]);
   };
 
-  console.log('Files:', files);
-
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose} {...other}>
       <DialogTitle sx={[(theme) => ({ p: theme.spacing(3, 3, 2, 3) })]}>{title}</DialogTitle>

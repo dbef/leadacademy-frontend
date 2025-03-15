@@ -58,7 +58,7 @@ export function SelectCourseItem({
           fontWeight: 'bold',
         }}
       >
-        ₾{item.price}
+        {/* ₾{item.price} */}
       </Box>
     </Box>
   );
@@ -154,17 +154,17 @@ export function SelectCourseItem({
       {renderImage()}
 
       <Box sx={{ px: 2, py: 2.5 }}>
-        <Link
+        <Typography
           variant="subtitle1"
           color="inherit"
-          underline="none"
-          sx={(theme) => ({
-            ...theme.mixins.maxLine({ line: 2.2, persistent: theme.typography.subtitle2 }),
-          })}
-          href={`courses/${item.course_id}`}
+          // underline="none"
+          // sx={(theme) => ({
+          //   ...theme.mixins.maxLine({ line: 2.2, persistent: theme.typography.subtitle2 }),
+          // })}
+          // href={`courses/${item.course_id}`}
         >
           {renderLanguage(item.title_ka, item.title_en)}
-        </Link>
+        </Typography>
         {renderLabels()}
         {renderFooter()}
       </Box>

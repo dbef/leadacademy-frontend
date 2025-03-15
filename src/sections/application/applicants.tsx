@@ -192,8 +192,6 @@ export function ApplicantsTable({ course_id }: Props) {
     }
   }, [updated]);
 
-  console.log('Counts:', counts);
-
   useEffect(() => {
     fetchData();
   }, [course_id]);

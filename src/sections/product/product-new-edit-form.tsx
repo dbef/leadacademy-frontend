@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { z as zod } from 'zod';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
+import { useBoolean } from 'minimal-shared/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -35,6 +36,7 @@ import { useLanguage } from 'src/contexts/language-context';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
+import { ConfirmDialog } from 'src/components/custom-dialog';
 import { FileThumbnail } from 'src/components/file-thumbnail';
 
 import { JWT_STORAGE_KEY } from 'src/auth/context/jwt';
@@ -73,6 +75,10 @@ export function ProductNewEditForm({ course }: CourseProps) {
   const keyWordsKa = ['განათლება', 'ბანაკი', 'სასწავლო კურსები'];
   const keyWordsEn = ['education', 'camp', 'courses'];
 
+  const confirmDialog = useBoolean();
+
+  const isDeleting = useBoolean();
+
   const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(new Date()));
   const [endDate, setEndDate] = useState<IDatePickerControl>(dayjs(new Date()));
   const [selectedFiles, setSelectedFiles] = useState<FileDto[]>([]);
@@ -89,6 +95,27 @@ export function ProductNewEditForm({ course }: CourseProps) {
       ? course.lecturer_course_assn.map((item) => item.lecturer)
       : []
   );
+
+  const handleDeleteCourse = async () => {
+    try {
+      isDeleting.onTrue();
+      if (course) {
+        await apiClient(`/api/v1/admin/courses/{id}`, 'delete', {
+          headers: {
+            authorization: `Bearer ${window.sessionStorage.getItem(JWT_STORAGE_KEY)}`,
+          },
+          pathParams: {
+            id: course.course_id,
+          },
+        });
+      }
+      isDeleting.onFalse();
+      router.push('/dashboard/products');
+    } catch (error) {
+      isDeleting.onFalse();
+      toast.error('Failed to delete course! Please try again later!');
+    }
+  };
 
   const handleFetchCampuses = useCallback(async () => {
     try {
@@ -154,8 +181,6 @@ export function ProductNewEditForm({ course }: CourseProps) {
 
   const values = watch();
 
-  console.log('Course:', course);
-
   const onSubmit = handleSubmit(async (data) => {
     try {
       const accessToken = sessionStorage.getItem(JWT_STORAGE_KEY);
@@ -215,7 +240,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
 
       toast.success('Create success!');
       router.push(paths.dashboard.product.root);
-      return
+      return;
     } catch (error) {
       console.log('SMTHIN', error);
     }
@@ -244,8 +269,6 @@ export function ProductNewEditForm({ course }: CourseProps) {
   const handleRemoveImage = (image: FileDto) => {
     setSelectedFiles((prev) => prev.filter((item) => item.media_id !== image.media_id));
   };
-
-  console.log('SelectedLecturers', selectedLecturers);
 
   const renderDetails = () => (
     <Card>
@@ -379,7 +402,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
               <Box sx={{ position: 'relative' }} key={image.media_id}>
                 <Image
                   src={image.media_url}
-                  alt="LeadAcademy"
+                  alt="Sabado"
                   height={100}
                   width={120}
                   style={{ objectFit: 'cover', borderRadius: 2 }}
@@ -548,6 +571,16 @@ export function ProductNewEditForm({ course }: CourseProps) {
       <LoadingButton onClick={onSubmit} variant="contained" size="large" loading={isSubmitting}>
         {renderLanguage('შენახვა', 'Save')}
       </LoadingButton>
+      {course ? (
+        <LoadingButton
+          onClick={confirmDialog.onTrue}
+          variant="contained"
+          size="large"
+          color="error"
+        >
+          {renderLanguage('წაშლა', 'Remove')}
+        </LoadingButton>
+      ) : null}
     </Box>
   );
 
@@ -637,6 +670,25 @@ export function ProductNewEditForm({ course }: CourseProps) {
         {renderMetaTags()}
         {renderActions()}
       </Stack>
+      <ConfirmDialog
+        title="კურსის წაშლა"
+        open={confirmDialog.value}
+        onClose={confirmDialog.onFalse}
+        content={renderLanguage('ნამდვილად გსურთ წაშლა?', 'Are you sure you want to delete?')}
+        action={
+          <LoadingButton
+            variant="contained"
+            color="success"
+            onClick={async () => {
+              await handleDeleteCourse();
+              confirmDialog.onFalse();
+            }}
+            loading={isDeleting.value}
+          >
+            {renderLanguage('დადასტურება', 'Approve')}
+          </LoadingButton>
+        }
+      />
     </Form>
   );
 }

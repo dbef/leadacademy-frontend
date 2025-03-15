@@ -6,7 +6,7 @@ import type { NavMainProps } from './main/nav/types';
 
 export const navData: NavMainProps['data'] = [
   {
-    title_en: 'About LeadAcademy',
+    title_en: 'About Sabado',
     title: 'ლიდაკადემიის შესახებ',
     path: '/',
     icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,

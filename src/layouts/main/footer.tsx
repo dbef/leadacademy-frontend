@@ -21,13 +21,13 @@ import { Logo } from 'src/components/logo';
 
 const LINKS = [
   {
-    headline: 'About LeadAcademy',
+    headline: 'About Sabado',
     headline_ka: 'ლიდაკადემიის შესახებ',
     children: [
-      { name: 'Mission', name_ka: 'მისია', href: '/' },
-      { name: 'Mission and Vision', name_ka: 'მისია და ხედვა', href: '/' },
-      { name: 'Values', name_ka: 'ღირებულებები', href: '/' },
-      { name: 'Team', name_ka: 'გუნდი', href: '' },
+      { name: 'Mission', name_ka: 'მისია', href: '#' },
+      { name: 'Mission and Vision', name_ka: 'მისია და ხედვა', href: '#' },
+      { name: 'Values', name_ka: 'ღირებულებები', href: '#' },
+      { name: 'Team', name_ka: 'გუნდი', href: '#' },
     ],
   },
   {
@@ -42,8 +42,8 @@ const LINKS = [
     headline: 'Contact',
     headline_ka: 'საკონტაქტო ინფორმაცია',
     children: [
-      { name: 'info@leadacademy.edu.ge', name_ka: 'info@leadacademy.edu.ge', href: '#' },
-      { name: '243 34 35 36', name_ka: '243 34 35 36', href: '#' },
+      { name: 'info@sabado.edu.ge', name_ka: 'contact@sabado.edu.ge', href: 'mailto:contact@sabado.edu.ge' },
+      { name: '243 34 35 36', name_ka: '243 34 35 36', href: 'tel:+995243343536' },
     ],
   },
 ];

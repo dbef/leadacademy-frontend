@@ -2,13 +2,16 @@
 
 import type { Breakpoint } from '@mui/material/styles';
 
+import { useEffect } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
+import { useRouter, usePathname } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import { SpeedDial, SpeedDialAction } from '@mui/material';
 
 import { allLangs } from 'src/locales';
+import { Language, useLanguage } from 'src/contexts/language-context';
 import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
 import { Logo } from 'src/components/logo';
@@ -57,7 +60,24 @@ export function MainLayout({
 }: MainLayoutProps) {
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
+  const path = usePathname();
+
+  const router = useRouter();
+
+  const { language } = useLanguage();
+
   const navData = slotProps?.nav?.data ?? mainNavData;
+
+  useEffect(() => {
+    if (
+      !path.startsWith('/en/courses/register') ||
+      !path.startsWith('/courses/register') ||
+      !path.startsWith('/en/terms-and-conditions') ||
+      !path.startsWith('/terms-and-conditions')
+    ) {
+      router.push(language === Language.KA ? '/courses/register' : '/en/courses/register');
+    }
+  }, [path]);
 
   const renderHeader = () => {
     const headerSlots: HeaderSectionProps['slots'] = {
@@ -66,33 +86,33 @@ export function MainLayout({
           This is an info Alert.
         </Alert>
       ),
-      leftArea: (
-        <>
-          {/** @slot Nav mobile */}
-          <MenuButton
-            onClick={onOpen}
-            sx={(theme) => ({
-              mr: 1,
-              ml: -1,
-              [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
-            })}
-          />
-          <NavMobile data={navData} open={open} onClose={onClose} />
+      // leftArea: (
+      //   <>
+      //     {/** @slot Nav mobile */}
+      //     <MenuButton
+      //       onClick={onOpen}
+      //       sx={(theme) => ({
+      //         mr: 1,
+      //         ml: -1,
+      //         [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+      //       })}
+      //     />
+      //     <NavMobile data={navData} open={open} onClose={onClose} />
 
-          {/** @slot Logo */}
-          <Logo />
-        </>
-      ),
+      //     {/** @slot Logo */}
+      //     <Logo />
+      //   </>
+      // ),
       rightArea: (
         <>
           {/** @slot Nav desktop */}
-          <NavDesktop
+          {/* <NavDesktop
             data={navData}
             sx={(theme) => ({
               display: 'none',
               [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
             })}
-          />
+          /> */}
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
             {/** @slot Settings button */}
@@ -120,7 +140,9 @@ export function MainLayout({
 
   const renderFooter = () => <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />;
 
-  const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
+  const renderMain = () => (
+    <MainSection {...slotProps?.main}>{children}</MainSection>
+  );
 
   const actions = [
     { icon: <TwitterIcon />, name: 'Copy' },

@@ -2,25 +2,18 @@
 
 import type { components } from 'interfaces/interface';
 import type { CourseDto } from 'src/types/course-type';
-import type { IDatePickerControl } from 'src/types/common';
 
-import dayjs from 'dayjs';
 import { z as zod } from 'zod';
 import { m } from 'framer-motion';
-import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { Step, Stepper, StepLabel, Typography } from '@mui/material';
+import { Step, Stepper, StepLabel } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
-import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
-
-import { toast } from 'src/components/snackbar';
 
 import { MedicalInfo } from './medical-info';
 import { RegisterParentView } from './parent-info';
@@ -97,6 +90,9 @@ export type MedicalInfoType = {
   additional_comfort_info: string | null;
   medical_terms: boolean;
   terms_and_conditions: boolean;
+  cancellation_refund_policy: boolean;
+  fees_and_payment: boolean;
+  media_release: boolean;
 };
 
 export function RegisterOnCourseView(props: CourseEditViewProps) {
@@ -153,6 +149,9 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     emergency_contact_name: null,
     emergency_contact_phone: null,
     additional_comfort_info: null,
+    cancellation_refund_policy: false,
+    fees_and_payment: false,
+    media_release: false,
   });
 
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
@@ -210,7 +209,9 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
       >
         {steps.map((label) => (
           <Step key={label.label_ka}>
-            <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>{label.label_ka}</StepLabel>
+            <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>
+              {renderLanguage(label.label_ka, label.label_en)}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>

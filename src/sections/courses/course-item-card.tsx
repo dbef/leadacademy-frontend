@@ -32,24 +32,9 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
       <Image
         alt={item.media_course_assn[0].media?.media_name}
         src={item.media_course_assn[0].media?.media_url}
-        ratio="5/4"
+        ratio="16/9"
         sx={{ borderRadius: 1.5 }}
       />
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 20,
-          left: 20,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          color: '#fff',
-          px: 1,
-          py: 0.5,
-          borderRadius: 1,
-          fontWeight: 'bold',
-        }}
-      >
-        ₾{item.price}
-      </Box>
     </Box>
   );
 

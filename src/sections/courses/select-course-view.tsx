@@ -5,6 +5,7 @@ import type { CourseDto } from 'src/types/course-type';
 import { toast } from 'sonner';
 import { useState, useEffect, useCallback } from 'react';
 
+import Grid from '@mui/material/Grid2';
 import { Box, Stack, Button } from '@mui/material';
 
 import apiClient from 'src/api/apiClient';
@@ -59,29 +60,18 @@ export function SelectCourse({
         },
       }}
     >
-      <Box display="flex" flexWrap="wrap" gap={3} justifyContent="space-between">
+      <Grid container spacing={3}>
         {courses.map((course) => (
-          <Box
-            key={course.course_id}
-            sx={{
-              flex: '1 1 calc(25% - 24px)', // 4 items per row, with gap adjustment
-              '@media (max-width: 900px)': {
-                flex: '1 1 calc(50% - 24px)', // 2 items per row on medium screens
-              },
-              '@media (max-width: 600px)': {
-                flex: '1 1 calc(100% - 24px)', // 1 item per row on small screens
-              },
-            }}
-          >
+          <Grid key={course.course_id} size={{ xs: 12, sm: 6, md: 4 }}>
             <SelectCourseItem
               item={course}
               selectedCourse={selectedCourse}
               setSelectedCourse={setSelectedCourse}
               setActiveStep={setActiveStep}
             />
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       <Stack direction="row" sx={{ p: 3, justifyContent: 'flex-end' }}>
         <Button
           variant="contained"

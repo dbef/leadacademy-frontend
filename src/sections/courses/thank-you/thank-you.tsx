@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
 
-import { useLanguage } from 'src/contexts/language-context';
 import { OrderCompleteIllustration } from 'src/assets/illustrations';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -22,7 +22,7 @@ type Props = DialogProps & {
 };
 
 export function CourseThankYou({ course, ...other }: Props) {
-  const { renderLanguage } = useLanguage();
+  const { renderLanguage, language } = useLanguage();
 
   return (
     <Dialog
@@ -51,31 +51,29 @@ export function CourseThankYou({ course, ...other }: Props) {
       >
         <Typography variant="h4">
           {renderLanguage(
-            `მადლობთ რომ დარეგისტრირდით კურსზე`,
-            `Thank you for registering on course`
+            `გმადლობთ, რომ დაინტერესდით კურსით!`,
+            `Thank you for your interest in the course!`
           )}
         </Typography>
 
         <OrderCompleteIllustration />
 
         <Typography>
-          {renderLanguage(
-            `მადლობთ რომ დარეგისტრირდით კურსზე: ${course.title_ka}`,
-            `Thank you for registering on course: ${course.title_en}`
-          )}
           <br />
           <br />
           <Link>{renderLanguage(course.title_ka, course.title_en)}</Link>
           <br />
           <br />
           {renderLanguage(
-            '24 საათის განმავლობაში განიხილება თქვენი განაცხადი და პასუხი მოგივათ მეილზე!',
-            `within 24hr we will review application and you will receive answer on your email`
+            'თქვენი განაცხადი განხილვის პროცესშია და პასუხს ელ. ფოსტით მიიღებთ 48 საათის განმავლობაში.',
+            `Your application is under review, and you will receive a response via email within 48 hours.`
           )}
           <br />{' '}
-          {renderLanguage('მადლობთ რომ აირჩიეთ LeadAcademy', `Thank you for choosing LeadAcademy`)}
+          {renderLanguage(
+            ' გთხოვთ გაითვალისწინოთ, რომ საბოლოო რეგისტრაციისთვის აუცილებელია დასტურის მიღების შემდეგ თანხის გადახდა.',
+            `Please note that final registration requires payment after receiving confirmation.`
+          )}
           <br />
-          {renderLanguage('All the best', `All the best`)}
         </Typography>
 
         <Divider sx={{ width: 1, borderStyle: 'dashed' }} />
@@ -90,7 +88,7 @@ export function CourseThankYou({ course, ...other }: Props) {
         >
           <Button
             component={RouterLink}
-            href="/courses"
+            href={language === Language.KA ? '/courses/register' : '/en/courses/register'}
             size="large"
             color="inherit"
             variant="outlined"

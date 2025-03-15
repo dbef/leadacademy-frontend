@@ -57,7 +57,7 @@ export function SmallDesc() {
       }}
     >
       <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on" }}>
-        {renderLanguage(`ლიდერთა აკადემია`, `Lead Academy`)}
+        {renderLanguage(`ლიდერთა აკადემია`, `Sabado`)}
       </Typography>
       <Typography sx={{ marginTop: '20px', fontWeight: '600' }}>
         {renderLanguage(
@@ -102,7 +102,7 @@ export function SmallDesc() {
                 {renderLanguage('აირჩიე კურსი', 'Select Course')}
               </Button>
               <Button color="primary" endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}>
-                {renderLanguage('ლიდ აკადემიის შესახებ', 'About Lead Academy')}
+                {renderLanguage('ლიდ აკადემიის შესახებ', 'About Sabado')}
               </Button>
             </Box>
           </Box>

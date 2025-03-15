@@ -30,7 +30,7 @@ export function OverviewAppView() {
         <Grid size={{ xs: 12, md: 8 }}>
           <AppWelcome
             title={renderLanguage('მოგესალმებით', 'Welcome')}
-            description={renderLanguage('LeadAcademy ადმინ პანელი', 'LeadAcademy Admin Panel')}
+            description={renderLanguage('Sabado ადმინ პანელი', 'Sabado Admin Panel')}
             img={<SeoIllustration hideBackground />}
           />
         </Grid>
