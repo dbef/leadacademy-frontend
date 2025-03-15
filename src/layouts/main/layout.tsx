@@ -69,10 +69,11 @@ export function MainLayout({
   const navData = slotProps?.nav?.data ?? mainNavData;
 
   useEffect(() => {
+    console.log('Path:', path)
     if (
-      !path.startsWith('/en/courses/register') ||
-      !path.startsWith('/courses/register') ||
-      !path.startsWith('/en/terms-and-conditions') ||
+      !path.startsWith('/en/courses/register') &&
+      !path.startsWith('/courses/register') &&
+      !path.startsWith('/en/terms-and-conditions') &&
       !path.startsWith('/terms-and-conditions')
     ) {
       router.push(language === Language.KA ? '/courses/register' : '/en/courses/register');
