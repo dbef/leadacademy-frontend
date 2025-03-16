@@ -1006,6 +1006,8 @@ export interface components {
             additional_comfort_info?: string;
             /** @description Medical Terms Agreement */
             medical_terms: boolean;
+            /** @description Medical Terms Agreement */
+            media_release: string;
             /** @description Terms and Conditions Agreement */
             terms_and_conditions: boolean;
             /** @description Child date of birth */
@@ -1121,6 +1123,8 @@ export interface components {
             emergency_contact_phone?: string;
             /** @description Additional Medical Information */
             additional_comfort_info?: string;
+            /** @description Medical Terms Agreement */
+            media_release: string;
             /** @description Medical Terms Agreement */
             medical_terms: boolean;
             /** @description Terms and Conditions Agreement */

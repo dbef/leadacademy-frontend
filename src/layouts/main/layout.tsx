@@ -69,10 +69,10 @@ export function MainLayout({
   const navData = slotProps?.nav?.data ?? mainNavData;
 
   useEffect(() => {
-    console.log('Path:', path)
+    console.log('Path:', path);
     if (
-      !path.startsWith('/en/courses/register') &&
-      !path.startsWith('/courses/register') &&
+      !path.startsWith('/en/courses') &&
+      !path.startsWith('/courses') &&
       !path.startsWith('/en/terms-and-conditions') &&
       !path.startsWith('/terms-and-conditions')
     ) {
@@ -87,33 +87,33 @@ export function MainLayout({
           This is an info Alert.
         </Alert>
       ),
-      // leftArea: (
-      //   <>
-      //     {/** @slot Nav mobile */}
-      //     <MenuButton
-      //       onClick={onOpen}
-      //       sx={(theme) => ({
-      //         mr: 1,
-      //         ml: -1,
-      //         [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
-      //       })}
-      //     />
-      //     <NavMobile data={navData} open={open} onClose={onClose} />
+      leftArea: (
+        <>
+          {/** @slot Nav mobile */}
+          <MenuButton
+            onClick={onOpen}
+            sx={(theme) => ({
+              mr: 1,
+              ml: -1,
+              [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+            })}
+          />
+          <NavMobile data={navData} open={open} onClose={onClose} />
 
-      //     {/** @slot Logo */}
-      //     <Logo />
-      //   </>
-      // ),
+          {/** @slot Logo */}
+          {/* <Logo /> */}
+        </>
+      ),
       rightArea: (
         <>
           {/** @slot Nav desktop */}
-          {/* <NavDesktop
+          <NavDesktop
             data={navData}
             sx={(theme) => ({
               display: 'none',
               [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
             })}
-          /> */}
+          />
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
             {/** @slot Settings button */}
@@ -141,9 +141,7 @@ export function MainLayout({
 
   const renderFooter = () => <Footer sx={slotProps?.footer?.sx} layoutQuery={layoutQuery} />;
 
-  const renderMain = () => (
-    <MainSection {...slotProps?.main}>{children}</MainSection>
-  );
+  const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
 
   const actions = [
     { icon: <TwitterIcon />, name: 'Copy' },

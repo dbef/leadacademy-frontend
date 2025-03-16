@@ -167,11 +167,11 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
         <Field.Text
           name="student_name"
-          label={renderLanguage('მოსწავლის სახელი', 'Student name')}
+          label={renderLanguage('სტუდენტის სახელი', `Student's name`)}
         />
         <Field.Text
           name="student_lastname"
-          label={renderLanguage('მოსწავლის გვარი', "Student's last name")}
+          label={renderLanguage('სტუდენტის გვარი', "Student's last name")}
         />
       </Stack>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
@@ -328,7 +328,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         >
           {renderLanguage(
-            'როგორ ურთიერთობს მოსწავლე თანატოლებთან?',
+            'როგორ ურთიერთობს სტუდენტი თანატოლებთან?',
             'How does student interact with peers?'
           )}
         </Typography>
@@ -344,7 +344,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         >
           {renderLanguage(
-            'არის თუ არა რაიმე, რაც უნდა ვიცოდეთ სტუდენტის ქცევისა და სოციალურ უნარების შესახებ?',
+            'არის თუ არა რაიმე, რაც უნდა ვიცოდეთ სტუდენტის ქცევისა და სოციალური უნარების შესახებ?',
             'Is there anything we should know about students’ behaviour or social skills?'
           )}
         </Typography>

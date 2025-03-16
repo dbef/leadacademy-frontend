@@ -6,11 +6,11 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import { Stack, Tooltip, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
-import { useLanguage } from 'src/contexts/language-context';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
@@ -42,24 +42,9 @@ export function SelectCourseItem({
       <Image
         alt={item.media_course_assn[0].media?.media_name}
         src={item.media_course_assn[0].media?.media_url}
-        ratio="5/4"
+        ratio="16/9"
         sx={{ borderRadius: 1.5 }}
       />
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 20,
-          left: 20,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          color: '#fff',
-          px: 1,
-          py: 0.5,
-          borderRadius: 1,
-          fontWeight: 'bold',
-        }}
-      >
-        {/* ₾{item.price} */}
-      </Box>
     </Box>
   );
 
@@ -115,17 +100,23 @@ export function SelectCourseItem({
   );
 
   const renderFooter = () => (
-    <Box
-      sx={{
-        mt: 2.5,
-        gap: 0.5,
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
+    <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
+      <Button
+        variant="outlined"
+        color="info"
+        fullWidth
+        onClick={() => {
+          router.push(
+            language === Language.KA
+              ? `/courses/${item.course_id}`
+              : `/en/courses/${item.course_id}`
+          );
+        }}
+      >
+        {renderLanguage('ინფორმაცია', 'Information')}
+      </Button>
       <Button
         variant="contained"
-        size="small"
         fullWidth
         color={
           selectedCourse && selectedCourse.course_id === item.course_id ? 'warning' : 'primary'
@@ -134,7 +125,11 @@ export function SelectCourseItem({
           if (selectedCourse && selectedCourse.course_id === item.course_id) {
             return;
           }
-          router.push(`/courses/register/${item.course_id}`);
+          router.push(
+            language === Language.KA
+              ? `/courses/register/${item.course_id}`
+              : `/en/courses/register/${item.course_id}`
+          );
         }}
       >
         {renderLanguage(
@@ -146,28 +141,49 @@ export function SelectCourseItem({
             : 'Select Course'
         )}
       </Button>
-    </Box>
+    </Stack>
   );
 
   return (
     <Card sx={[{ width: 1 }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
       {renderImage()}
-
-      <Box sx={{ px: 2, py: 2.5 }}>
+      <Stack spacing={2} sx={{ px: 2, py: 2.5 }}>
+        <Tooltip title={renderLanguage(item.title_ka, item.title_en)}>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            color="inherit"
+            sx={{
+              height: '25px',
+              marginTop: '2px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              fontFeatureSettings: "'case' on",
+            }}
+          >
+            {renderLanguage(item.title_ka, item.title_en)}
+          </Typography>
+        </Tooltip>
         <Typography
-          variant="subtitle1"
-          color="inherit"
-          // underline="none"
-          // sx={(theme) => ({
-          //   ...theme.mixins.maxLine({ line: 2.2, persistent: theme.typography.subtitle2 }),
-          // })}
-          // href={`courses/${item.course_id}`}
+          component="div"
+          sx={{
+            height: '75px',
+            marginTop: '2px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+          }}
         >
-          {renderLanguage(item.title_ka, item.title_en)}
+          {renderLanguage(item.short_des_ka || '', item.short_des_en || '')}
         </Typography>
         {renderLabels()}
         {renderFooter()}
-      </Box>
+      </Stack>
     </Card>
   );
 }

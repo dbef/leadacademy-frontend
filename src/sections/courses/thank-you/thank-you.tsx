@@ -65,7 +65,7 @@ export function CourseThankYou({ course, ...other }: Props) {
           <br />
           <br />
           {renderLanguage(
-            'თქვენი განაცხადი განხილვის პროცესშია და პასუხს ელ. ფოსტით მიიღებთ 48 საათის განმავლობაში.',
+            'თქვენი განაცხადი განხილვის პროცესშია და პასუხს ელექტრონული ფოსტით მიიღებთ 48 საათის განმავლობაში.',
             `Your application is under review, and you will receive a response via email within 48 hours.`
           )}
           <br />{' '}

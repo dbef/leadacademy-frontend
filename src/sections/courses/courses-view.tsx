@@ -66,69 +66,9 @@ export function CourseListMain({ products, loading, sx, ...other }: Props) {
         <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on", marginBottom: '50px' }}>
           {renderLanguage('პროგრამები', 'Programs')}
         </Typography>
-        <Box
-          display="flex"
-          gap={3}
-          sx={{
-            '@media (max-width: 1000px)': {
-              padding: '28px 24px',
-              marginTop: '50px',
-              flexDirection: 'column',
-            },
-          }}
-        >
-          <Box>
-            <Accordion sx={{ width: '100%' }} defaultExpanded>
-              <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}>
-                <Typography variant="subtitle1">{renderLanguage('სეზონი', 'Season')}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <FormControl component="fieldset" variant="standard">
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Checkbox name="gilad" />}
-                      label={renderLanguage('გაზაფხული', 'Spring')}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox name="jason" />}
-                      label={renderLanguage('ზაფხული', 'Summer')}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox name="antoine" />}
-                      label={renderLanguage('შემოდგომა', 'Autumn')}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox name="antoine" />}
-                      label={renderLanguage('ზამთარი', 'Winter')}
-                    />
-                  </FormGroup>
-                </FormControl>
-              </AccordionDetails>
-            </Accordion>
-            <Accordion sx={{ width: '100%' }} defaultExpanded>
-              <AccordionSummary expandIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}>
-                <Typography variant="subtitle1">{renderLanguage('კამპუსი', 'Campus')}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <FormControl component="fieldset" variant="standard">
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Checkbox name="gilad" />}
-                      label={renderLanguage('წინანდალი', 'Tsinandali')}
-                    />
-                    <FormControlLabel
-                      control={<Checkbox name="jason" />}
-                      label={renderLanguage('მანგლისი', 'Manglisi')}
-                    />
-                  </FormGroup>
-                </FormControl>
-              </AccordionDetails>
-            </Accordion>
-          </Box>
-          <Grid container spacing={3}>
-            {loading ? renderLoading() : renderList()}
-          </Grid>
-        </Box>
+        <Grid container spacing={3}>
+          {loading ? renderLoading() : renderList()}
+        </Grid>
       </Box>
 
       {products.length > 8 && (

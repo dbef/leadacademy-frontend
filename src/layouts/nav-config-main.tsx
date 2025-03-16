@@ -5,36 +5,36 @@ import type { NavMainProps } from './main/nav/types';
 // ----------------------------------------------------------------------
 
 export const navData: NavMainProps['data'] = [
-  {
-    title_en: 'About Sabado',
-    title: 'ლიდაკადემიის შესახებ',
-    path: '/',
-    icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  },
+  // {
+  //   title_en: 'About Sabado',
+  //   title: 'ლიდაკადემიის შესახებ',
+  //   path: '/',
+  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
+  // },
   {
     title_en: 'Programs',
     title: 'პროგრამები',
     path: '/courses',
     icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
   },
-  {
-    title_en: 'Gallery',
-    title: 'გალერია',
-    path: '/gallery',
-    icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  },
-  {
-    title_en: 'Tsinandali',
-    title: 'წინანდალი',
-    path: '/tsinandali',
-    icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  },
-  {
-    title_en: 'Manglisi',
-    title: 'მანგლისი',
-    path: '/manglisi',
-    icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  },
+  // {
+  //   title_en: 'Gallery',
+  //   title: 'გალერია',
+  //   path: '/gallery',
+  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
+  // },
+  // {
+  //   title_en: 'Tsinandali',
+  //   title: 'წინანდალი',
+  //   path: '/tsinandali',
+  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
+  // },
+  // {
+  //   title_en: 'Manglisi',
+  //   title: 'მანგლისი',
+  //   path: '/manglisi',
+  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
+  // },
   // { title_en: 'Contact', title: 'კონტაქტი', path: '/contact', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },
   // { title_en: 'FAQ', title: 'ხდკ', path: '/faq', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },
   // { title_en: 'Campuses', title: 'კამპუსები', path: '/campuses', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },

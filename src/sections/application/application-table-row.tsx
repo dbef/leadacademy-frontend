@@ -201,6 +201,15 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
         </Box>
       </TableCell>
       <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row.media_release}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
         <ListItemText
           primary={fDate(row.created_at)}
           secondary={fTime(row.created_at)}

@@ -92,7 +92,7 @@ export type MedicalInfoType = {
   terms_and_conditions: boolean;
   cancellation_refund_policy: boolean;
   fees_and_payment: boolean;
-  media_release: boolean;
+  media_release: string | null;
 };
 
 export function RegisterOnCourseView(props: CourseEditViewProps) {
@@ -151,7 +151,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     additional_comfort_info: null,
     cancellation_refund_policy: false,
     fees_and_payment: false,
-    media_release: false,
+    media_release: null,
   });
 
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
@@ -168,7 +168,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     },
     {
       id: 3,
-      label_ka: 'მოსწავლე',
+      label_ka: 'სტუდენტი',
       label_en: 'Student',
     },
     {
@@ -192,7 +192,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
   const { renderLanguage } = useLanguage();
 
   return (
-    <Stack spacing={{ xs: 3, md: 5 }}>
+    <Stack spacing={{ xs: 3, md: 5,  }}>
       <Box sx={{ mb: 5 }} />
       <Stepper
         alternativeLabel
@@ -222,6 +222,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
         animate="animate"
         exit="exit"
         variants={stepVariants}
+        style={{ marginBottom: '60px'}}
       >
         {activeStep === steps.length && selectedCourse ? (
           <CourseThankYou open course={selectedCourse} />

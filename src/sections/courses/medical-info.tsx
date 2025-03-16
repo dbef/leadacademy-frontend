@@ -55,6 +55,18 @@ export function MedicalInfo(props: MedicalInfoProps) {
 
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const mediaTerms = [
+    {
+      title_ka: 'ვადასტურებ, რომ ვაცხადებ თანხმობას, ჩემი შვილის ფოტოების გამოყენებაზე',
+      title_en: ` I confirm that I have given prior consent for my child's photos to be taken.`,
+      key: 'confirm',
+    },
+    {
+      title_ka: 'უარს ვამბობ ჩემი შვილის ფოტოების გამოყენებაზე',
+      title_en: `I refuse to give prior permission to use my child’s photos.`,
+      key: 'reject',
+    },
+  ];
 
   const emergencyRelations = [
     {
@@ -86,7 +98,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
       terms_and_conditions: zod.boolean().default(false),
       cancellation_refund_policy: zod.boolean().default(false),
       fees_and_payment: zod.boolean().default(false),
-      media_release: zod.boolean().default(false),
+      media_release: zod.string().nullable().default(null),
     })
     .refine((data) => data.medical_terms === true, {
       message: renderLanguage(
@@ -116,10 +128,10 @@ export function MedicalInfo(props: MedicalInfoProps) {
       ),
       path: ['fees_and_payment'],
     })
-    .refine((data) => data.media_release === true, {
+    .refine((data) => data.media_release !== null, {
       message: renderLanguage(
-        'აპლიკაციის გაგზავნისთვის უნდა დაეთანხმოთ წესებსა და პირობებს',
-        'To send application you must agree on terms and conditions'
+        'გთხოვთ აირჩიეთ ერთერთი ვარიანტი',
+        'Please select one of the options'
       ),
       path: ['media_release'],
     });
@@ -203,6 +215,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
             : '',
           social_skills: studentInfo.social_skills ? studentInfo.social_skills : '',
           course_id: course?.course_id || '',
+          media_release: values.media_release ? values.media_release : '',
         },
       });
 
@@ -431,7 +444,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
               sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
             >
               {renderLanguage(
-                'არის თუ არა რაიმე დამატებითი ინფორმაცია, რომელიც უნდა ვიცოდეთ სტუდენტებზე?',
+                'არის თუ არა რაიმე დამატებითი ინფორმაცია, რომელიც უნდა ვიცოდეთ სტუდენტზე?',
                 'Is there any additional information we should know about the student?'
               )}
             </Typography>
@@ -491,23 +504,12 @@ export function MedicalInfo(props: MedicalInfoProps) {
         />
       </Stack>
       <Stack spacing={3} direction={{ xs: 'row', md: 'row' }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
-            {renderLanguage('კავშირი მოსწავლესთან', 'Relation with student')}
-          </InputLabel>
-          <Select
-            id="demo-simple-select"
-            value={values.emergency_relation}
-            label={renderLanguage('კავშირი მოსწავლესთან', 'Relation with student')}
-            onChange={(event) => setValue('emergency_relation', event.target.value)}
-          >
-            {emergencyRelations.map((relation, index) => (
-              <MenuItem key={relation.value} value={relation.value}>
-                {renderLanguage(relation.title_ka, relation.title_en)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Field.Text
+          name="emergency_relation"
+          label={renderLanguage('კავშირი სტუდენტთან', 'Relation with student')}
+          fullWidth
+          multiline
+        />
         <Field.Text
           name="emergency_contact_phone"
           label={renderLanguage('ტელეფონის ნომერი', 'Phone number')}
@@ -660,6 +662,74 @@ export function MedicalInfo(props: MedicalInfoProps) {
                               )
                             )}
                           </ul>
+                          {item.key === 'media_release' ? (
+                            <Typography variant="body2" align="left" color="error.main">
+                              {renderLanguage(
+                                'გთხოვთ, აირჩიოთ ქვემოთ მოცემული ორი ვარიანტიდან ერთ-ერთი:',
+                                'Click one of the options:'
+                              )}
+                            </Typography>
+                          ) : null}
+
+                          {item.key === 'media_release' ? (
+                            <>
+                              <FormControl sx={{ width: '100%' }}>
+                                <FormControlLabel
+                                  value="end"
+                                  control={
+                                    <Checkbox
+                                      value={values.media_release}
+                                      checked={values.media_release === 'confirm' ? true : false}
+                                    />
+                                  }
+                                  onChange={(e) => {
+                                    setValue('media_release' as keyof MedicalInfoType, 'confirm');
+                                  }}
+                                  label={
+                                    <ul>
+                                      <li>
+                                        {' '}
+                                        {renderLanguage(
+                                          'ვადასტურებ, რომ ვაცხადებ თანხმობას, ჩემი შვილის ფოტოების გამოყენებაზე',
+                                          `I confirm that I have given prior consent for my child's photos to be taken.`
+                                        )}
+                                      </li>
+                                    </ul>
+                                  }
+                                  labelPlacement="end"
+                                />
+                              </FormControl>
+                              <FormControl sx={{ width: '100%' }}>
+                                <FormControlLabel
+                                  value="end"
+                                  control={
+                                    <Checkbox
+                                      value={values.media_release}
+                                      checked={values.media_release === 'reject' ? true : false}
+                                    />
+                                  }
+                                  onChange={(e) => {
+                                    setValue('media_release' as keyof MedicalInfoType, 'reject');
+                                  }}
+                                  label={
+                                    <ul>
+                                      <li>
+                                        {' '}
+                                        {renderLanguage(
+                                          'უარს ვამბობ ჩემი შვილის ფოტოების გამოყენებაზე',
+                                          `I refuse to give prior permission to use my child’s photos.`
+                                        )}
+                                      </li>
+                                    </ul>
+                                  }
+                                  labelPlacement="end"
+                                />
+                              </FormControl>
+                              <FormHelperText sx={{ color: 'error.main' }}>
+                                {errors.media_release?.message ? errors.media_release.message : ''}
+                              </FormHelperText>
+                            </>
+                          ) : null}
                         </Stack>
                       );
                     }

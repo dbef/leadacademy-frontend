@@ -4,7 +4,7 @@ import type { CourseDto } from 'src/types/course-type';
 import type { Applications } from 'src/types/applicants';
 import type { TableHeadCellProps } from 'src/components/table';
 
-import * as XLSX from "xlsx";
+import * as XLSX from 'xlsx';
 import { varAlpha } from 'minimal-shared/utils';
 import { useSetState } from 'minimal-shared/hooks';
 import { useState, useEffect, useCallback } from 'react';
@@ -103,6 +103,7 @@ export function ApplicantsTable({ course_id }: Props) {
       label_ka: 'დამატებითი კომფორტის ინფო',
       width: 88,
     },
+    { id: 'media_release', label: 'Media release', label_ka: 'მედია და გამოყენება', width: 88 },
     { id: 'created_at', label: 'Date', label_ka: 'თარიღი', width: 88 },
     { id: 'status', label: 'Status', label_ka: 'სტატუსი', width: 88 },
     { id: 'approve_reject', label: 'Approve/Reject', label_ka: 'დადასტურება/გაუქმება', width: 88 },
@@ -214,27 +215,26 @@ export function ApplicantsTable({ course_id }: Props) {
     setFilteredData(data);
   };
 
-  
   const onGetExporProduct = async () => {
     try {
       setLoading(true);
       // Check if the action result contains data and if it's an array
       if (filteredData && Array.isArray(filteredData)) {
         const dataToExport = filteredData.map((item) => ({
-          'მშობელი': `${item.parent_name} ${item.parent_lastname}`,
+          მშობელი: `${item.parent_name} ${item.parent_lastname}`,
           'მშობლის ნომერი': item.parent_phone,
-          'ქვეყანა': item.parent_country,
-          'ქალაქი': item.parent_city,
+          ქვეყანა: item.parent_country,
+          ქალაქი: item.parent_city,
           'მშობლის სქესი': item.parent_gender,
-          'მისამართი': item.parent_address,
+          მისამართი: item.parent_address,
           'მშობლის პირადი ნომერი': item.parent_pn,
-          'სტუდენტი': `${item.student_name} ${item.student_lastname}`,
+          სტუდენტი: `${item.student_name} ${item.student_lastname}`,
           'სტუდენტის მეილი': `${item.student_email}`,
           'სტუდენტის ნომერი': item.student_phone,
           'სტუდენტის დაბადების თარიღი': item.student_dob,
           'სტუდენტის სქესი': item.student_gender,
           'სტუდენტის კლასი': item.student_class,
-          'პროგრამა': item.program,
+          პროგრამა: item.program,
           'სანდო კონტაქტი': `${item.emergency_contact_name}`,
           'სანდო კონტაქტის ნომერი': item.emergency_contact_phone,
           'სანდო კონტაქტის რელაცია': item.emergency_relation,
@@ -243,15 +243,15 @@ export function ApplicantsTable({ course_id }: Props) {
           'სოციალური უნარები': item.social_skills,
           'დამატებითი კომფორტის ინფო': item.additional_comfort_info,
           'პოტენციური რუმმეითი': item.potential_roommate,
-          'ალერგენები': item.alergens,
-          'მედიკამენტები': item.medicaments,
+          ალერგენები: item.alergens,
+          მედიკამენტები: item.medicaments,
           'დიეტური შეზღუდვები': item.diet_restrictions,
           'ფიზიკური შეზღუდვები': item.physical_disabilities,
           'დამატითი ინფო': item.additional_info,
-          'თარიღი': item.created_at,
-          'სტატუსი': item.status,
-        })
-          ,);
+          თარიღი: item.created_at,
+          სტატუსი: item.status,
+          'მედია გამოყენება': item.media_release,
+        }));
         // Create Excel workbook and worksheet
         const workbook = XLSX.utils.book_new();
         const worksheet = XLSX.utils?.json_to_sheet(dataToExport);
@@ -262,12 +262,11 @@ export function ApplicantsTable({ course_id }: Props) {
         setLoading(false);
       } else {
         setLoading(false);
-        console.log("#==================Export Error")
+        console.log('#==================Export Error');
       }
     } catch (error: any) {
       setLoading(false);
-      console.log("#==================Export Error", error.message);
-
+      console.log('#==================Export Error', error.message);
     }
   };
   return (
@@ -280,7 +279,12 @@ export function ApplicantsTable({ course_id }: Props) {
         </>
       ) : null}
       <Card>
-        <LoadingButton variant="contained" sx={{ mb: 2 }} loading={loading} onClick={onGetExporProduct}>
+        <LoadingButton
+          variant="contained"
+          sx={{ mb: 2 }}
+          loading={loading}
+          onClick={onGetExporProduct}
+        >
           {renderLanguage('ექსელის ექსპორტი', 'Export to Excel')}
         </LoadingButton>
         <Tabs

@@ -55,6 +55,7 @@ body,
   min-height: 100%;
   flex-direction: column;
 }
+
 img {
   max-width: 100%;
   vertical-align: middle;

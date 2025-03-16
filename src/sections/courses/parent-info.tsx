@@ -140,7 +140,7 @@ export function RegisterParentView(props: ParentInfoProps) {
         {renderLanguage('საბაზისო ინფორმაცია', 'Basic information')}
       </Typography>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-        <Field.Text name="parent_name" label={renderLanguage('მშობლის სახელი', 'Parent name')} />
+        <Field.Text name="parent_name" label={renderLanguage('მშობლის სახელი', `Parent's name`)} />
         <Field.Text
           name="parent_lastname"
           label={renderLanguage('მშობლის გვარი', "Parent's last name")}
@@ -309,7 +309,7 @@ export function RegisterParentView(props: ParentInfoProps) {
               endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
               type="submit"
             >
-              {renderLanguage('მოსწავლე', 'Student')}
+              {renderLanguage('სტუდენტი', 'Student')}
             </Button>
           </Stack>
         </Card>

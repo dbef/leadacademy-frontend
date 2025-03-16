@@ -28,7 +28,7 @@ export function CarouselThumbsY({ data }: Props) {
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Carousel carousel={carousel} sx={{ borderRadius: 2 }}>
+      <Carousel carousel={carousel} sx={{ borderRadius: 0 }}>
         {data.map((item, index) => (
           <Box key={item.id} sx={{ position: 'relative' }}>
             <IndexLabel index={index + 1} />
@@ -37,7 +37,7 @@ export function CarouselThumbsY({ data }: Props) {
               component="img"
               alt={item.title}
               src={item.coverUrl}
-              sx={{ objectFit: 'cover', aspectRatio: { xs: '3/4', sm: '16/10' } }}
+              sx={{ objectFit: 'cover', aspectRatio: { xs: '1/1', sm: '32/9' } }}
             />
           </Box>
         ))}
