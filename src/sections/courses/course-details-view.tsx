@@ -111,7 +111,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Typography variant="body2">
             {renderLanguage('კურსის ღირებულება:', 'Course Price:')} ₾
-            {renderLanguage(`${course.price} ლარი`, `${course.price} GEL`)}
+            {renderLanguage(`${course.price}`, `${course.price}`)}
           </Typography>
         </Box>
 
@@ -157,14 +157,11 @@ export function CourseDetailsView(props: CourseEditViewProps) {
       <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on" }}>
         {renderLanguage(course?.title_ka || '', course?.title_en || '')}
       </Typography>
-      <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
-        {renderLanguage('აღწერა', 'Description')}
-      </Typography>
       <Typography component="div">
         {parser(renderLanguage(course.description_ka, course.description_en))}
       </Typography>
       <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
-        {renderLanguage('მენტორი', 'Mentor')}
+        {renderLanguage('სპიკერი', 'Speaker')}
       </Typography>
       {course.lecturer_course_assn.length > 0 ? (
         <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
@@ -182,7 +179,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
         </Stack>
       ) : null}
       <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
-        {renderLanguage('განრიგი', 'Table')}
+        {renderLanguage('განრიგი', 'Schedule')}
       </Typography>
       {course.files_course_assn.length > 0 ? (
         <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
