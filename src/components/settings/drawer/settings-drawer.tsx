@@ -147,7 +147,7 @@ export function SettingsDrawer({ sx, defaultSettings }: SettingsDrawerProps) {
           <Box sx={{ gap: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
             {isColorSchemeVisible && renderMode()}
           </Box>
-          {(isFontFamilyVisible || isFontSizeVisible) && renderFont()}
+          {/* {(isFontFamilyVisible || isFontSizeVisible) && renderFont()} */}
         </Box>
       </Scrollbar>
     </Drawer>
