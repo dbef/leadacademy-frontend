@@ -147,7 +147,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
         component="img"
         alt={course.title_en}
         src={courseImages[0].coverUrl}
-        sx={{ objectFit: 'cover', aspectRatio: { xs: '1/1', sm: '32/9' } }}
+        sx={{ objectFit: 'cover', aspectRatio: { xs: '16/9', sm: '16/9' } }}
       />
     </Box>
   );
