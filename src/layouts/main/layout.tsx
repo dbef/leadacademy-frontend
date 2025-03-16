@@ -8,14 +8,14 @@ import { useRouter, usePathname } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import { SpeedDial, SpeedDialAction } from '@mui/material';
+import { SpeedDial, IconButton, useColorScheme, SpeedDialAction } from '@mui/material';
 
 import { allLangs } from 'src/locales';
 import { Language, useLanguage } from 'src/contexts/language-context';
 import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
-import { Logo } from 'src/components/logo';
 import { Iconify } from 'src/components/iconify';
+import { useSettingsContext } from 'src/components/settings';
 
 import { Footer } from './footer';
 import { NavMobile } from './nav/mobile';
@@ -26,7 +26,6 @@ import { LayoutSection } from '../core/layout-section';
 import { HeaderSection } from '../core/header-section';
 import { navData as mainNavData } from '../nav-config-main';
 import { SignInButton } from '../components/sign-in-button';
-import { SettingsButton } from '../components/settings-button';
 import { LanguagePopover } from '../components/language-popover';
 
 import type { FooterProps } from './footer';
@@ -80,6 +79,17 @@ export function MainLayout({
     }
   }, [path]);
 
+  const settings = useSettingsContext();
+
+  const { mode, setMode, systemMode } = useColorScheme();
+
+  useEffect(() => {
+    if (mode === 'system' && systemMode) {
+      settings.setState({ colorScheme: systemMode });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, systemMode]);
+
   const renderHeader = () => {
     const headerSlots: HeaderSectionProps['slots'] = {
       topArea: (
@@ -121,7 +131,18 @@ export function MainLayout({
             <LanguagePopover data={allLangs} />
             {/** @slot Sign in button */}
             <SignInButton />
-            <SettingsButton />
+            <IconButton
+              onClick={() => {
+                setMode(mode === 'light' ? 'dark' : 'light');
+                settings.setState({ colorScheme: mode === 'light' ? 'dark' : 'light' });
+              }}
+            >
+              {mode === 'dark' ? (
+                <Iconify icon="line-md:moon-to-sunny-outline-loop-transition" />
+              ) : (
+                <Iconify icon="line-md:sunny-outline-to-moon-loop-transition" />
+              )}
+            </IconButton>
             {/** @slot Purchase button */}
           </Box>
         </>

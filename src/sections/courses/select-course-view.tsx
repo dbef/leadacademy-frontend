@@ -41,25 +41,7 @@ export function SelectCourse({
   }, []);
 
   return (
-    <Stack
-      spacing={3}
-      sx={{
-        padding: '28px 256px',
-        '@media (max-width: 1400px)': {
-          padding: '64px 128px',
-        },
-        '@media (max-width: 1200px)': {
-          padding: '28px 64px',
-        },
-        '@media (max-width: 1000px)': {
-          padding: '28px 24px',
-          marginTop: '50px',
-        },
-        '@media (max-width: 760px)': {
-          padding: '24px !important',
-        },
-      }}
-    >
+    <Stack spacing={3}>
       <Grid container spacing={3}>
         {courses.map((course) => (
           <Grid key={course.course_id} size={{ xs: 12, sm: 6, md: 4 }}>
@@ -76,6 +58,7 @@ export function SelectCourse({
         <Button
           variant="contained"
           color="primary"
+          disabled={!selectedCourse}
           endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
           onClick={() => {
             if (!selectedCourse) {
@@ -85,7 +68,7 @@ export function SelectCourse({
             setActiveStep(1);
           }}
         >
-          {renderLanguage('მშობელი', 'Parent')}
+          {renderLanguage('მშობლის ინფორმაცია', 'Parent Info')}
         </Button>
       </Stack>
     </Stack>

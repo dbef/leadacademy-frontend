@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { Step, Stepper, StepLabel } from '@mui/material';
+import { Step, Stepper, StepLabel, Card } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
@@ -192,79 +192,111 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
   const { renderLanguage } = useLanguage();
 
   return (
-    <Stack spacing={{ xs: 3, md: 5,  }}>
-      <Box sx={{ mb: 5 }} />
-      <Stepper
-        alternativeLabel
-        activeStep={activeStep}
-        connector={<ColorlibConnector />}
+    <Stack
+      spacing={{ xs: 3, md: 5 }}
+      sx={{
+        padding: '0px 256px',
+        '@media (max-width: 1400px)': {
+          padding: '0px 128px',
+        },
+        '@media (max-width: 1200px)': {
+          padding: '0px 64px',
+        },
+        '@media (max-width: 1000px)': {
+          padding: '0px 24px',
+        },
+        '@media (max-width: 760px)': {
+          padding: '0px !important',
+        },
+        paddingBottom: '128px',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Stack
         sx={{
-          position: 'sticky',
-          top: 70,
-          zIndex: 10,
+          padding: '24px',
+          marginTop: '48px',
+          border: '0.25px solid rgba(0, 0, 0, 0.1);',
+          borderRadius: '8px',
+          maxWidth: '1172px',
+          width: '100%',
           bgcolor: 'background.paper',
-          marginTop: '100px',
-          padding: '15px 0px',
         }}
       >
-        {steps.map((label) => (
-          <Step key={label.label_ka}>
-            <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>
-              {renderLanguage(label.label_ka, label.label_en)}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+        <Stepper
+          alternativeLabel
+          activeStep={activeStep}
+          connector={<ColorlibConnector />}
+          sx={{
+            position: 'sticky',
+            top: 64,
+            zIndex: 10,
+            bgcolor: 'background.paper',
+            padding: '15px 0px',
+          }}
+        >
+          {steps.map((label) => (
+            <Step key={label.label_ka}>
+              <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>
+                {renderLanguage(label.label_ka, label.label_en)}
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
 
-      <m.div
-        key={activeStep}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={stepVariants}
-        style={{ marginBottom: '60px'}}
-      >
-        {activeStep === steps.length && selectedCourse ? (
-          <CourseThankYou open course={selectedCourse} />
-        ) : (
-          <>
-            {activeStep === 0 && (
-              <SelectCourse
-                selectedCourse={selectedCourse}
-                setSelectedCourse={setSelectedCourse}
-                setActiveStep={setActiveStep}
-              />
-            )}
-            {activeStep === 1 && selectedCourse && (
-              <RegisterParentView
-                course={selectedCourse}
-                parentInfo={parentInfo}
-                setParentInfo={setParentInfo}
-                setActiveStep={setActiveStep}
-              />
-            )}
-            {activeStep === 2 && selectedCourse && (
-              <RegisterStudentInfo
-                course={selectedCourse}
-                studentInfo={studentInfo}
-                setStudentInfo={setStudentInfo}
-                setActiveStep={setActiveStep}
-                parentInfo={parentInfo}
-              />
-            )}
-            {activeStep === 3 && selectedCourse && (
-              <MedicalInfo
-                course={selectedCourse}
-                medicalInfo={medicalInfo}
-                setMedicalInfo={setMedicalInfo}
-                setActiveStep={setActiveStep}
-                parentInfo={parentInfo}
-                studentInfo={studentInfo}
-              />
-            )}
-          </>
-        )}
-      </m.div>
+        <m.div
+          key={activeStep}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={stepVariants}
+          style={{ marginTop: '24px' }}
+        >
+          {activeStep === steps.length && selectedCourse ? (
+            <CourseThankYou open course={selectedCourse} />
+          ) : (
+            <>
+              {activeStep === 0 && (
+                <SelectCourse
+                  selectedCourse={selectedCourse}
+                  setSelectedCourse={setSelectedCourse}
+                  setActiveStep={setActiveStep}
+                />
+              )}
+              {activeStep === 1 && selectedCourse && (
+                <RegisterParentView
+                  course={selectedCourse}
+                  parentInfo={parentInfo}
+                  setParentInfo={setParentInfo}
+                  setActiveStep={setActiveStep}
+                />
+              )}
+              {activeStep === 2 && selectedCourse && (
+                <RegisterStudentInfo
+                  course={selectedCourse}
+                  studentInfo={studentInfo}
+                  setStudentInfo={setStudentInfo}
+                  setActiveStep={setActiveStep}
+                  parentInfo={parentInfo}
+                />
+              )}
+              {activeStep === 3 && selectedCourse && (
+                <MedicalInfo
+                  course={selectedCourse}
+                  medicalInfo={medicalInfo}
+                  setMedicalInfo={setMedicalInfo}
+                  setActiveStep={setActiveStep}
+                  parentInfo={parentInfo}
+                  studentInfo={studentInfo}
+                />
+              )}
+            </>
+          )}
+        </m.div>
+      </Stack>
     </Stack>
   );
 }

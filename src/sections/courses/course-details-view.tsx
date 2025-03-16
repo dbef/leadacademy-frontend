@@ -147,7 +147,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
         component="img"
         alt={course.title_en}
         src={courseImages[0].coverUrl}
-        sx={{ objectFit: 'cover', aspectRatio: { xs: '16/9', sm: '16/9' } }}
+        sx={{ objectFit: 'cover', aspectRatio: { xs: '16/9', sm: '16/9' }, borderRadius: '8px' }}
       />
     </Box>
   );
@@ -224,7 +224,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
       spacing={{ xs: 3, md: 5 }}
       sx={{
         mx: 'auto',
-        padding: '128px 256px',
+        padding: '64px 256px',
         '@media (max-width: 1400px)': {
           padding: '64px 128px',
         },
