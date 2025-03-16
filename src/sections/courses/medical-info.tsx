@@ -769,20 +769,9 @@ export function MedicalInfo(props: MedicalInfoProps) {
                         label={
                           <Typography variant="body2">
                             {renderLanguage(
-                              'პლიკაციის გაგზავნით ვადასტურებ, რომ გავეცანი',
-                              'By sending application I agree on'
-                            )}{' '}
-                            <a
-                              href={
-                                language === Language.KA
-                                  ? '/terms-and-conditions'
-                                  : '/en/terms-and-conditions'
-                              }
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {renderLanguage('წესებსა და პირობებს', 'Terms and conditions')}
-                            </a>
+                              'პლიკაციის გაგზავნით ვადასტურებ, რომ გავეცანი წესებსა და პირობებს',
+                              'By sending application I agree on Terms and conditions'
+                            )}
                           </Typography>
                         }
                         labelPlacement="end"
