@@ -186,8 +186,13 @@ export function CourseDetailsView(props: CourseEditViewProps) {
           {course.files_course_assn.map((file) => (
             <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
               <FileThumbnail file="pdf" />{' '}
-              <Link target="_blank" rel="noopener noreferrer" href={file.media?.media_url || ''}>
-                {file.media?.media_name || ''}
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href={file.media?.media_url || ''}
+                style={{ fontFeatureSettings: "'case' on" }}
+              >
+                {file.media?.media_name.split('_')[1] === 'Schedule' ? 'Schedule' : 'განრიგი'}
               </Link>
             </Stack>
           ))}
