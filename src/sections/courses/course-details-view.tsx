@@ -183,19 +183,37 @@ export function CourseDetailsView(props: CourseEditViewProps) {
       </Typography>
       {course.files_course_assn.length > 0 ? (
         <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-          {course.files_course_assn.map((file) => (
-            <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
-              <FileThumbnail file="pdf" />{' '}
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                href={file.media?.media_url || ''}
-                style={{ fontFeatureSettings: "'case' on" }}
-              >
-                {file.media?.media_name.split('_')[1] === 'Schedule' ? 'Schedule' : 'განრიგი'}
-              </Link>
-            </Stack>
-          ))}
+          {course.files_course_assn
+            .filter((item) => {
+              if (
+                item.media?.media_name.split('_')[1] === 'Schedule.pdf' &&
+                language === Language.ENG
+              ) {
+                return item;
+              }
+
+              if (
+                item.media?.media_name.split('_')[1] === 'განრიგი.pdf' &&
+                language === Language.KA
+              ) {
+                return item;
+              }
+
+              return item;
+            })
+            .map((file) => (
+              <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
+                <FileThumbnail file="pdf" />{' '}
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={file.media?.media_url || ''}
+                  style={{ fontFeatureSettings: "'case' on" }}
+                >
+                  {renderLanguage('განრიგი', 'Schedule')}
+                </Link>
+              </Stack>
+            ))}
         </Stack>
       ) : null}
     </Stack>
