@@ -199,7 +199,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
                 return item;
               }
 
-              return item;
+              return false;
             })
             .map((file) => (
               <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
