@@ -51,7 +51,7 @@ export function CourseThankYou({ course, ...other }: Props) {
       >
         <Typography variant="h4">
           {renderLanguage(
-            `გმადლობთ, რომ დაინტერესდით კურსით!`,
+            `მადლობა, რომ დაინტერესდით კურსით!`,
             `Thank you for your interest in the course!`
           )}
         </Typography>
