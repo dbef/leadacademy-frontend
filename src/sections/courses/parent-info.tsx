@@ -287,32 +287,30 @@ export function RegisterParentView(props: ParentInfoProps) {
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
-      <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
-        <Card>
-          <Divider />
-          {renderBasicInfo()}
-          {renderAddress()}
-          {renderContactInfo()}
-          <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setParentInfo(values);
-                setActiveStep(0);
-              }}
-            >
-              {renderLanguage('კურსის არჩევა', 'Select Course')}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
-              type="submit"
-            >
-              {renderLanguage('სტუდენტი', 'Student')}
-            </Button>
-          </Stack>
-        </Card>
+      <Divider/>
+      <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto' }}>
+        {renderBasicInfo()}
+        {renderAddress()}
+        {renderContactInfo()}
+        <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setParentInfo(values);
+              setActiveStep(0);
+            }}
+          >
+            {renderLanguage('კურსის არჩევა', 'Select Course')}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
+            type="submit"
+          >
+            {renderLanguage('სტუდენტი', 'Student')}
+          </Button>
+        </Stack>
       </Stack>
     </Form>
   );

@@ -1,0 +1,24 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "feat/all-stuff",
+    "feat/mobile-app",
+    "feat/smth",
+    "main",
+    "staging"
+  ],
+  "parent": {
+    "feat/all-stuff": "main",
+    "feat/mobile-app": "main",
+    "feat/smth": "main",
+    "main": null,
+    "staging": "main"
+  },
+  "order": [
+    "main",
+    "feat/all-stuff",
+    "feat/mobile-app",
+    "feat/smth",
+    "staging"
+  ]
+}

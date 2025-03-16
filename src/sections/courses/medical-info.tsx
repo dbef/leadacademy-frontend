@@ -27,6 +27,7 @@ import {
   FormControl,
   FormHelperText,
   FormControlLabel,
+  Alert,
 } from '@mui/material';
 
 import apiClient from 'src/api/apiClient';
@@ -556,8 +557,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
-      <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
-        <Card>
+      <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto' }}>
           <Divider />
           {renderBasicInfo()}
           <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
@@ -589,12 +589,12 @@ export function MedicalInfo(props: MedicalInfoProps) {
                   <Typography variant="h4" align="left" sx={{ fontFeatureSettings: "'case' on" }}>
                     {renderLanguage('წესები და პირობები', 'Terms and Conditions')}
                   </Typography>
-                  <Typography variant="body2" align="left" color="error.main">
+                  <Alert severity="warning" sx={{width: 'fit-content'}}>
                     {renderLanguage(
                       'გთხოვთ, მონიშნოთ ყველა ველი! აუცილებელი ველის შევსების გარეშე, გაგრძელებას ვერ მოახერხებთ.',
                       'Please select all fields! You cannot proceed without selecting all the required fields.'
                     )}
-                  </Typography>
+                  </Alert>
                   {termsAndConditions.map((item, _index) => {
                     if (item.is_required) {
                       return (
@@ -663,12 +663,12 @@ export function MedicalInfo(props: MedicalInfoProps) {
                             )}
                           </ul>
                           {item.key === 'media_release' ? (
-                            <Typography variant="body2" align="left" color="error.main">
+                            <Alert severity='warning' sx={{width: 'fit-content'}}>
                               {renderLanguage(
                                 'გთხოვთ, აირჩიოთ ქვემოთ მოცემული ორი ვარიანტიდან ერთ-ერთი:',
                                 'Click one of the options:'
                               )}
-                            </Typography>
+                            </Alert>
                           ) : null}
 
                           {item.key === 'media_release' ? (
@@ -804,7 +804,6 @@ export function MedicalInfo(props: MedicalInfoProps) {
               </Box>
             </Modal>
           </Stack>
-        </Card>
       </Stack>
     </Form>
   );
