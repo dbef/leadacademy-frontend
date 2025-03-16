@@ -1,8 +1,9 @@
-import type { AxiosResponse } from 'axios';
+import type { S3 } from 'aws-sdk';
 import type { FileDto } from 'src/types/file';
+import type { components } from 'interfaces/interface';
 import type { DialogProps } from '@mui/material/Dialog';
 
-import axios from 'axios';
+import AWS from 'aws-sdk';
 import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -13,12 +14,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
+import apiClient from 'src/api/apiClient';
+
 import { Upload } from 'src/components/upload';
 import { Iconify } from 'src/components/iconify';
 
 import { JWT_STORAGE_KEY } from 'src/auth/context/jwt';
 
 // ----------------------------------------------------------------------
+
+const S3_BUCKET = process.env.NEXT_PUBLIC_BUCKET_NAME_AWS;
+const S3_ACCESS_KEY = process.env.NEXT_PUBLIC_ACCESS_KEY_AWS;
+const S3_SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY_AWS;
+const S3_REGION = process.env.NEXT_PUBLIC_REGION_AWS;
 
 type Props = DialogProps & {
   open: boolean;
@@ -46,7 +54,7 @@ export function FileManagerNewFolderDialog({
   title = 'Upload files',
   ...other
 }: Props) {
-  const [files, setFiles] = useState<(File | string)[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
 
   useEffect(() => {
     if (!open) {
@@ -61,36 +69,71 @@ export function FileManagerNewFolderDialog({
     [files]
   );
 
+  const uploadFileToS3 = (
+    image: File,
+    s3: S3
+  ): Promise<components['schemas']['NewUploadedFiles']> =>
+    new Promise((resolve, reject) => {
+      const randomNumber = Math.floor(100000 + Math.random() * 900000);
+      const imageName = `${randomNumber}_${image.name}`.trim();
+
+      const params = {
+        Bucket: S3_BUCKET || '',
+        Key: `media/${imageName}`,
+        Body: image,
+        ContentType: image.type,
+      };
+
+      s3.putObject(params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve({
+            name: imageName,
+            type: image.type,
+          });
+        }
+      });
+    });
+
   const handleUpload = async () => {
+    AWS.config.update({
+      accessKeyId: S3_ACCESS_KEY,
+      secretAccessKey: S3_SECRET_KEY,
+    });
+
+    const s3 = new AWS.S3({
+      params: { Bucket: S3_BUCKET },
+      region: S3_REGION,
+    });
     const accessToken = sessionStorage.getItem(JWT_STORAGE_KEY);
 
-    if (files.length > 0) {
-      const formData = new FormData();
-      files.forEach((image) => {
-        formData.append('files', image);
-      });
-      const response: AxiosResponse<FileDto[]> = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL || ''}/api/v1/admin/files/upload/by-folder/${folderName}`,
-        formData,
+    const allFiles: components['schemas']['NewUploadedFiles'][] = [];
+
+    const uploadPromises = files.map((file) => uploadFileToS3(file, s3));
+    const uploadedFilesPromises: components['schemas']['NewUploadedFiles'][] =
+      await Promise.all(uploadPromises);
+    allFiles.push(...uploadedFilesPromises);
+
+    if (allFiles.length > 0 && setFilesUploaded && uploadedFiles) {
+      const response = await apiClient(
+        '/api/v1/admin/files/upload/by-folder/{folder_name}',
+        'post',
         {
+          pathParams: {
+            folder_name: folderName || '',
+          },
+          body: allFiles,
           headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
 
-      console.log('Uploaded files:', response.data);
-
-      if (!response.data) {
-        return;
-      }
-      if (setFilesUploaded && uploadedFiles) {
-        setFilesUploaded([...response.data, ...uploadedFiles]);
-      }
+      setFilesUploaded([...response, ...uploadedFiles]);
+      onClose();
     }
     onClose();
-    console.info('ON UPLOAD');
   };
 
   const handleRemoveFile = (inputFile: File | string) => {
@@ -101,8 +144,6 @@ export function FileManagerNewFolderDialog({
   const handleRemoveAllFiles = () => {
     setFiles([]);
   };
-
-  console.log('Files:', files);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose} {...other}>

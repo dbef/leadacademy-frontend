@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 
 import {
@@ -23,20 +25,18 @@ type Props = {
 
 export function CarouselThumbsX({ data }: Props) {
   const carousel = useCarousel({ thumbs: { slidesToShow: 'auto' } });
-
   return (
     <div>
-      <Box sx={{ mb: 2.5, position: 'relative' }}>
+      <Box sx={{ mb: 2.5, position: 'relative', width: '100%' }}>
         <Carousel carousel={carousel} sx={{ borderRadius: 2 }}>
           {data.map((item, index) => (
             <Box key={item.id} sx={{ position: 'relative' }}>
               <IndexLabel index={index + 1} />
-
               <Box
                 component="img"
                 alt={item.title}
                 src={item.coverUrl}
-                sx={{ objectFit: 'cover', aspectRatio: { xs: '4/3', sm: '16/10' } }}
+                sx={{ objectFit: 'cover', aspectRatio: { xs: '4/6', sm: '16/10' }, width: '100%' }}
               />
             </Box>
           ))}

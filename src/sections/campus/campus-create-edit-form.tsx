@@ -158,7 +158,6 @@ export function CampusNewEditForm({ id }: CampusProps) {
         },
       });
 
-      console.log('New course:', newCampus);
       toast.success('Create success!');
       router.push(paths.dashboard.product.root);
     } catch (error) {
@@ -233,7 +232,7 @@ export function CampusNewEditForm({ id }: CampusProps) {
               <Box sx={{ position: 'relative' }} key={image.media_id}>
                 <Image
                   src={image.media_url}
-                  alt="LeadAcademy"
+                  alt="Sabado"
                   height={100}
                   width={120}
                   style={{ objectFit: 'cover', borderRadius: 2 }}

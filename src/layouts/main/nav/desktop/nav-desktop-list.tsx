@@ -23,8 +23,14 @@ export function NavList({ data, sx, ...other }: NavListProps) {
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
   const renderIsActive = () => {
-    const currPath = language === Language.ENG ? `/en${data.path}` : data.path;
+    const currPath = language === Language.ENG ? `/en${data.path}/` : `${data.path}/`;
 
+    if (currPath === '/en//' && pathname === '/en/') {
+      return true;
+    }
+    if (currPath === '//' && pathname === '/') {
+      return true;
+    }
     if (pathname === currPath) {
       return true;
     }

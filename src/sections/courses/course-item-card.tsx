@@ -1,14 +1,13 @@
 import type { CardProps } from '@mui/material/Card';
 import type { components } from 'interfaces/interface';
 
-import parser from 'html-react-parser';
 import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import { Stack, Tooltip, Typography } from '@mui/material';
 
 import { Language, useLanguage } from 'src/contexts/language-context';
 
@@ -32,24 +31,9 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
       <Image
         alt={item.media_course_assn[0].media?.media_name}
         src={item.media_course_assn[0].media?.media_url}
-        ratio="5/4"
+        ratio="16/9"
         sx={{ borderRadius: 1.5 }}
       />
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 20,
-          left: 20,
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          color: '#fff',
-          px: 1,
-          py: 0.5,
-          borderRadius: 1,
-          fontWeight: 'bold',
-        }}
-      >
-        ₾{item.price}
-      </Box>
     </Box>
   );
 
@@ -105,19 +89,26 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   );
 
   const renderFooter = () => (
-    <Box
-      sx={{
-        mt: 2.5,
-        gap: 0.5,
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
+    <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
+      <Button
+        variant="outlined"
+        color="info"
+        fullWidth
+        onClick={() => {
+          router.push(
+            language === Language.KA
+              ? `/courses/${item.course_id}`
+              : `/en/courses/${item.course_id}`
+          );
+        }}
+      >
+        {renderLanguage('ინფორმაცია', 'Information')}
+      </Button>
       <Button
         variant="contained"
-        size="small"
         fullWidth
-        color="primary"
+        size="large"
+        color="success"
         onClick={() => {
           router.push(
             language === Language.KA
@@ -126,35 +117,38 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
           );
         }}
       >
-        {renderLanguage('რეგისტრაცია', 'Join')}
+        {renderLanguage('რეგისტრაცია', 'Register')}
       </Button>
-    </Box>
+    </Stack>
   );
 
   return (
     <Card sx={[{ width: 1 }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
       {renderImage()}
-
-      <Box sx={{ px: 2, py: 2.5 }}>
-        <Link
-          variant="subtitle1"
-          color="inherit"
-          underline="none"
-          sx={(theme) => ({
-            ...theme.mixins.maxLine({ line: 2.2, persistent: theme.typography.subtitle2 }),
-          })}
-          href={
-            language === Language.KA
-              ? `/courses/${item.course_id}`
-              : `/en/courses/${item.course_id}`
-          }
-        >
-          {renderLanguage(item.title_ka, item.title_en)}
-        </Link>
+      <Stack spacing={2} sx={{ px: 2, py: 2.5 }}>
+        <Tooltip title={renderLanguage(item.title_ka, item.title_en)}>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            color="inherit"
+            sx={{
+              height: '25px',
+              marginTop: '2px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: 'vertical',
+              fontFeatureSettings: "'case' on",
+            }}
+          >
+            {renderLanguage(item.title_ka, item.title_en)}
+          </Typography>
+        </Tooltip>
         <Typography
           component="div"
           sx={{
-            height: '90px',
+            height: '75px',
             marginTop: '2px',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -163,11 +157,11 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
             WebkitBoxOrient: 'vertical',
           }}
         >
-          {parser(renderLanguage(item.description_ka, item.description_en))}
+          {renderLanguage(item.short_des_ka || '', item.short_des_en || '')}
         </Typography>
         {renderLabels()}
         {renderFooter()}
-      </Box>
+      </Stack>
     </Card>
   );
 }

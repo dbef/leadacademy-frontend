@@ -1,34 +1,26 @@
 'use client';
 
 import type { components } from 'interfaces/interface';
-import type { IDatePickerControl } from 'src/types/common';
 
-import dayjs from 'dayjs';
+import Link from 'next/link';
 import { z as zod } from 'zod';
-import { useState } from 'react';
 import parser from 'html-react-parser';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import CardHeader from '@mui/material/CardHeader';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { Button, Typography } from '@mui/material';
+import { Avatar, Button, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
-import apiClient from 'src/api/apiClient';
-import { useLanguage } from 'src/contexts/language-context';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
-import { toast } from 'src/components/snackbar';
-import { Form } from 'src/components/hook-form';
 import { Iconify } from 'src/components/iconify';
+import { FileThumbnail } from 'src/components/file-thumbnail';
 
 import { renderDate } from './helpers';
-import { CourseThankYou } from './thank-you/thank-you';
 import { CarouselThumbsY } from '../_examples/extra/carousel-view/carousel-thumbs-y';
 // ----------------------------------------------------------------------
 
@@ -60,75 +52,83 @@ export function CourseDetailsView(props: CourseEditViewProps) {
   const { renderLanguage, language } = useLanguage();
 
   const renderDetails = () => (
-    <Card sx={{ p: 3, borderRadius: '20px', boxShadow: 3 }}>
-      <CardHeader
-        title={renderLanguage(course.title_ka, course.title_en)}
-        sx={{ mb: 3, textAlign: 'center', typography: 'h6' }}
-      />
-
-      <Divider sx={{ mb: 3 }} />
+    <Card
+      sx={{
+        width: '500px',
+        height: 'fit-content',
+        '@media (max-width: 1400px)': {
+          width: '100%',
+        },
+        '@media (max-width: 900px)': {
+          position: 'inherit',
+        },
+        position: 'sticky',
+        top: '128px',
+      }}
+    >
       <Stack spacing={3} sx={{ p: 3 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            flexWrap: 'wrap',
-            gap: '20px',
-          }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Iconify
-              width="24px"
-              height="24px"
-              icon="mingcute:location-fill"
-              sx={{ color: 'error.main' }}
-            />
-            <Typography sx={{ fontSize: '16px', fontWeight: '500' }}>
-              {renderLanguage(
-                course?.campuse?.campus_name_ka || '',
-                course?.campuse?.campus_name_en || ''
-              )}
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Iconify
-              width="24px"
-              height="24px"
-              icon="eva:people-fill"
-              sx={{ color: 'success.main' }}
-            />
-            <Typography sx={{ fontSize: '16px', fontWeight: '500' }}>
-              {renderLanguage(
-                `დარჩენილია ${course.max_students - Number(course?._count?.application || 0)} ადგილი`,
-                `${course.max_students - Number(course?._count?.application || 0)} Places left`
-              )}
-            </Typography>
-          </Box>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Iconify
-              width="24px"
-              height="24px"
-              icon="mingcute:time-fill"
-              sx={{ color: 'info.main' }}
-            />
-            <Typography sx={{ fontSize: '16px', fontWeight: '500' }}>
-              {`${renderDate(new Date(course.start_date), language)} - ${renderDate(new Date(course.end_date), language)}`}
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-              ₾{renderLanguage(`${course.price} ლარი`, `${course.price} GEL`)}
-            </Typography>
-          </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Iconify
+            width="24px"
+            height="24px"
+            icon="mingcute:location-fill"
+            sx={{ color: 'error.main' }}
+          />
+          <Typography>
+            {renderLanguage(
+              course?.campuse?.campus_name_ka || '',
+              course?.campuse?.campus_name_en || ''
+            )}
+          </Typography>
         </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Iconify
+            width="24px"
+            height="24px"
+            icon="eva:people-fill"
+            sx={{ color: 'success.main' }}
+          />
+          <Typography sx={{ fontSize: '16px', fontWeight: '500' }}>
+            {renderLanguage(
+              `დარჩენილია ${course.max_students - Number(course?._count?.application || 0)} ადგილი`,
+              `${course.max_students - Number(course?._count?.application || 0)} Places left`
+            )}
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Iconify
+            width="24px"
+            height="24px"
+            icon="mingcute:time-fill"
+            sx={{ color: 'info.main' }}
+          />
+          <Typography sx={{ fontSize: '16px', fontWeight: '500' }}>
+            {`${renderDate(new Date(course.start_date), language)} - ${renderDate(new Date(course.end_date), language)}`}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Typography variant="body2">
+            {renderLanguage('კურსის ღირებულება:', 'Course Price:')} ₾
+            {renderLanguage(`${course.price} ლარი`, `${course.price} GEL`)}
+          </Typography>
+        </Box>
+
         <Button
           fullWidth
           variant="contained"
-          onClick={() => router.push(`courses/register/${course.course_id}`)}
+          color="success"
+          onClick={() =>
+            router.push(
+              language === Language.KA
+                ? `/courses/register/${course.course_id}`
+                : `/en/courses/register/${course.course_id}`
+            )
+          }
+          size="large"
         >
-          {renderLanguage('დარეგისტრირდი ახლავე', 'Register now')}
+          {renderLanguage('რეგისტრაცია', 'Register')}
         </Button>
       </Stack>
     </Card>
@@ -147,41 +147,75 @@ export function CourseDetailsView(props: CourseEditViewProps) {
     </Box>
   );
 
-  const renderPricing = () => (
-    <Card>
-      <Stack spacing={3} sx={{ p: 3 }}>
-        <Typography component="div">
-          {parser(renderLanguage(course.description_ka, course.description_en))}
-        </Typography>
+  const renderCourseInfo = () => (
+    <Stack spacing={3} sx={{ width: '100%' }}>
+      <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on" }}>
+        {renderLanguage(course?.title_ka || '', course?.title_en || '')}
+      </Typography>
+      <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
+        {renderLanguage('აღწერა', 'Description')}
+      </Typography>
+      <Typography component="div">
+        {parser(renderLanguage(course.description_ka, course.description_en))}
+      </Typography>
+      <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
+        {renderLanguage('მენტორი', 'Mentor')}
+      </Typography>
+      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+        {course.lecturer_course_assn.map((lecturer) => (
+          <Stack spacing={2} direction="row" key={lecturer.lecturer.id} alignItems="center">
+            <Avatar src={lecturer.lecturer.picture || ''} />
+            <Typography variant="h6" sx={{ fontFeatureSettings: "'case' on" }}>
+              {renderLanguage(
+                `${lecturer.lecturer.first_name_ka} ${lecturer.lecturer.last_name_ka}`,
+                `${lecturer.lecturer.first_name_en} ${lecturer.lecturer.last_name_en}`
+              )}
+            </Typography>
+          </Stack>
+        ))}
       </Stack>
-    </Card>
-  );
-
-  const renderActions = () => (
-    <Box
-      sx={{
-        gap: 3,
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-      }}
-    >
-      <Button
-        fullWidth
-        variant="contained"
-        onClick={() => router.push(`courses/register/${course.course_id}`)}
-      >
-        {renderLanguage('დარეგისტრირდი ახლავე', 'Register now')}
-      </Button>
-    </Box>
+      <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
+        {renderLanguage('განრიგი', 'Table')}
+      </Typography>
+      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+        {course.files_course_assn.map((file) => (
+          <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
+            <FileThumbnail file="pdf" />{' '}
+            <Link target="_blank" rel="noopener noreferrer" href={file.media?.media_url || ''}>
+              {file.media?.media_name || ''}
+            </Link>
+          </Stack>
+        ))}
+      </Stack>
+    </Stack>
   );
 
   return (
-    <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
+    <Stack
+      spacing={{ xs: 3, md: 5 }}
+      sx={{
+        mx: 'auto',
+        padding: '128px 256px',
+        '@media (max-width: 1400px)': {
+          padding: '64px 128px',
+        },
+        '@media (max-width: 1200px)': {
+          padding: '28px 64px',
+        },
+        '@media (max-width: 1000px)': {
+          padding: '28px 24px',
+        },
+        '@media (max-width: 760px)': {
+          padding: '24px !important',
+        },
+      }}
+    >
       {renderImage()}
-      {renderDetails()}
-      {renderPricing()}
-      {renderActions()}
+      <Stack spacing={3} direction={{ xs: 'column-reverse', md: 'row' }}>
+        {/* {renderDetails()} */}
+        {renderCourseInfo()}
+        {renderDetails()}
+      </Stack>
     </Stack>
   );
 }

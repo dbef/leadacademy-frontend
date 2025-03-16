@@ -4,20 +4,15 @@ import Button from '@mui/material/Button';
 
 import { RouterLink } from 'src/routes/components';
 
-import { CONFIG } from 'src/global-config';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 // ----------------------------------------------------------------------
 
 export function SignInButton({ sx, ...other }: ButtonProps) {
+  const { renderLanguage, language } = useLanguage();
   return (
-    <Button
-      component={RouterLink}
-      href="/"
-      variant="outlined"
-      sx={sx}
-      {...other}
-    >
-      ალუმნი კლუბი
+    <Button component={RouterLink} href={language === Language.KA ? '/courses/register' : '/en/courses/register'}variant="contained" sx={sx} {...other}>
+      {renderLanguage('რეგისტრაცია', 'Register')}
     </Button>
   );
 }

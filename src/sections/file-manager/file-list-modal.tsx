@@ -145,8 +145,6 @@ export const FileManagerViewModal = ({
     onClose();
   };
 
-  console.log('Page:', page);
-
   return (
     <Dialog
       fullWidth

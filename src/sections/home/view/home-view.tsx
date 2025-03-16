@@ -16,7 +16,9 @@ import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll
 
 import { CarouselAnimation } from 'src/sections/_examples/extra/carousel-view/carousel-animation';
 
+import { SmallDesc } from '../small-desc';
 import CoursesSection from '../courses-section';
+import { LocationsSection } from '../campuses-section';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +39,7 @@ export function HomeView({ products }: HomeProps) {
       description_ka:
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/LeadAcademy1.jpg`,
+      coverUrl: `${CONFIG.assetsDir}/assets/background/sabado1.jpg`,
       button_ka: `აღმოაჩინე პროგრამები`,
       button_en: 'Discover programs',
       type: 'image',
@@ -67,6 +69,12 @@ export function HomeView({ products }: HomeProps) {
       <CarouselAnimation data={arrData} />
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <CoursesSection products={products} />
+      </Stack>
+      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
+        <SmallDesc />
+      </Stack>
+      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
+        <LocationsSection />
       </Stack>
       {/* <BackToTopButton isVisible={isVisible} onClick={onBackToTop} />
 

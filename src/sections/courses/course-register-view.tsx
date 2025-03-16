@@ -2,25 +2,18 @@
 
 import type { components } from 'interfaces/interface';
 import type { CourseDto } from 'src/types/course-type';
-import type { IDatePickerControl } from 'src/types/common';
 
-import dayjs from 'dayjs';
 import { z as zod } from 'zod';
 import { m } from 'framer-motion';
-import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { Step, Stepper, StepLabel, Typography } from '@mui/material';
+import { Step, Stepper, StepLabel } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
-import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
-
-import { toast } from 'src/components/snackbar';
 
 import { MedicalInfo } from './medical-info';
 import { RegisterParentView } from './parent-info';
@@ -62,7 +55,7 @@ export type ParentInfoType = {
   parent_phone: string;
   relation: string;
   parent_dob: string;
-  gender: string;
+  parent_gender: string;
   nationality: string;
   country: string;
   address: string;
@@ -77,7 +70,12 @@ export type StudentInfoType = {
   student_phone: string;
   student_class: string;
   student_dob: string;
-  gender: string;
+  student_gender: string;
+  program: string;
+  potential_roommate: string | null;
+  special_needs: string | null;
+  relationship_with_peers: string | null;
+  social_skills: string | null;
 };
 
 export type MedicalInfoType = {
@@ -86,8 +84,15 @@ export type MedicalInfoType = {
   diet_restrictions: string | null;
   physical_disabilities: string | null;
   additional_info: string | null;
+  emergency_relation: string | null;
+  emergency_contact_name: string | null;
+  emergency_contact_phone: string | null;
+  additional_comfort_info: string | null;
   medical_terms: boolean;
   terms_and_conditions: boolean;
+  cancellation_refund_policy: boolean;
+  fees_and_payment: boolean;
+  media_release: string | null;
 };
 
 export function RegisterOnCourseView(props: CourseEditViewProps) {
@@ -109,12 +114,12 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     parent_pn: '',
     parent_email: '',
     parent_phone: '',
-    relation: '',
+    relation: 'parent',
     parent_dob: '',
     address: '',
     city: '',
     country: 'Georgia',
-    gender: 'male',
+    parent_gender: 'male',
     nationality: 'Georgia',
   });
   const [studentInfo, setStudentInfo] = useState<StudentInfoType>({
@@ -124,8 +129,13 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     student_email: '',
     student_phone: '',
     student_dob: '',
-    gender: 'male',
+    student_gender: 'male',
     student_class: '',
+    program: '',
+    potential_roommate: null,
+    special_needs: null,
+    relationship_with_peers: null,
+    social_skills: null,
   });
   const [medicalInfo, setMedicalInfo] = useState<MedicalInfoType>({
     additional_info: null,
@@ -135,7 +145,15 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     physical_disabilities: null,
     medical_terms: false,
     terms_and_conditions: false,
+    emergency_relation: null,
+    emergency_contact_name: null,
+    emergency_contact_phone: null,
+    additional_comfort_info: null,
+    cancellation_refund_policy: false,
+    fees_and_payment: false,
+    media_release: null,
   });
+
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
   const steps = [
     {
@@ -150,7 +168,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     },
     {
       id: 3,
-      label_ka: 'მოსწავლე',
+      label_ka: 'სტუდენტი',
       label_en: 'Student',
     },
     {
@@ -167,58 +185,14 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     }
   }, [course]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeStep]);
+
   const { renderLanguage } = useLanguage();
 
-  const defaultValues: components['schemas']['CreateApplicationDto'] = {
-    child_dob: '',
-    child_lastname: '',
-    child_name: '',
-    course_id: selectedCourse ? selectedCourse.course_id : '',
-    parent_email: '',
-    parent_lastname: '',
-    parent_name: '',
-    parent_phone: '',
-    parent_pn: '',
-    relation: '',
-    child_email: '',
-  };
-
-  const methods = useForm<NewCourseSchema>({
-    resolver: zodResolver(CreateCourseSchema),
-    defaultValues,
-  });
-
-  const {
-    reset,
-    watch,
-    setValue,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = methods;
-
-  const values = watch();
-
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await apiClient('/api/v1/application', 'post', {
-        body: {
-          ...data,
-          child_email: data.child_email || undefined,
-        },
-      });
-
-      toast.success(
-        renderLanguage('აპლიკაცია წარმატებით გაიგზავნა', 'Application sent succesfully')
-      );
-
-      setCompleted(true);
-    } catch (error) {
-      console.log('SMTHIN', error);
-    }
-  });
-
   return (
-    <Stack spacing={{ xs: 3, md: 5 }}>
+    <Stack spacing={{ xs: 3, md: 5,  }}>
       <Box sx={{ mb: 5 }} />
       <Stepper
         alternativeLabel
@@ -230,11 +204,14 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
           zIndex: 10,
           bgcolor: 'background.paper',
           marginTop: '100px',
+          padding: '15px 0px',
         }}
       >
         {steps.map((label) => (
           <Step key={label.label_ka}>
-            <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>{label.label_ka}</StepLabel>
+            <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>
+              {renderLanguage(label.label_ka, label.label_en)}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
@@ -245,6 +222,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
         animate="animate"
         exit="exit"
         variants={stepVariants}
+        style={{ marginBottom: '60px'}}
       >
         {activeStep === steps.length && selectedCourse ? (
           <CourseThankYou open course={selectedCourse} />
@@ -271,6 +249,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
                 studentInfo={studentInfo}
                 setStudentInfo={setStudentInfo}
                 setActiveStep={setActiveStep}
+                parentInfo={parentInfo}
               />
             )}
             {activeStep === 3 && selectedCourse && (
@@ -279,6 +258,8 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
                 medicalInfo={medicalInfo}
                 setMedicalInfo={setMedicalInfo}
                 setActiveStep={setActiveStep}
+                parentInfo={parentInfo}
+                studentInfo={studentInfo}
               />
             )}
           </>

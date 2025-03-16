@@ -157,7 +157,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
             {renderAvatar()}
 
             <Typography variant="subtitle1" noWrap sx={{ mt: 2 }}>
-              Leadacademy Admin
+              sabado Admin
             </Typography>
           </Box>
         </Scrollbar>
