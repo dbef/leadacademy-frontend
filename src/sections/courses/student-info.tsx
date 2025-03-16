@@ -384,31 +384,29 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
-      <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
-        <Card>
-          <Divider />
-          {renderBasicInfo()}
-          {renderContactInfo()}
-          <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setStudentInfo(values);
-                setActiveStep(1);
-              }}
-            >
-              {renderLanguage('მშობელი', 'Parent')}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
-              type="submit"
-            >
-              {renderLanguage('სამედიცინო ინფორმაცია', 'Medical Info')}
-            </Button>
-          </Stack>
-        </Card>
+      <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto' }}>
+        <Divider />
+        {renderBasicInfo()}
+        {renderContactInfo()}
+        <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setStudentInfo(values);
+              setActiveStep(1);
+            }}
+          >
+            {renderLanguage('მშობელი', 'Parent')}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
+            type="submit"
+          >
+            {renderLanguage('სამედიცინო ინფორმაცია', 'Medical Info')}
+          </Button>
+        </Stack>
       </Stack>
     </Form>
   );
