@@ -143,7 +143,12 @@ export function CourseDetailsView(props: CourseEditViewProps) {
 
   const renderImage = () => (
     <Box sx={{ px: 1, pt: 1 }}>
-      <CarouselThumbsY data={courseImages} />
+      <Box
+        component="img"
+        alt={course.title_en}
+        src={courseImages[0].coverUrl}
+        sx={{ objectFit: 'cover', aspectRatio: { xs: '1/1', sm: '32/9' } }}
+      />
     </Box>
   );
 
@@ -161,32 +166,36 @@ export function CourseDetailsView(props: CourseEditViewProps) {
       <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
         {renderLanguage('მენტორი', 'Mentor')}
       </Typography>
-      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-        {course.lecturer_course_assn.map((lecturer) => (
-          <Stack spacing={2} direction="row" key={lecturer.lecturer.id} alignItems="center">
-            <Avatar src={lecturer.lecturer.picture || ''} />
-            <Typography variant="h6" sx={{ fontFeatureSettings: "'case' on" }}>
-              {renderLanguage(
-                `${lecturer.lecturer.first_name_ka} ${lecturer.lecturer.last_name_ka}`,
-                `${lecturer.lecturer.first_name_en} ${lecturer.lecturer.last_name_en}`
-              )}
-            </Typography>
-          </Stack>
-        ))}
-      </Stack>
+      {course.lecturer_course_assn.length > 0 ? (
+        <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+          {course.lecturer_course_assn.map((lecturer) => (
+            <Stack spacing={2} direction="row" key={lecturer.lecturer.id} alignItems="center">
+              <Avatar src={lecturer.lecturer.picture || ''} />
+              <Typography variant="h6" sx={{ fontFeatureSettings: "'case' on" }}>
+                {renderLanguage(
+                  `${lecturer.lecturer.first_name_ka} ${lecturer.lecturer.last_name_ka}`,
+                  `${lecturer.lecturer.first_name_en} ${lecturer.lecturer.last_name_en}`
+                )}
+              </Typography>
+            </Stack>
+          ))}
+        </Stack>
+      ) : null}
       <Typography variant="subtitle1" sx={{ fontFeatureSettings: "'case' on" }}>
         {renderLanguage('განრიგი', 'Table')}
       </Typography>
-      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-        {course.files_course_assn.map((file) => (
-          <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
-            <FileThumbnail file="pdf" />{' '}
-            <Link target="_blank" rel="noopener noreferrer" href={file.media?.media_url || ''}>
-              {file.media?.media_name || ''}
-            </Link>
-          </Stack>
-        ))}
-      </Stack>
+      {course.files_course_assn.length > 0 ? (
+        <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+          {course.files_course_assn.map((file) => (
+            <Stack spacing={2} direction="row" key={file.media_id} alignItems="center">
+              <FileThumbnail file="pdf" />{' '}
+              <Link target="_blank" rel="noopener noreferrer" href={file.media?.media_url || ''}>
+                {file.media?.media_name || ''}
+              </Link>
+            </Stack>
+          ))}
+        </Stack>
+      ) : null}
     </Stack>
   );
 
