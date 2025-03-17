@@ -2,6 +2,8 @@ import 'src/global.css';
 
 import type { Metadata, Viewport } from 'next';
 
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 
@@ -110,6 +112,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                           <SettingsDrawer defaultSettings={defaultSettings} />
                           {children}
                         </CheckoutProvider>
+                        <GoogleAnalytics gaId="G-XEXTV7JYX7" />
                       </MotionLazy>
                     </ThemeProvider>
                   </AppRouterCacheProvider>
