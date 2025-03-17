@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">sabado</string>
+    <string name="title_activity_main">sabado</string>
+    <string name="package_name">com.sabado.edu.ge</string>
+    <string name="custom_url_scheme">com.sabado.edu.ge</string>
+</resources>

@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 
+import axios from 'axios';
+
 import apiClient from 'src/api/apiClient';
+import { endpoints } from 'src/lib/axios';
 import { CONFIG } from 'src/global-config';
 
 import { CourseDetailsView } from 'src/sections/courses/course-details-view';
