@@ -3,6 +3,7 @@ import type { DialogProps } from '@mui/material/Dialog';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import { Alert } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
@@ -77,6 +78,13 @@ export function CourseThankYou({ course, ...other }: Props) {
         </Typography>
 
         <Divider sx={{ width: 1, borderStyle: 'dashed' }} />
+        <Alert severity="info" sx={{ borderRadius: 0 }}>
+          {renderLanguage(
+            `თუ რეგისტრაციიდან 48 საათის განმავლობაში პასუხი არ მიგიღიათ, გთხოვთ, შეამოწმოთ თქვენი სპამ ფოლდერი, ან დაგვიკავშირდეთ ელექტრონულ ფოსტაზე contact@sabado.edu.ge`,
+            `If you don’t receive a response within 48 hours of registration, please check your spam folder or contact us via email contact@sabado.edu.ge. 
+`
+          )}
+        </Alert>
 
         <Box
           sx={{
