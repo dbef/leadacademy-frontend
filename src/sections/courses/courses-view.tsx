@@ -1,37 +1,38 @@
 'use client';
 
-import type { BoxProps } from '@mui/material/Box';
-import type { components } from 'interfaces/interface';
+import type { CourseDto } from 'src/types/course-type';
+
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
+import { Typography } from '@mui/material';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
-import {
-  Checkbox,
-  Accordion,
-  FormGroup,
-  Typography,
-  FormControl,
-  AccordionDetails,
-  AccordionSummary,
-  FormControlLabel,
-} from '@mui/material';
 
+import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
-
-import { Iconify } from 'src/components/iconify';
 
 import { CourseItemMain } from './course-item-card';
 import { ProductItemSkeleton } from '../product/product-skeleton';
 
 // ----------------------------------------------------------------------
 
-type Props = BoxProps & {
-  loading?: boolean;
-  products: components['schemas']['CourseDto'][];
-};
+export function CourseListMain() {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<CourseDto[]>([]);
 
-export function CourseListMain({ products, loading, sx, ...other }: Props) {
+  const handleFetchCourses = useCallback(async () => {
+    const courses = await apiClient('/api/v1/courses', 'get');
+
+    setProducts(courses);
+  }, []);
+
+  useEffect(() => {
+    handleFetchCourses();
+
+    setLoading(false);
+  }, []);
+
   const renderLoading = () => <ProductItemSkeleton />;
 
   const renderList = () =>
@@ -46,7 +47,6 @@ export function CourseListMain({ products, loading, sx, ...other }: Props) {
   return (
     <>
       <Box
-        {...other}
         sx={{
           padding: '28px 256px',
           '@media (max-width: 1400px)': {

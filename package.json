@@ -5,9 +5,9 @@
   "description": "Next & TypeScript",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8082",
-    "start": "next start -p 8082",
-    "build": "next build",
+    "dev": "node init && next dev -p 8082",
+    "start": "node init && next start -p 8082",
+    "build": "node init && next build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:print": "npx eslint --print-config eslint.config.mjs > eslint-show-config.json",
@@ -21,7 +21,7 @@
     "tsc:dev": "yarn dev & yarn tsc:watch",
     "tsc:watch": "tsc --noEmit --watch",
     "tsc:print": "npx tsc --showConfig",
-    "generate:types": "openapi-typescript http://localhost:8080/api/v1/docs/api.json -o ./interfaces/interface.ts"
+    "generate:types": "openapi-typescript https://api.sabado.edu.ge/api/v1/docs/api.json -o ./interfaces/interface.ts"
   },
   "engines": {
     "node": "20.x"
