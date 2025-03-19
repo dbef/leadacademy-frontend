@@ -1,19 +1,6 @@
-import type { Metadata } from 'next';
+import { Typography } from '@mui/material';
 
-import apiClient from 'src/api/apiClient';
+export default function Page() {
 
-import { HomeView } from 'src/sections/home/view';
-
-// ----------------------------------------------------------------------
-
-export const metadata: Metadata = {
-  title: 'Sabado: Your Learning Partner',
-  description:
-    'The starting point for your next project with Minimal UI Kit, built on the newest version of Material-UI ©, ready to be customized to your style',
-};
-
-export default async function Page() {
-  const courses = await apiClient('/api/v1/courses', 'get');
-
-  return <HomeView products={courses} />;
+  return <Typography>Homepage</Typography>
 }

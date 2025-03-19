@@ -1,18 +1,17 @@
 'use client';
 
-import type { components } from 'interfaces/interface';
 import type { CourseDto } from 'src/types/course-type';
 
 import { z as zod } from 'zod';
 import { m } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { Step, Stepper, StepLabel, Card } from '@mui/material';
+import { Step, Stepper, StepLabel } from '@mui/material';
 
-import { useRouter } from 'src/routes/hooks';
+import { useParams, useRouter } from 'src/routes/hooks';
 
+import apiClient from 'src/api/apiClient';
 import { useLanguage } from 'src/contexts/language-context';
 
 import { MedicalInfo } from './medical-info';
@@ -42,10 +41,6 @@ export const CreateCourseSchema = zod.object({
   child_email: zod.string().email().optional().nullable(),
   child_dob: zod.string().min(1),
 });
-
-type CourseEditViewProps = {
-  course?: components['schemas']['CourseDto'];
-};
 
 export type ParentInfoType = {
   parent_name: string;
@@ -95,8 +90,25 @@ export type MedicalInfoType = {
   media_release: string | null;
 };
 
-export function RegisterOnCourseView(props: CourseEditViewProps) {
-  const { course } = props;
+export function RegisterOnCourseView() {
+  const [course, setCourse] = useState<CourseDto | null>(null);
+
+  const params: { id?: string } = useParams();
+
+  const handleFetchCourse = useCallback(async () => {
+    if (!params.id) return;
+    const response = await apiClient('/api/v1/courses/{id}', 'get', {
+      pathParams: {
+        id: params.id,
+      },
+    });
+
+    setCourse(response);
+  }, [params]);
+
+  useEffect(() => {
+    handleFetchCourse();
+  }, [params]);
 
   const stepVariants = {
     initial: { opacity: 0, x: 50 },
