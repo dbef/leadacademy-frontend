@@ -1,27 +1,27 @@
 'use client';
 
-import type { components } from 'interfaces/interface';
+
+import type { CourseDto } from 'src/types/course-type';
 
 import Link from 'next/link';
 import { z as zod } from 'zod';
 import parser from 'html-react-parser';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import CardHeader from '@mui/material/CardHeader';
 import { Avatar, Button, Typography } from '@mui/material';
 
-import { useRouter } from 'src/routes/hooks';
+import { useParams, useRouter } from 'src/routes/hooks';
 
+import apiClient from 'src/api/apiClient';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
 import { FileThumbnail } from 'src/components/file-thumbnail';
 
 import { renderDate } from './helpers';
-import { CarouselThumbsY } from '../_examples/extra/carousel-view/carousel-thumbs-y';
 // ----------------------------------------------------------------------
 
 export type NewCourseSchema = zod.infer<typeof CreateCourseSchema>;
@@ -40,18 +40,30 @@ export const CreateCourseSchema = zod.object({
   child_dob: zod.string().min(1),
 });
 
-type CourseEditViewProps = {
-  course: components['schemas']['CourseDto'];
-};
+export function CourseDetailsView() {
+  const [currCourse, setCourse] = useState<CourseDto | null>(null);
 
-export function CourseDetailsView(props: CourseEditViewProps) {
-  const { course } = props;
+  const params: { id: string } = useParams();
 
   const router = useRouter();
 
+  const handleFetchCourse = useCallback(async () => {
+    const course = await apiClient('/api/v1/courses/{id}', 'get', {
+      pathParams: {
+        id: params.id,
+      },
+    });
+
+    setCourse(course);
+  }, [params]);
+
+  useEffect(() => {
+    handleFetchCourse();
+  }, [params]);
+
   const { renderLanguage, language } = useLanguage();
 
-  const renderDetails = () => (
+  const renderDetails = (course: CourseDto) => (
     <Card
       sx={{
         width: '500px',
@@ -134,25 +146,27 @@ export function CourseDetailsView(props: CourseEditViewProps) {
     </Card>
   );
 
-  const courseImages = course.media_course_assn.map((media) => ({
-    id: media.media?.media_id || '',
-    title: course.title_en || '',
-    coverUrl: media.media?.media_url || '',
-    description: '',
-  }));
+  const renderImage = (course: CourseDto) => {
+    const courseImages = course.media_course_assn.map((media) => ({
+      id: media.media?.media_id || '',
+      title: course.title_en || '',
+      coverUrl: media.media?.media_url || '',
+      description: '',
+    }));
 
-  const renderImage = () => (
-    <Box sx={{ px: 1, pt: 1 }}>
-      <Box
-        component="img"
-        alt={course.title_en}
-        src={courseImages[0].coverUrl}
-        sx={{ objectFit: 'cover', aspectRatio: { xs: '16/9', sm: '16/9' }, borderRadius: '8px' }}
-      />
-    </Box>
-  );
+    return (
+      <Box sx={{ px: 1, pt: 1 }}>
+        <Box
+          component="img"
+          alt={course.title_en}
+          src={courseImages[0].coverUrl}
+          sx={{ objectFit: 'cover', aspectRatio: { xs: '16/9', sm: '16/9' }, borderRadius: '8px' }}
+        />
+      </Box>
+    );
+  };
 
-  const renderCourseInfo = () => (
+  const renderCourseInfo = (course: CourseDto) => (
     <Stack spacing={3} sx={{ width: '100%' }}>
       <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on" }}>
         {renderLanguage(course?.title_ka || '', course?.title_en || '')}
@@ -239,11 +253,11 @@ export function CourseDetailsView(props: CourseEditViewProps) {
         },
       }}
     >
-      {renderImage()}
+      {currCourse ? renderImage(currCourse) : null}
       <Stack spacing={3} direction={{ xs: 'column-reverse', md: 'row' }}>
         {/* {renderDetails()} */}
-        {renderCourseInfo()}
-        {renderDetails()}
+        {currCourse !== null ? renderCourseInfo(currCourse) : null}
+        {currCourse !== null ? renderDetails(currCourse) : null}
       </Stack>
     </Stack>
   );
