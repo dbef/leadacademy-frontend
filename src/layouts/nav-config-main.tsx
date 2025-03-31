@@ -5,100 +5,49 @@ import type { NavMainProps } from './main/nav/types';
 // ----------------------------------------------------------------------
 
 export const navData: NavMainProps['data'] = [
-  // {
-  //   title_en: 'About Sabado',
-  //   title: 'ლიდაკადემიის შესახებ',
-  //   path: '/',
-  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  // },
+  {
+    title_en: 'About Sabado',
+    title: 'საბადოს შესახებ',
+    path: '/about-us',
+    icon: <Iconify width={22} icon="fluent:info-28-filled" />, // Info/about
+    children: [
+      {
+        subheader: '',
+        items: [
+          { title: 'მისია', title_en: 'Mission', path: '/about-us/?key=mission' },
+          { title: 'ფასეულობები', title_en: 'Values', path: '/about-us/?key=values' },
+          { title: 'მიზანი', title_en: 'Purpose', path: '/about-us/?key=purpose' },
+          { title: 'რას გთავაზობთ', title_en: 'What We Offer', path: '/about-us/?key=offer' },
+          { title: 'აქტუალობა', title_en: 'Relevance', path: '/about-us/?key=relevance' },
+          { title: 'პერსპექტივები', title_en: 'Perspectives', path: '/about-us/?key=perspectives' },
+          { title: 'ხედვა', title_en: 'Vision', path: '/about-us/?key=vision' },
+          { title: 'ჩვენი გუნდი', title_en: 'Our Team', path: '/about-us/?key=team' },
+        ],
+      },
+    ],
+  },
   {
     title_en: 'Programs',
     title: 'პროგრამები',
     path: '/courses',
-    icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
+    icon: <Iconify width={22} icon="mdi:book-open-variant" />, // Education
   },
-  // {
-  //   title_en: 'Gallery',
-  //   title: 'გალერია',
-  //   path: '/gallery',
-  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  // },
-  // {
-  //   title_en: 'Tsinandali',
-  //   title: 'წინანდალი',
-  //   path: '/tsinandali',
-  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  // },
-  // {
-  //   title_en: 'Manglisi',
-  //   title: 'მანგლისი',
-  //   path: '/manglisi',
-  //   icon: <Iconify width={22} icon="solar:home-2-bold-duotone" />,
-  // },
-  // { title_en: 'Contact', title: 'კონტაქტი', path: '/contact', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },
-  // { title_en: 'FAQ', title: 'ხდკ', path: '/faq', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },
-  // { title_en: 'Campuses', title: 'კამპუსები', path: '/campuses', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },
-  // {
-  //   title: 'Components',
-  //   path: paths.components,
-  //   icon: <Iconify width={22} icon="solar:atom-bold-duotone" />,
-  // },
-  // {
-  //   title: 'Pages',
-  //   path: '/pages',
-  //   icon: <Iconify width={22} icon="solar:file-bold-duotone" />,
-  //   children: [
-  //     {
-  //       subheader: 'Other',
-  //       items: [
-  //         { title: 'About us', path: paths.about },
-  //         { title: 'Contact us', path: paths.contact },
-  //         { title: 'FAQs', path: paths.faqs },
-  //         { title: 'Pricing', path: paths.pricing },
-  //         { title: 'Payment', path: paths.payment },
-  //         { title: 'Maintenance', path: paths.maintenance },
-  //         { title: 'Coming soon', path: paths.comingSoon },
-  //       ],
-  //     },
-  //     {
-  //       subheader: 'Concepts',
-  //       items: [
-  //         { title: 'Shop', path: paths.product.root },
-  //         { title: 'Product', path: paths.product.demo.details },
-  //         { title: 'Checkout', path: paths.product.checkout },
-  //         { title: 'Posts', path: paths.post.root },
-  //         { title: 'Post', path: paths.post.demo.details },
-  //       ],
-  //     },
-  //     {
-  //       subheader: 'Auth Demo',
-  //       items: [
-  //         { title: 'Sign in', path: paths.authDemo.split.signIn },
-  //         { title: 'Sign up', path: paths.authDemo.split.signUp },
-  //         { title: 'Reset password', path: paths.authDemo.split.resetPassword },
-  //         { title: 'Update password', path: paths.authDemo.split.updatePassword },
-  //         { title: 'Verify', path: paths.authDemo.split.verify },
-  //         { title: 'Sign in (centered)', path: paths.authDemo.centered.signIn },
-  //         { title: 'Sign up (centered)', path: paths.authDemo.centered.signUp },
-  //         { title: 'Reset password (centered)', path: paths.authDemo.centered.resetPassword },
-  //         { title: 'Update password (centered)', path: paths.authDemo.centered.updatePassword },
-  //         { title: 'Verify (centered)', path: paths.authDemo.centered.verify },
-  //       ],
-  //     },
-  //     {
-  //       subheader: 'Error',
-  //       items: [
-  //         { title: 'Page 403', path: paths.page403 },
-  //         { title: 'Page 404', path: paths.page404 },
-  //         { title: 'Page 500', path: paths.page500 },
-  //       ],
-  //     },
-  //     { subheader: 'Dashboard', items: [{ title: 'Dashboard', path: CONFIG.auth.redirectPath }] },
-  //   ],
-  // },
-  // {
-  //   title: 'Docs',
-  //   icon: <Iconify width={22} icon="solar:notebook-bold-duotone" />,
-  //   path: paths.docs,
-  // },
+  {
+    title_en: 'Gallery',
+    title: 'გალერია',
+    path: '/gallery',
+    icon: <Iconify width={22} icon="mdi:image-multiple" />, // Gallery
+  },
+  {
+    title_en: 'Tsinandali',
+    title: 'წინანდალი',
+    path: '/tsinandali',
+    icon: <Iconify width={22} icon="mdi:map-marker" />, // Location
+  },
+  {
+    title_en: 'Manglisi',
+    title: 'მანგლისი',
+    path: '/manglisi',
+    icon: <Iconify width={22} icon="mdi:map-marker" />, // Location
+  },
 ];

@@ -2,7 +2,9 @@ import { useBoolean } from 'minimal-shared/hooks';
 import { useRef, useEffect, useCallback } from 'react';
 import { isActiveLink, isExternalLink } from 'minimal-shared/utils';
 
-import { usePathname } from 'src/routes/hooks';
+import { usePathname, useSearchParams } from 'src/routes/hooks';
+
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { NavItem } from './nav-item';
 import { navSectionClasses } from '../styles';
@@ -40,6 +42,23 @@ export function NavList({
     }
   }, [data.children, onToggle]);
 
+  const { language } = useLanguage();
+
+  const searchParams = useSearchParams();
+
+  const key = searchParams.get('key');
+
+  const renderIsActive = (path: string) => {
+    const structuredPathName = `${pathname}?key=${key}`;
+
+    const currPath = language === Language.ENG ? `/en${path}` : `${path}`;
+
+    if (structuredPathName === currPath) {
+      return true;
+    }
+    return false;
+  };
+
   const renderNavItem = () => (
     <NavItem
       ref={navItemRef}
@@ -51,7 +70,7 @@ export function NavList({
       caption={data.caption}
       // state
       open={open}
-      active={isActive}
+      active={renderIsActive(data.path)}
       disabled={data.disabled}
       // options
       depth={depth}

@@ -4,16 +4,15 @@ import type { Breakpoint } from '@mui/material/styles';
 
 import { useEffect } from 'react';
 import { useBoolean } from 'minimal-shared/hooks';
-import { useRouter, usePathname } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import { SpeedDial, IconButton, useColorScheme, SpeedDialAction } from '@mui/material';
 
 import { allLangs } from 'src/locales';
-import { Language, useLanguage } from 'src/contexts/language-context';
 import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
+import { Logo } from 'src/components/logo';
 import { Iconify } from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
 
@@ -59,25 +58,7 @@ export function MainLayout({
 }: MainLayoutProps) {
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
-  const path = usePathname();
-
-  const router = useRouter();
-
-  const { language } = useLanguage();
-
   const navData = slotProps?.nav?.data ?? mainNavData;
-
-  useEffect(() => {
-    console.log('Path:', path);
-    if (
-      !path.startsWith('/en/courses') &&
-      !path.startsWith('/courses') &&
-      !path.startsWith('/en/terms-and-conditions') &&
-      !path.startsWith('/terms-and-conditions')
-    ) {
-      router.push(language === Language.KA ? '/courses/register' : '/en/courses/register');
-    }
-  }, [path]);
 
   const settings = useSettingsContext();
 
@@ -111,7 +92,7 @@ export function MainLayout({
           <NavMobile data={navData} open={open} onClose={onClose} />
 
           {/** @slot Logo */}
-          {/* <Logo /> */}
+          <Logo />
         </>
       ),
       rightArea: (
@@ -180,7 +161,7 @@ export function MainLayout({
       /** **************************************
        * @Footer
        *************************************** */
-      // footerSection={renderFooter()}
+      footerSection={renderFooter()}
       /** **************************************
        * @Styles
        *************************************** */

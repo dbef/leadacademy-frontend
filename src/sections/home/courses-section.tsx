@@ -92,7 +92,6 @@ export default function CoursesSection({ products }: HomeProps) {
   }, []);
 
   useEffect(() => {
-    console.log('Tabs:', tabs);
     if (tabs.length === 3) return;
     fetchCampuses();
   }, []);
