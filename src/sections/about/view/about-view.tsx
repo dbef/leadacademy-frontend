@@ -33,7 +33,7 @@ export function AboutView() {
       const timeout = setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          element.scrollIntoView({ block: 'start' });
         }
       }, 200); // wait 200ms
 
@@ -45,26 +45,27 @@ export function AboutView() {
 
   return (
     <>
-      <Stack
-        spacing={4}
-        sx={{
-          padding: '128px 256px',
-          '@media (max-width: 1400px)': {
-            padding: '64px 128px',
-          },
-          '@media (max-width: 1200px)': {
-            padding: '64px 64px',
-          },
-          '@media (max-width: 1000px)': {
-            padding: '64px 24px',
-            marginTop: '50px',
-          },
-          '@media (max-width: 760px)': {
-            padding: '24px !important',
-          },
-        }}
-      >
-        <Stack spacing={3} sx={{ mb: 10 }}>
+      <Stack spacing={4}>
+        <Stack
+          spacing={3}
+          sx={{
+            mb: 10,
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <Box
             sx={{
               padding: '2px 4px 2px 4px',
@@ -117,31 +118,168 @@ export function AboutView() {
             </m.div>
           </Container>
         </Stack>
-        <Box id="mission" sx={{ paddingTop: isSelected('mission') ? '150px' : '0px' }}>
+        <Box
+          id="mission"
+          sx={{
+            paddingTop: isSelected('mission') ? '150px' : '0px',
+            backgroundColor: 'secondary.lighter',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <ProjectMission />
         </Box>
 
-        <Box id="values" sx={{ paddingTop: isSelected('values') ? '150px' : '0px' }}>
+        <Box
+          id="values"
+          sx={{
+            paddingTop: isSelected('values') ? '150px' : '0px',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <ProjectValues />
         </Box>
 
-        <Box id="purpose" sx={{ paddingTop: isSelected('purpose') ? '150px' : '0px' }}>
+        <Box
+          id="purpose"
+          sx={{
+            paddingTop: isSelected('purpose') ? '150px' : '0px',
+            backgroundColor: 'secondary.lighter',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <ProjectPurpose />
         </Box>
 
-        <Box id="offer" sx={{ paddingTop: isSelected('offer') ? '150px' : '0px' }}>
+        <Box
+          id="offer"
+          sx={{
+            paddingTop: isSelected('offer') ? '150px' : '0px',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <WhatWeOffer />
         </Box>
 
-        <Box id="relevance" sx={{ paddingTop: isSelected('relevance') ? '150px' : '0px' }}>
+        <Box
+          id="relevance"
+          sx={{
+            paddingTop: isSelected('relevance') ? '150px' : '0px',
+            backgroundColor: 'secondary.lighter',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <Relevance />
         </Box>
 
-        <Box id="perspectives" sx={{ paddingTop: isSelected('perspectives') ? '150px' : '0px' }}>
+        <Box
+          id="perspectives"
+          sx={{
+            paddingTop: isSelected('perspectives') ? '150px' : '0px',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <Perspectives />
         </Box>
 
-        <Box id="vision" sx={{ paddingTop: isSelected('vision') ? '150px' : '0px' }}>
+        <Box
+          id="vision"
+          sx={{
+            paddingTop: isSelected('vision') ? '150px' : '0px',
+            backgroundColor: 'secondary.lighter',
+            padding: '128px 256px',
+            '@media (max-width: 1400px)': {
+              padding: '64px 128px',
+            },
+            '@media (max-width: 1200px)': {
+              padding: '64px 64px',
+            },
+            '@media (max-width: 1000px)': {
+              padding: '64px 24px',
+              marginTop: '50px',
+            },
+            '@media (max-width: 760px)': {
+              padding: '24px !important',
+            },
+          }}
+        >
           <Vision />
         </Box>
       </Stack>

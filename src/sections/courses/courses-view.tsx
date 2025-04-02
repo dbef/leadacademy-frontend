@@ -3,23 +3,17 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { components } from 'interfaces/interface';
 
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
-import {
-  Checkbox,
-  Accordion,
-  FormGroup,
-  Typography,
-  FormControl,
-  AccordionDetails,
-  AccordionSummary,
-  FormControlLabel,
-} from '@mui/material';
+import { Tab, Chip, TextField, Typography, Autocomplete, Stack, Button } from '@mui/material';
 
-import { useLanguage } from 'src/contexts/language-context';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
-import { Iconify } from 'src/components/iconify';
+import { CustomTabs } from 'src/components/custom-tabs';
 
 import { CourseItemMain } from './course-item-card';
 import { ProductItemSkeleton } from '../product/product-skeleton';
@@ -29,10 +23,135 @@ import { ProductItemSkeleton } from '../product/product-skeleton';
 type Props = BoxProps & {
   loading?: boolean;
   products: components['schemas']['CourseDto'][];
+  season: string;
+  location: string;
 };
 
-export function CourseListMain({ products, loading, sx, ...other }: Props) {
+export type SeasonType = {
+  month_ka: string;
+  month_en: string;
+  value: string;
+};
+
+export function CourseListMain({ products, location, season, loading, sx, ...other }: Props) {
   const renderLoading = () => <ProductItemSkeleton />;
+
+  const months = [
+    {
+      month_ka: 'იანვარი',
+      month_en: 'January',
+      value: 'january',
+    },
+    {
+      month_ka: 'თებერვალი',
+      month_en: 'February',
+      value: 'february',
+    },
+    {
+      month_ka: 'მარტი',
+      month_en: 'March',
+      value: 'march',
+    },
+    {
+      month_ka: 'აპრილი',
+      month_en: 'April',
+      value: 'april',
+    },
+    {
+      month_ka: 'მაისი',
+      month_en: 'May',
+      value: 'may',
+    },
+    {
+      month_ka: 'ივნისი',
+      month_en: 'June',
+      value: 'june',
+    },
+    {
+      month_ka: 'ივლისი',
+      month_en: 'July',
+      value: 'july',
+    },
+    {
+      month_ka: 'აგვისტო',
+      month_en: 'August',
+      value: 'august',
+    },
+    {
+      month_ka: 'სექტემბერი',
+      month_en: 'September',
+      value: 'september',
+    },
+    {
+      month_ka: 'ოქტომბერი',
+      month_en: 'October',
+      value: 'october',
+    },
+    {
+      month_ka: 'ნოემბერი',
+      month_en: 'November',
+      value: 'november',
+    },
+    {
+      month_ka: 'დეკემბერი',
+      month_en: 'December',
+      value: 'december',
+    },
+  ];
+
+  const seasons = season
+    ? season.split(',').map((item) => {
+        const foundedSeason = months.find((month) => month.value === item);
+
+        if (foundedSeason) {
+          return {
+            month_ka: foundedSeason.month_ka,
+            month_en: foundedSeason.month_en,
+            value: foundedSeason.value,
+          };
+        }
+
+        return {
+          month_ka: 'იანვარი',
+          month_en: 'January',
+          value: 'january',
+        };
+      })
+    : [];
+
+  const [selectedTab, setSelectedTab] = useState('all');
+  const [selectedSeasons, setSelectedSeasons] = useState<SeasonType[]>(
+    seasons.length > 0 ? seasons : []
+  );
+
+  useEffect(() => {
+    if (location) {
+      setSelectedTab(location);
+
+      if (location === 'all' && selectedSeasons.length > 0) {
+        router.push(
+          language === Language.ENG
+            ? `/en/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+            : `/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+        );
+
+        return;
+      }
+
+      if (location === 'all') {
+        router.push(language === Language.ENG ? '/en/courses' : '/courses');
+        return;
+      }
+    }
+  }, [location]);
+
+  const router = useRouter();
+
+  const tabs = [
+    { title_ka: 'წინანდალი', title_en: 'Tsinandali', value: 'tsinandali' },
+    { title_ka: 'მანგლისი', title_en: 'Manglisi', value: 'manglisi' },
+    { title_ka: 'ყველა', title_en: 'All', value: 'all' },
+  ];
 
   const renderList = () =>
     products.map((course) => (
@@ -41,7 +160,7 @@ export function CourseListMain({ products, loading, sx, ...other }: Props) {
       </Grid>
     ));
 
-  const { renderLanguage } = useLanguage();
+  const { renderLanguage, language } = useLanguage();
 
   return (
     <>
@@ -66,8 +185,146 @@ export function CourseListMain({ products, loading, sx, ...other }: Props) {
         <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on", marginBottom: '50px' }}>
           {renderLanguage('პროგრამები', 'Programs')}
         </Typography>
+        <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
+          <CustomTabs
+            value={selectedTab}
+            sx={{ width: 'fit-content', borderRadius: 1, marginBottom: 5 }}
+            onChange={(_event, newValue) => {
+              setSelectedTab(newValue);
+              if (newValue === 'all') {
+                router.push(language === Language.ENG ? `/en/courses` : `/courses`);
+
+                return;
+              }
+
+              if (selectedSeasons.length > 0) {
+                router.push(
+                  language === Language.ENG
+                    ? `/en/courses?key=${newValue}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                    : `/courses?key=${newValue}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                );
+
+                return;
+              }
+
+              router.push(
+                language === Language.ENG
+                  ? `/en/courses?key=${newValue}`
+                  : `/courses?key=${newValue}`
+              );
+            }}
+          >
+            {tabs.map((tab) => (
+              <Tab
+                key={tab.value}
+                value={tab.value}
+                label={renderLanguage(tab.title_ka, tab.title_en)}
+              />
+            ))}
+          </CustomTabs>
+          <Stack spacing={2} direction="row" width="350px">
+            <Autocomplete
+              fullWidth
+              multiple
+              limitTags={3}
+              options={months}
+              defaultValue={seasons}
+              onChange={(event, value) => {
+                setSelectedSeasons(value);
+              }}
+              getOptionLabel={(option) => renderLanguage(option.month_ka, option.month_en)}
+              isOptionEqualToValue={(option, value) => option.value === value.value}
+              renderInput={(params) => (
+                <TextField {...params} label={renderLanguage('თვე', 'Month')} />
+              )}
+              renderOption={(props, option) => (
+                <li {...props} key={option.value}>
+                  {renderLanguage(option.month_ka, option.month_en)}
+                </li>
+              )}
+              renderTags={(selected, getTagProps) =>
+                selected.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    key={option.value}
+                    label={renderLanguage(option.month_ka, option.month_en)}
+                    size="small"
+                    color="info"
+                    variant="soft"
+                  />
+                ))
+              }
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => {
+                if (selectedSeasons.length < 1) {
+                  if (location) {
+                    if (location === 'all') {
+                      router.push(language === Language.ENG ? `/en/courses` : `/courses`);
+                      return;
+                    }
+
+                    router.push(
+                      language === Language.ENG
+                        ? `/en/courses?key=${location}`
+                        : `/courses?key=${location}`
+                    );
+                  } else {
+                    router.push(language === Language.ENG ? `/en/courses` : `/courses`);
+                  }
+                }
+
+                if (selectedSeasons.length > 0 && location) {
+                  if (location === 'all') {
+                    router.push(
+                      language === Language.ENG
+                        ? `/en/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+                        : `/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+                    );
+
+                    return;
+                  }
+
+                  router.push(
+                    language === Language.ENG
+                      ? `/en/courses?key=${location}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                      : `/courses?key=${location}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                  );
+
+                  return;
+                }
+
+                if (selectedSeasons.length > 0) {
+                  router.push(
+                    language === Language.ENG
+                      ? `/en/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+                      : `/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+                  );
+
+                  return;
+                }
+              }}
+            >
+              {renderLanguage('ძებნა', 'Search')}
+            </Button>
+          </Stack>
+        </Stack>
+
         <Grid container spacing={3}>
           {loading ? renderLoading() : renderList()}
+          {products.length < 1 && (
+            <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography variant="h5" sx={{ fontFeatureSettings: "'case' on" }}>
+                {renderLanguage(
+                  `ვერ მოიძებნა კურსები აღნისნულ კამპუსზე ან პერიოდში `,
+                  'No courses found for this campus or period'
+                )}
+              </Typography>
+            </Grid>
+          )}
         </Grid>
       </Box>
 

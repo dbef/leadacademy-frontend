@@ -796,6 +796,7 @@ export interface components {
             created_at: string;
             /** Format: date-time */
             updated_at: string;
+            campus_name_short?: string;
             campus_media_assn: components["schemas"]["CampusFileAssnDto"][];
             campus_file_assn: components["schemas"]["CampusFileAssnDto"][];
         };

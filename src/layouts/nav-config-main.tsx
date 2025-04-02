@@ -42,12 +42,30 @@ export const navData: NavMainProps['data'] = [
     title_en: 'Tsinandali',
     title: 'წინანდალი',
     path: '/tsinandali',
-    icon: <Iconify width={22} icon="mdi:map-marker" />, // Location
+    icon: <Iconify width={22} icon="mdi:map-marker" />,
+    children: [
+      {
+        subheader: '',
+        items: [
+          { title: 'კამპუსი', title_en: 'Campus', path: '/tsinandali/?key=tsinandali' },
+          { title: 'პროგრამები', title_en: 'Programs', path: '/courses/?key=tsinandali' },
+        ],
+      },
+    ],
   },
   {
     title_en: 'Manglisi',
     title: 'მანგლისი',
     path: '/manglisi',
-    icon: <Iconify width={22} icon="mdi:map-marker" />, // Location
+    icon: <Iconify width={22} icon="mdi:map-marker" />, 
+    children: [
+      {
+        subheader: '',
+        items: [
+          { title: 'კამპუსი', title_en: 'Campus', path: '/manglisi/?key=manglisi' },
+          { title: 'პროგრამები', title_en: 'Programs', path: '/courses/?key=manglisi' },
+        ],
+      },
+    ],
   },
 ];
