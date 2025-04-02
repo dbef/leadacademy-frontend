@@ -185,10 +185,22 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
         <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on", marginBottom: '50px' }}>
           {renderLanguage('პროგრამები', 'Programs')}
         </Typography>
-        <Stack direction="row" spacing={2} justifyContent="space-between" width="100%">
+        <Stack
+          direction={{ md: 'row', xs: 'column' }}
+          spacing={2}
+          justifyContent="space-between"
+          width="100%"
+        >
           <CustomTabs
             value={selectedTab}
-            sx={{ width: 'fit-content', borderRadius: 1, marginBottom: 5 }}
+            sx={{
+              width: {
+                md: 'fit-content',
+                xs: '100%',
+              },
+              borderRadius: 1,
+              marginBottom: 5,
+            }}
             onChange={(_event, newValue) => {
               setSelectedTab(newValue);
               if (newValue === 'all') {
@@ -222,7 +234,11 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
               />
             ))}
           </CustomTabs>
-          <Stack spacing={2} direction="row" width="350px">
+          <Stack
+            spacing={2}
+            direction={{ md: 'row', xs: 'column' }}
+            width={{ xs: '100%', md: '450px' }}
+          >
             <Autocomplete
               fullWidth
               multiple
@@ -313,7 +329,7 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
           </Stack>
         </Stack>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{marginTop: '50px'}}>
           {loading ? renderLoading() : renderList()}
           {products.length < 1 && (
             <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
