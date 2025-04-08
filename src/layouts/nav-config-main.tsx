@@ -49,6 +49,7 @@ export const navData: NavMainProps['data'] = [
         items: [
           { title: 'კამპუსი', title_en: 'Campus', path: '/tsinandali/?key=tsinandali' },
           { title: 'პროგრამები', title_en: 'Programs', path: '/courses/?key=tsinandali' },
+          { title: 'ქცევის წესები', title_en: 'Rules of conduct', path: '/rules-of-conduct' },
         ],
       },
     ],
@@ -57,13 +58,14 @@ export const navData: NavMainProps['data'] = [
     title_en: 'Manglisi',
     title: 'მანგლისი',
     path: '/manglisi',
-    icon: <Iconify width={22} icon="mdi:map-marker" />, 
+    icon: <Iconify width={22} icon="mdi:map-marker" />,
     children: [
       {
         subheader: '',
         items: [
           { title: 'კამპუსი', title_en: 'Campus', path: '/manglisi/?key=manglisi' },
           { title: 'პროგრამები', title_en: 'Programs', path: '/courses/?key=manglisi' },
+          { title: 'ქცევის წესები', title_en: 'Rules of conduct', path: '/rules-of-conduct' },
         ],
       },
     ],
