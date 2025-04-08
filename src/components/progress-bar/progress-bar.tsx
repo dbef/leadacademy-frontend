@@ -13,7 +13,7 @@ type PushStateInput = [data: any, unused: string, url?: string | URL | null | un
 
 /**
  * Handles anchor click events to start the progress bar if the target URL is different from the current URL.
- * @param event - The mouse event triggered by clicking an anchor element of that.
+ * @param event - The mouse event triggered by clicking an anchor element.
  */
 const handleAnchorClick = (event: MouseEvent) => {
   const targetUrl = (event.currentTarget as HTMLAnchorElement).href;
