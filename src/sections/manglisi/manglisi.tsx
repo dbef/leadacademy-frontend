@@ -7,7 +7,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { useLanguage } from 'src/contexts/language-context';
 
 import MapsTsinandali from './maps';
-import { Testimonials } from './testimonials';
+// import { Testimonials } from './testimonials';
 import { ExperienceView } from './experience-view';
 import { RecommendedItems } from './recommended-things';
 import { LocationAndInfrastructure } from './location-and-infrastructure';
@@ -68,7 +68,7 @@ export function ManglisiView({ campuse }: CampusProps) {
         <MapsTsinandali />
       </Box>
       <RecommendedItems />
-      <Testimonials />
+      {/* <Testimonials /> */}
     </Stack>
   );
 }

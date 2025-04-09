@@ -2,11 +2,12 @@ import type { CardProps } from '@mui/material/Card';
 import type { components } from 'interfaces/interface';
 import type { CourseDto } from 'src/types/course-type';
 
+import Autoplay from 'embla-carousel-autoplay';
+
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
-import { Stack, Tooltip, Typography } from '@mui/material';
+import { Stack, Avatar, Tooltip, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
@@ -15,6 +16,7 @@ import { Language, useLanguage } from 'src/contexts/language-context';
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
 import { labelClasses } from 'src/components/label';
+import { Carousel, useCarousel } from 'src/components/carousel';
 
 import { renderDate } from './helpers';
 
@@ -36,6 +38,10 @@ export function SelectCourseItem({
   const router = useRouter();
 
   const { renderLanguage, language } = useLanguage();
+
+   const carousel = useCarousel({ slidesToShow: 'auto', slideSpacing: '20px', loop: true }, [
+      Autoplay({ delay: 2000 }),
+    ]);
 
   const renderImage = () => (
     <Box sx={{ position: 'relative', px: 1, pt: 1 }}>
@@ -167,20 +173,38 @@ export function SelectCourseItem({
             {renderLanguage(item.title_ka, item.title_en)}
           </Typography>
         </Tooltip>
-        <Typography
-          component="div"
-          sx={{
-            height: '75px',
-            marginTop: '2px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-          }}
+        <Stack
+          spacing={2}
+          maxWidth="100%"
+          width="100%"
+          direction="row"
+          height="60px"
+          sx={{ overflowX: 'auto' }}
         >
-          {renderLanguage(item.short_des_ka || '', item.short_des_en || '')}
-        </Typography>
+          <Carousel carousel={carousel}>
+            {item.lecturer_course_assn.map((lecturer) => (
+              <Stack key={lecturer.lecturer.id} direction="row" alignItems="center" spacing={1}>
+                <Avatar src={lecturer.lecturer.picture} />
+                <Typography
+                  component="div"
+                  sx={{
+                    marginTop: '2px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                  }}
+                >
+                  {`${renderLanguage(
+                    lecturer.lecturer.first_name_ka || '',
+                    lecturer.lecturer.first_name_ka || ''
+                  )} ${renderLanguage(lecturer.lecturer.last_name_ka, lecturer.lecturer.last_name_en)}`}
+                </Typography>
+              </Stack>
+            ))}
+          </Carousel>
+        </Stack>
         {renderLabels()}
         {renderFooter()}
       </Stack>

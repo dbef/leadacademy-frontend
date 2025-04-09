@@ -33,18 +33,6 @@ export function HomeView({ products }: HomeProps) {
 
   const arrData = [
     {
-      id: '1',
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/LeadAcademy1.jpg`,
-      button_ka: `აღმოაჩინე პროგრამები`,
-      button_en: 'Discover programs',
-      type: 'image',
-    },
-    {
       id: '2',
       title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
       title_en: 'The best place for learning and fun!',
@@ -70,9 +58,9 @@ export function HomeView({ products }: HomeProps) {
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <CoursesSection products={products} />
       </Stack>
-      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
+      {/* <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <SmallDesc />
-      </Stack>
+      </Stack> */}
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <LocationsSection />
       </Stack>

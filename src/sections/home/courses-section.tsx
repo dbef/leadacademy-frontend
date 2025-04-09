@@ -1,6 +1,7 @@
 import type { CourseDto } from 'src/types/course-type';
 
 import { m } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 
 import Grid from '@mui/material/Grid2';
@@ -24,6 +25,8 @@ type HomeProps = {
 export default function CoursesSection({ products }: HomeProps) {
   const [allCourses, setAllCourses] = useState(products);
   const [filteredCourses, setFilteredCourses] = useState(products);
+
+  const router = useRouter();
 
   const { renderLanguage, language } = useLanguage();
 
@@ -143,7 +146,13 @@ export default function CoursesSection({ products }: HomeProps) {
           ))}
         </CustomTabs>
 
-        <Button color="secondary" endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}>
+        <Button
+          color="secondary"
+          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
+          onClick={() => {
+            router.push(language === Language.KA ? '/courses' : '/en/courses');
+          }}
+        >
           {renderLanguage('იხილე ყველა პროგრამა', 'View all programs')}
         </Button>
       </Box>
@@ -178,7 +187,6 @@ export default function CoursesSection({ products }: HomeProps) {
         >
           {renderMonths()}
         </CustomTabs>
-
       </Box>
     </Box>
   );
