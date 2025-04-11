@@ -28,8 +28,8 @@ export function CourseItem({ item, sx, ...other }: CarouselItemProps) {
   const renderImage = () => (
     <Box sx={{ px: 1, pt: 1 }}>
       <Image
-        alt={item.media_course_assn[0].media?.media_name}
-        src={item.media_course_assn[0].media?.media_url}
+        alt={item.media_course_assn[0]?.media?.media_name}
+        src={item.media_course_assn[0]?.media?.media_url}
         ratio="5/4"
         sx={{ borderRadius: 1.5 }}
       />
