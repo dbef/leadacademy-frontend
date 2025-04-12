@@ -51,6 +51,9 @@ export function CourseItem({ item, sx, ...other }: CarouselItemProps) {
       <Label startIcon={<Iconify width={12} icon="solar:users-group-rounded-bold" />}>
         {fShortenNumber(item._count?.application)}
       </Label>
+      <Label startIcon={<Iconify width={12} icon="solar:users-group-rounded-bold" />}>
+        {item.is_published ? '' : 'Draft'}
+      </Label>
     </Box>
   );
 

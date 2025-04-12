@@ -13,7 +13,7 @@ type ThemeConfig = {
   cssVariables: ThemeCssVariables;
   fontFamily: Record<'primary' | 'secondary', string>;
   palette: Record<
-    'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error',
+    'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'button',
     PaletteColorNoChannels
   > & {
     common: Pick<CommonColors, 'black' | 'white'>;
@@ -62,7 +62,7 @@ export const themeConfig: ThemeConfig = {
     info: {
       lighter: '#CAFDF5',
       light: '#61F3F3',
-      main: '#00B8D9',
+      main: '#A4C121',
       dark: '#006C9C',
       darker: '#003768',
       contrastText: '#FFFFFF',
@@ -70,7 +70,7 @@ export const themeConfig: ThemeConfig = {
     success: {
       lighter: '#D3FCD2',
       light: '#77ED8B',
-      main: '#22C55E',
+      main: '#2F6C4F',
       dark: '#118D57',
       darker: '#065E49',
       contrastText: '#ffffff',
@@ -102,6 +102,14 @@ export const themeConfig: ThemeConfig = {
       '700': '#454F5B',
       '800': '#1C252E',
       '900': '#141A21',
+    },
+    button: {
+      lighter: '#FFE9D5',
+      light: '#FFAC82',
+      main: '#A4C121',
+      dark: '#2F6C4F',
+      darker: '#7A0916',
+      contrastText: '#FFFFFF',
     },
     common: { black: '#000000', white: '#FFFFFF' },
   },

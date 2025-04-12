@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid2';
 import { Box, Tab, Button } from '@mui/material';
 
 import apiClient from 'src/api/apiClient';
+import { CONFIG } from 'src/global-config';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
@@ -118,6 +119,11 @@ export default function CoursesSection({ products }: HomeProps) {
         '@media (max-width: 760px)': {
           padding: '24px !important',
         },
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        marginTop: '70px',
+        backgroundColor: '#FAF6FD',
       }}
     >
       <Box
@@ -135,19 +141,22 @@ export default function CoursesSection({ products }: HomeProps) {
         <CustomTabs
           value={selectedTab}
           onChange={(e, value) => setSelectedTab(value)}
-          sx={{ borderRadius: 1 }}
+          sx={{ borderRadius: 1, backgroundColor: '#F5EDFA' }}
         >
           {tabs.map((tab) => (
             <Tab
               key={tab.value}
               value={tab.value}
+              sx={{ color: '#7C3C8F' }}
               label={renderLanguage(tab.title_ka, tab.title_en)}
             />
           ))}
         </CustomTabs>
 
         <Button
-          color="secondary"
+          sx={{
+            color: '#607516',
+          }}
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
           onClick={() => {
             router.push(language === Language.KA ? '/courses' : '/en/courses');

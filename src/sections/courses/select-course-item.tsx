@@ -39,9 +39,9 @@ export function SelectCourseItem({
 
   const { renderLanguage, language } = useLanguage();
 
-   const carousel = useCarousel({ slidesToShow: 'auto', slideSpacing: '20px', loop: true }, [
-      Autoplay({ delay: 2000 }),
-    ]);
+  const carousel = useCarousel({ slidesToShow: 'auto', slideSpacing: '20px', loop: true }, [
+    Autoplay({ delay: 2000 }),
+  ]);
 
   const renderImage = () => (
     <Box sx={{ position: 'relative', px: 1, pt: 1 }}>
@@ -108,8 +108,7 @@ export function SelectCourseItem({
   const renderFooter = () => (
     <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
       <Button
-        variant="outlined"
-        color="info"
+        sx={{ color: '#7F9A16' }}
         fullWidth
         onClick={() => {
           router.push(
@@ -124,9 +123,7 @@ export function SelectCourseItem({
       <Button
         variant="contained"
         fullWidth
-        color={
-          selectedCourse && selectedCourse.course_id === item.course_id ? 'warning' : 'primary'
-        }
+        sx={{ backgroundColor: '#7F9A16' }}
         onClick={() => {
           if (selectedCourse && selectedCourse.course_id === item.course_id) {
             return;
@@ -151,7 +148,13 @@ export function SelectCourseItem({
   );
 
   return (
-    <Card sx={[{ width: 1 }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
+    <Card
+      sx={[
+        { width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA' },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+      {...other}
+    >
       {renderImage()}
       <Stack spacing={2} sx={{ px: 2, py: 2.5 }}>
         <Tooltip title={renderLanguage(item.title_ka, item.title_en)}>
@@ -168,6 +171,7 @@ export function SelectCourseItem({
               WebkitLineClamp: 1,
               WebkitBoxOrient: 'vertical',
               fontFeatureSettings: "'case' on",
+              color: '#285C45',
             }}
           >
             {renderLanguage(item.title_ka, item.title_en)}

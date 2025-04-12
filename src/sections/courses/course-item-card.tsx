@@ -96,8 +96,9 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   const renderFooter = () => (
     <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
       <Button
-        variant="outlined"
-        color="info"
+        sx={{
+          color: '#7F9A16'
+        }}
         fullWidth
         onClick={() => {
           router.push(
@@ -112,8 +113,8 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
       <Button
         variant="contained"
         fullWidth
+        sx={{ backgroundColor: '#7F9A16' }}
         size="large"
-        color="success"
         onClick={() => {
           router.push(
             language === Language.KA
@@ -128,7 +129,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   );
 
   return (
-    <Card sx={[{ width: 1 }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
+    <Card sx={[{ width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA' }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
       {renderImage()}
       <Stack spacing={2} sx={{ px: 2, py: 2.5 }}>
         <Tooltip title={renderLanguage(item.title_ka, item.title_en)}>
@@ -145,12 +146,20 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
               WebkitLineClamp: 1,
               WebkitBoxOrient: 'vertical',
               fontFeatureSettings: "'case' on",
+              color: '#285C45'
             }}
           >
             {renderLanguage(item.title_ka, item.title_en)}
           </Typography>
         </Tooltip>
-        <Stack spacing={2} maxWidth="100%" width="100%" direction="row" height="60px" sx={{ overflowX: 'auto' }}>
+        <Stack
+          spacing={2}
+          maxWidth="100%"
+          width="100%"
+          direction="row"
+          height="60px"
+          sx={{ overflowX: 'auto' }}
+        >
           <Carousel carousel={carousel}>
             {item.lecturer_course_assn.map((lecturer) => (
               <Stack key={lecturer.lecturer.id} direction="row" alignItems="center" spacing={1}>

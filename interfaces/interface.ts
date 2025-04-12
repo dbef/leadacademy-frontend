@@ -451,6 +451,38 @@ export interface paths {
         patch: operations["LecturerController_update"];
         trace?: never;
     };
+    "/api/v1/news": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["NewsController_findAll"];
+        put?: never;
+        post: operations["NewsController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/news/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["NewsController_findOne"];
+        put?: never;
+        post?: never;
+        delete: operations["NewsController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["NewsController_update"];
+        trace?: never;
+    };
     "/api/v1/application": {
         parameters: {
             query?: never;
@@ -723,6 +755,8 @@ export interface components {
             description_en: string;
             /** @description Start date of the course */
             start_date: string;
+            /** @description Is the course published? */
+            is_published: boolean;
             /** @description End date of the course */
             end_date: string;
             /**
@@ -812,6 +846,8 @@ export interface components {
             title_en: string;
             /** @description Description in Georgian */
             description_ka: string;
+            /** @description Published or not */
+            is_published: boolean;
             /** @description Description in English */
             description_en: string;
             /**
@@ -898,6 +934,8 @@ export interface components {
             price: number;
             /** @description Lecturer ID */
             lecturer_id?: string;
+            /** @description Course media */
+            is_published?: boolean;
             /** @description Course media */
             course_media?: components["schemas"]["FileDto"][];
             /** @description Course files */
@@ -1050,6 +1088,8 @@ export interface components {
             /** @description Biography in English */
             biography_en: string;
         };
+        CreateNewsDto: Record<string, never>;
+        UpdateNewsDto: Record<string, never>;
         CreateApplicationDto: {
             /**
              * Format: uuid
@@ -1910,6 +1950,105 @@ export interface operations {
             };
         };
     };
+    NewsController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    NewsController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateNewsDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    NewsController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    NewsController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    NewsController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateNewsDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ApplicationController_create: {
         parameters: {
             query?: never;
@@ -1941,6 +2080,16 @@ export interface operations {
                 season?: string;
                 /** @description Location of the course */
                 limit?: string;
+                /** @description Number of rows per page */
+                rowsPerPage?: number;
+                /** @description Current page number */
+                page?: number;
+                /** @description Text to search for */
+                searchText?: string;
+                /** @description Field to sort by */
+                sortBy?: string;
+                /** @description Direction of sorting */
+                direction?: string;
             };
             header?: never;
             path?: never;
@@ -2021,7 +2170,7 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Get all campuses */
+            /** @description Get all Campuses */
             200: {
                 headers: {
                     [name: string]: unknown;

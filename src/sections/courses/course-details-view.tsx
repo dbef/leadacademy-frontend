@@ -118,7 +118,9 @@ export function CourseDetailsView(props: CourseEditViewProps) {
         <Button
           fullWidth
           variant="contained"
-          color="success"
+          sx={{
+            backgroundColor: '#7F9A16',
+          }}
           onClick={() =>
             router.push(
               language === Language.KA

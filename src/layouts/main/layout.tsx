@@ -66,7 +66,7 @@ export function MainLayout({
 
   useEffect(() => {
     if (mode === 'system' && systemMode) {
-      settings.setState({ colorScheme: systemMode });
+      settings.setState({ colorScheme: 'light' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, systemMode]);
@@ -114,8 +114,8 @@ export function MainLayout({
             <SignInButton />
             <IconButton
               onClick={() => {
-                setMode(mode === 'light' ? 'dark' : 'light');
-                settings.setState({ colorScheme: mode === 'light' ? 'dark' : 'light' });
+                setMode('light');
+                settings.setState({ colorScheme: 'light' });
               }}
             >
               {mode === 'dark' ? (

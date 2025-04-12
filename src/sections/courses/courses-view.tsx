@@ -197,6 +197,7 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
               width: {
                 md: 'fit-content',
                 xs: '100%',
+                backgroundColor: '#F5EDFA',
               },
               borderRadius: 1,
               marginBottom: 5,
@@ -230,6 +231,7 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
               <Tab
                 key={tab.value}
                 value={tab.value}
+                sx={{ color: '#7C3C8F' }}
                 label={renderLanguage(tab.title_ka, tab.title_en)}
               />
             ))}
@@ -265,7 +267,10 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
                     key={option.value}
                     label={renderLanguage(option.month_ka, option.month_en)}
                     size="small"
-                    color="info"
+                    sx={{
+                      color: '#285C45',
+                      backgroundColor: '#BDDDC9',
+                    }}
                     variant="soft"
                   />
                 ))
@@ -275,6 +280,9 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
               variant="contained"
               color="primary"
               size="large"
+              sx={{
+                backgroundColor: '#7F9A16',
+              }}
               onClick={() => {
                 if (selectedSeasons.length < 1) {
                   if (location) {
@@ -329,7 +337,7 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
           </Stack>
         </Stack>
 
-        <Grid container spacing={3} sx={{marginTop: '50px'}}>
+        <Grid container spacing={3} sx={{ marginTop: '50px' }}>
           {loading ? renderLoading() : renderList()}
           {products.length < 1 && (
             <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
