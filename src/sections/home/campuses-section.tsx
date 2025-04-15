@@ -107,7 +107,7 @@ export function LocationsSection() {
               );
             }}
           >
-            <Image src={selectedCampuse.campus_media_assn[0].media?.media_url} ratio="16/9" />
+            <Image src={selectedCampuse.campus_media_assn[0]?.media?.media_url} ratio="16/9" />
             <Box
               className="overlay"
               sx={{
