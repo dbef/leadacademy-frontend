@@ -42,7 +42,11 @@ const LINKS = [
     headline: 'Contact',
     headline_ka: 'საკონტაქტო ინფორმაცია',
     children: [
-      { name: 'info@sabado.edu.ge', name_ka: 'contact@sabado.edu.ge', href: 'mailto:contact@sabado.edu.ge' },
+      {
+        name: 'info@sabado.edu.ge',
+        name_ka: 'contact@sabado.edu.ge',
+        href: 'mailto:contact@sabado.edu.ge',
+      },
       { name: '243 34 35 36', name_ka: '243 34 35 36', href: 'tel:+995243343536' },
     ],
   },
@@ -65,7 +69,7 @@ export function Footer({
   const { renderLanguage } = useLanguage();
 
   return (
-    <FooterRoot sx={sx} {...other}>
+    <FooterRoot sx={{ ...sx, backgroundColor: '#3D1746', color: 'white' }} {...other}>
       <Divider />
 
       <Container
@@ -115,10 +119,10 @@ export function Footer({
             >
               {_socials.map((social) => (
                 <IconButton key={social.label}>
-                  {social.value === 'twitter' && <TwitterIcon />}
-                  {social.value === 'facebook' && <FacebookIcon />}
-                  {social.value === 'instagram' && <InstagramIcon />}
-                  {social.value === 'linkedin' && <LinkedinIcon />}
+                  {social.value === 'twitter' && <TwitterIcon sx={{ color: 'white' }} />}
+                  {social.value === 'facebook' && <FacebookIcon sx={{ color: 'white' }} />}
+                  {social.value === 'instagram' && <InstagramIcon sx={{ color: 'white' }} />}
+                  {social.value === 'linkedin' && <LinkedinIcon sx={{ color: 'white' }} />}
                 </IconButton>
               ))}
             </Box>

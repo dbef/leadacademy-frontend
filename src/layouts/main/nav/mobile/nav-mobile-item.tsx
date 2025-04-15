@@ -2,9 +2,12 @@ import type { CSSObject } from '@mui/material/styles';
 
 import { forwardRef } from 'react';
 import { varAlpha, mergeClasses } from 'minimal-shared/utils';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
+
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
 import { createNavItem, navItemStyles, navSectionClasses } from 'src/components/nav-section';
@@ -36,6 +39,24 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>((props, ref) 
   });
 
   const ownerState: StyledState = { open, active };
+
+  const { language } = useLanguage();
+
+  const pathname = usePathname();
+    const searchParams = useSearchParams();
+  
+    const key = searchParams.get('key');
+
+  const renderIsActive = () => {
+    const structuredPathName = `${pathname}?key=${key}`;
+
+    const currPath = language === Language.ENG ? `/en${path}` : `${path}`;
+
+    if (structuredPathName === currPath) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <ItemRoot

@@ -19,8 +19,8 @@ export function CampusCard({ item, sx, ...other }: CarouselItemProps) {
   const renderImage = () => (
     <Box sx={{ px: 1, pt: 1 }}>
       <Image
-        alt={item.campus_media_assn[0].media?.media_name}
-        src={item.campus_media_assn[0].media?.media_url}
+        alt={item.campus_media_assn[0]?.media?.media_name}
+        src={item.campus_media_assn[0]?.media?.media_url}
         ratio="5/4"
         sx={{ borderRadius: 1.5 }}
       />
@@ -39,9 +39,9 @@ export function CampusCard({ item, sx, ...other }: CarouselItemProps) {
           sx={(theme) => ({
             ...theme.mixins.maxLine({ line: 2, persistent: theme.typography.subtitle2 }),
           })}
-          href={`/dashboard/campus/${item.campus_id}/edit`}
+          href={`/dashboard/campus/${item?.campus_id}/edit`}
         >
-          {renderLanguage(item.campus_name_ka, item.campus_name_en)}
+          {renderLanguage(item?.campus_name_ka, item?.campus_name_en)}
         </Link>
       </Box>
     </Card>

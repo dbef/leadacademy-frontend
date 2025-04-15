@@ -2,7 +2,7 @@ import { useBoolean } from 'minimal-shared/hooks';
 import { useRef, useEffect, useCallback } from 'react';
 import { isEqualPath, isExternalLink } from 'minimal-shared/utils';
 
-import { usePathname } from 'src/routes/hooks';
+import { useParams, usePathname, useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { Language, useLanguage } from 'src/contexts/language-context';
 
@@ -17,6 +17,8 @@ import type { NavListProps, NavSubListProps } from '../types';
 export function NavList({ data, sx, ...other }: NavListProps) {
   const pathname = usePathname();
   const navItemRef = useRef<HTMLButtonElement | null>(null);
+
+  const { renderLanguage } = useLanguage();
 
   const { language } = useLanguage();
 
@@ -55,7 +57,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
       ref={navItemRef}
       // slots
       path={language === Language.ENG ? `/en/${data.path}` : data.path}
-      title={data.title}
+      title={renderLanguage(data.title, data.title_en || '')}
       // state
       open={open}
       active={renderIsActive()}
@@ -70,7 +72,22 @@ export function NavList({ data, sx, ...other }: NavListProps) {
 
   const renderDropdown = () =>
     !!data.children && (
-      <NavDropdown open={open} onMouseEnter={handleOpenMenu} onMouseLeave={onClose}>
+      <NavDropdown
+        open={open}
+        onMouseLeave={onClose}
+        onMouseEnter={handleOpenMenu}
+        sx={{
+          position: 'absolute',
+          top: '100%',
+          left: '-25px',
+          width: '200px',
+          zIndex: 1000,
+          mt: 1,
+          '& div': {
+            padding: '10px 16px 16px 20px',
+          },
+        }}
+      >
         <Nav>
           <NavUl sx={{ gap: 3, flexDirection: 'row' }}>
             {data.children.map((list) => (
@@ -82,7 +99,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
     );
 
   return (
-    <NavLi sx={sx} {...other}>
+    <NavLi sx={{ position: 'relative', ...sx }} {...other}>
       {renderNavItem()}
       {renderDropdown()}
     </NavLi>
@@ -93,8 +110,25 @@ export function NavList({ data, sx, ...other }: NavListProps) {
 
 function NavSubList({ data, subheader, sx, ...other }: NavSubListProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const key = searchParams.get('key');
 
   const isDashboard = subheader === 'Dashboard';
+
+  const { language, renderLanguage } = useLanguage();
+
+  const renderIsActive = (path: string) => {
+
+    const structuredPathName = `${pathname}?key=${key}`;
+
+    const currPath = language === Language.ENG ? `/en${path}` : `${path}`;
+
+    if (structuredPathName === currPath) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <NavLi
@@ -129,9 +163,9 @@ function NavSubList({ data, subheader, sx, ...other }: NavSubListProps) {
             <NavLi key={item.title} sx={{ mt: 0.75 }}>
               <NavItem
                 subItem
-                title={item.title}
-                path={item.path}
-                active={isEqualPath(item.path, pathname)}
+                title={renderLanguage(item.title, item.title_en || '')}
+                path={language === Language.ENG ? `/en/${item.path}` : item.path}
+                active={renderIsActive(item.path)}
               />
             </NavLi>
           )

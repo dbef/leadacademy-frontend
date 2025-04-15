@@ -1,10 +1,13 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { components } from 'interfaces/interface';
 
+import { useRouter } from 'next/navigation';
+
 import Box from '@mui/material/Box';
+import { Tab } from '@mui/material';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
-import { paths } from 'src/routes/paths';
+import { CustomTabs } from 'src/components/custom-tabs';
 
 import { CourseItem } from './course-card';
 import { ProductItemSkeleton } from './product-skeleton';
@@ -14,16 +17,36 @@ import { ProductItemSkeleton } from './product-skeleton';
 type Props = BoxProps & {
   loading?: boolean;
   products: components['schemas']['CourseDto'][];
+  isPublished?: string;
 };
 
-export function CourseList({ products, loading, sx, ...other }: Props) {
+export function CourseList({ products, isPublished, loading, sx, ...other }: Props) {
   const renderLoading = () => <ProductItemSkeleton />;
 
   const renderList = () =>
     products.map((course) => <CourseItem key={course.course_id} item={course} />);
 
+  const router = useRouter();
+
   return (
     <>
+      <CustomTabs
+        value={isPublished ? isPublished : 'all'}
+        onChange={(e, value) => {
+          router.push('/dashboard/product?isPublished=' + value);
+          router.refresh();
+        }}
+        variant="fullWidth"
+        slotProps={{ tab: { px: 0 } }}
+      >
+        {[
+          { value: 'all', label: 'All' },
+          { value: 'true', label: 'Published' },
+          { value: 'false', label: 'Draft' },
+        ].map((tab) => (
+          <Tab key={tab.value} value={tab.value} label={tab.label} />
+        ))}
+      </CustomTabs>
       <Box
         sx={[
           () => ({

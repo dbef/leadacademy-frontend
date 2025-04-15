@@ -37,8 +37,6 @@ export function AuthProvider({ children }: Props) {
           headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        console.log('STATE:', state.loading)
-
         const user = {
           id: '8864c717-587d-472a-929a-8e5f298024da-0',
           displayName: 'Jaydon Frankie',

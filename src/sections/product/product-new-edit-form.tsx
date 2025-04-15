@@ -63,6 +63,7 @@ export const CreateCourseSchema = zod.object({
   keywords_en: zod.array(zod.string()).optional(),
   short_des_en: zod.string().optional(),
   short_des_ka: zod.string().optional(),
+  is_published: zod.boolean(),
 });
 
 type CourseProps = {
@@ -164,6 +165,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
     keywords_en: course && course.keywords_en ? course.keywords_en?.split(',') : [],
     short_des_en: course ? course.short_des_en : '',
     short_des_ka: course ? course.short_des_ka : '',
+    is_published: course ? course.is_published : false,
   };
 
   const methods = useForm<NewCourseSchema>({
@@ -553,6 +555,8 @@ export function ProductNewEditForm({ course }: CourseProps) {
     </Card>
   );
 
+  console.log('Values:', values.is_published, course)
+
   const renderActions = () => (
     <Box
       sx={{
@@ -564,7 +568,13 @@ export function ProductNewEditForm({ course }: CourseProps) {
     >
       <FormControlLabel
         label="Publish"
-        control={<Switch defaultChecked inputProps={{ id: 'publish-switch' }} />}
+        control={
+          <Switch
+            inputProps={{ id: 'publish-switch' }}
+            checked={values.is_published}
+            onChange={(e) => setValue('is_published', e.target.checked)}
+          />
+        }
         sx={{ pl: 3, flexGrow: 1 }}
       />
 

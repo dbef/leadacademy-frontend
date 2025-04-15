@@ -36,8 +36,18 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function Page() {
-  const courses = await apiClient('/api/v1/courses', 'get');
+export default async function Page({ searchParams }: { searchParams: { [key: string]: string } }) {
+  const location = searchParams?.key;
+  const season = searchParams?.season;
 
-  return <CourseListMain products={courses} />;
+  const courses = await apiClient('/api/v1/courses', 'get', {
+    queryParams: {
+      location: location ? location : '',
+      season: season ? season : '',
+    },
+  });
+
+  return (
+    <CourseListMain products={courses} location={location ? location : 'all'} season={season} />
+  );
 }

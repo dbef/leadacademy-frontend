@@ -33,28 +33,16 @@ export function HomeView({ products }: HomeProps) {
 
   const arrData = [
     {
-      id: '1',
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/sabado1.jpg`,
-      button_ka: `აღმოაჩინე პროგრამები`,
-      button_en: 'Discover programs',
-      type: 'image',
-    },
-    {
       id: '2',
       title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
       title_en: 'The best place for learning and fun!',
       description_ka:
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `https://firebasestorage.googleapis.com/v0/b/dbef-de772.appspot.com/o/Sequence%2001.mp4?alt=media&token=441a981e-98eb-4685-8e2e-a7da2458b17f`,
+      coverUrl: `${CONFIG.assetsDir}/assets/background/sabado.jpg`,
       button_ka: `დარეგისტრირდი ახლავე`,
       button_en: 'Register now',
-      type: 'video',
+      type: 'image',
       link: 'courses/register',
     },
   ];
@@ -70,9 +58,9 @@ export function HomeView({ products }: HomeProps) {
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <CoursesSection products={products} />
       </Stack>
-      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
+      {/* <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <SmallDesc />
-      </Stack>
+      </Stack> */}
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <LocationsSection />
       </Stack>

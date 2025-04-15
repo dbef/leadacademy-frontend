@@ -21,8 +21,8 @@ type Props = {
     description_ka: string;
     description_en: string;
     coverUrl: string;
-    button_ka: string;
-    button_en: string;
+    button_ka?: string;
+    button_en?: string;
     type: string;
     link?: string;
   }[];
@@ -159,14 +159,16 @@ function CarouselItem({ item, index, selected }: CarouselItemProps) {
         </m.div>
 
         <m.div variants={varFade('inRight')}>
-          <Button
-            color="primary"
-            variant="contained"
-            sx={{ mt: 3, display: { sm: 'inline-flex' }, fontFeatureSettings: '"case" on' }}
-            onClick={() => router.push(!item.link ? 'courses' : item.link)}
-          >
-            {renderLanguage(item.button_ka, item.button_en)}
-          </Button>
+          {item.button_en && item.button_ka ? (
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{ mt: 3, display: { sm: 'inline-flex' }, fontFeatureSettings: '"case" on' }}
+              onClick={() => router.push(!item.link ? 'courses' : item.link)}
+            >
+              {renderLanguage(item.button_ka, item.button_en)}
+            </Button>
+          ) : null}
         </m.div>
       </Box>
     </Box>

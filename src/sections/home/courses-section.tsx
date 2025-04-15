@@ -1,12 +1,14 @@
 import type { CourseDto } from 'src/types/course-type';
 
 import { m } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 
 import Grid from '@mui/material/Grid2';
 import { Box, Tab, Button } from '@mui/material';
 
 import apiClient from 'src/api/apiClient';
+import { CONFIG } from 'src/global-config';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
@@ -24,6 +26,8 @@ type HomeProps = {
 export default function CoursesSection({ products }: HomeProps) {
   const [allCourses, setAllCourses] = useState(products);
   const [filteredCourses, setFilteredCourses] = useState(products);
+
+  const router = useRouter();
 
   const { renderLanguage, language } = useLanguage();
 
@@ -92,7 +96,6 @@ export default function CoursesSection({ products }: HomeProps) {
   }, []);
 
   useEffect(() => {
-    console.log('Tabs:', tabs);
     if (tabs.length === 3) return;
     fetchCampuses();
   }, []);
@@ -116,6 +119,11 @@ export default function CoursesSection({ products }: HomeProps) {
         '@media (max-width: 760px)': {
           padding: '24px !important',
         },
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        marginTop: '70px',
+        backgroundColor: '#FAF6FD',
       }}
     >
       <Box
@@ -133,18 +141,27 @@ export default function CoursesSection({ products }: HomeProps) {
         <CustomTabs
           value={selectedTab}
           onChange={(e, value) => setSelectedTab(value)}
-          sx={{ borderRadius: 1 }}
+          sx={{ borderRadius: 1, backgroundColor: '#F5EDFA' }}
         >
           {tabs.map((tab) => (
             <Tab
               key={tab.value}
               value={tab.value}
+              sx={{ color: '#7C3C8F' }}
               label={renderLanguage(tab.title_ka, tab.title_en)}
             />
           ))}
         </CustomTabs>
 
-        <Button color="secondary" endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}>
+        <Button
+          sx={{
+            color: '#607516',
+          }}
+          endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
+          onClick={() => {
+            router.push(language === Language.KA ? '/courses' : '/en/courses');
+          }}
+        >
           {renderLanguage('იხილე ყველა პროგრამა', 'View all programs')}
         </Button>
       </Box>
@@ -179,7 +196,6 @@ export default function CoursesSection({ products }: HomeProps) {
         >
           {renderMonths()}
         </CustomTabs>
-
       </Box>
     </Box>
   );

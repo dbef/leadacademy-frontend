@@ -10,12 +10,13 @@ import { CourseList } from '../course-list';
 
 type Props = {
   courses: components['schemas']['CourseDto'][];
+  isPublished?: string;
 };
 
-export function CoursesDashboardView({ courses }: Props) {
+export function CoursesDashboardView({ courses, isPublished }: Props) {
   return (
     <Container sx={{ mb: 15 }}>
-      <CourseList products={courses} />
+      <CourseList products={courses} isPublished={isPublished}/>
     </Container>
   );
 }
