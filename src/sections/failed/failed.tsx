@@ -1,11 +1,9 @@
 'use client';
 
 import type { CourseDto } from 'src/types/course-type';
-import type { DialogProps } from '@mui/material/Dialog';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { Alert } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Divider from '@mui/material/Divider';
@@ -13,7 +11,7 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
 
-import { OrderCompleteIllustration } from 'src/assets/illustrations';
+import ServerErrorIllustration from 'src/assets/illustrations/server-error-illustration';
 
 import { Iconify } from 'src/components/iconify';
 
@@ -23,7 +21,7 @@ type Props = {
   course: CourseDto;
 };
 
-export function SuccessPage({ course }: Props) {
+export function FailedPage({ course }: Props) {
   return (
     <Dialog
       fullWidth
@@ -49,18 +47,15 @@ export function SuccessPage({ course }: Props) {
           flexDirection: 'column',
         }}
       >
-        <Typography variant="h4">Thank you for your interest in the course!</Typography>
+        <Typography variant="h4">Sorry something went wrong while processing payment</Typography>
 
-        <OrderCompleteIllustration />
+        <ServerErrorIllustration sx={{ my: { xs: 5, sm: 10 } }} />
 
         <Typography>
           <br />
           <br />
           <Link>{course.title_en}</Link>
           <br />
-          <br />
-          You have siccessfully registered for the course
-          <br />{' '}
         </Typography>
 
         <Divider sx={{ width: 1, borderStyle: 'dashed' }} />

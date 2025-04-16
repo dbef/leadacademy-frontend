@@ -1,6 +1,7 @@
 import apiClient from 'src/api/apiClient';
 
-import { SuccessPage } from 'src/sections/success/success';
+import { FailedPage } from 'src/sections/failed/failed';
+
 
 type Props = {
   params: { id: string };
@@ -15,5 +16,5 @@ export default async function Page({ params }: Props) {
     },
   });
 
-  return <SuccessPage course={course} />;
+  return <FailedPage course={course} />;
 }
