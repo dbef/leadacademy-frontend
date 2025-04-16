@@ -2,6 +2,8 @@
 
 import type { CampusDto } from 'src/types/campus';
 
+import parser from 'html-react-parser';
+
 import { Box, Stack, Typography } from '@mui/material';
 
 import { useLanguage } from 'src/contexts/language-context';
@@ -58,9 +60,52 @@ export function TsinandaliView({ campuse }: CampusProps) {
           )}
         </Typography>
         <Typography>
-          {renderLanguage(
-            'კამპუსის გარშემო არაერთი მნიშვნელოვანი კულტურული და ისტორიული ძეგლი მდებარეობს, რას სტუდენტებს საშუალებას აძლევს, რომ დაგეგმონ გასვლითი, შემეცნებითი ტურები და ექსკურსიები. აქვე მდებარეობს არაერთი ლოკალური წარმოება და ადგილობრივი ბიზნესი, რაც ჩვენს სტუდენტებს საშუალებას აძლევს მეწარმეობის და ბიზნესის განვითარების კუთხით პრაქტიკული ცოდნა მიიღონ.',
-            'The campus is surrounded by many important cultural and historical monuments, which allows students to plan field trips and excursions. There are also several local productions and local businesses here, which allows our students to gain practical knowledge in the field of entrepreneurship and business development.'
+          {parser(
+            renderLanguage(
+              `აკადემიური ბანაკი „საბადოს“ კამპუსს კახეთში „შატო მოსმიერი“ მასპინძლობს.
+„შატო მოსმიერი“ კახეთში, წინანდალსა და თელავს შორის მდებარეობს, ღვინით,
+კულტურული მრავალფეროვნებითა და ისტორიული მემკვიდრეობით განთქმულ
+რეგიონში. ჭავჭავაძეების მამული, ერეკლეს სასახლე და კახეთის სხვა
+კულტურული და ისტორიული ღირსშესანიშნაობები აქედან ერთი ხელის
+გაწვდენაზეა.
+ვენახებით გარშემორტყმული შატო ათასობით კვადრატულ მეტრზე გაშენებული
+კომპლექსია, რომელიც კოტეჯის ტიპის ნაგებობებს აერთიანებს და ერთდროულად
+62 სტუმრის მიღება შეუძლია.
+კომპლექსი მოიცავს თავისი ღვინით და სამზარეულოთი განთქმულ რესტორანს,
+მარანს, ადგილობრივ წარმოებას და აუზს. იქვე სთავაზობს თავის სტუმრებს
+კულინარიულ მასტერკლასებს.
+`,
+              `The academic camp &quot;Sabado&quot; is hosted at the &quot;Shato Mosmieri&quot; campus in Kakheti.
+&quot;Shato Mosmieri&quot; is located in the region of Kakheti, situated between the Tsinandali and
+Telavi, an area renowned for its wine, cultural diversity, and historical heritage. The
+Chavchavadze Estate, Tsinandali park, the Palace Museum of king Erekle II, and other
+cultural and historical landmarks of Kakheti are all within close proximity.
+Surrounded by vineyards, the chateau encompasses a complex spread over thousands of
+square meters, consisting of cottage-style buildings, with the capacity to accommodate 62
+guests simultaneously.
+The complex features a restaurant celebrated for its wine and cuisine, a wine cellar, locally
+produced goods, and a swimming pool. Additionally, it offers culinary masterclasses to its
+visitors.
+`
+            )
+          )}
+        </Typography>
+        <Typography>
+          {parser(
+            renderLanguage(
+              `
+• ისტორიული რეგიონი და კულტურული მრავალფეროვნება<br/>
+    • კომფორტული სივრცე და ვრცელი კომპლექსი<br/>
+    • აუზი, კავკასიონის ხედი და ვენახები<br/>
+    • გემრიელი სამზარეულო, რესტორანი და უნიკალური ღვინის კულტურა
+`,
+              `
+• Historical region and cultural diversity<br/>
+    • Comfortable space and expansive complex<br/>
+    • Swimming pool, view of the Caucasus Mountains, and vineyards<br/>
+    • Delicious cuisine, restaurant, and unique wine culture
+`
+            )
           )}
         </Typography>
       </Stack>

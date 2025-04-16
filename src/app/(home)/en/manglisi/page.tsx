@@ -4,6 +4,7 @@ import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
 
 import { NotFoundView } from 'src/sections/error';
+import { ManglisiView } from 'src/sections/manglisi/manglisi';
 import { TsinandaliView } from 'src/sections/tsinandali/tsinandali';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -39,5 +40,5 @@ export default async function Page() {
 
   const manglisi = campuses.find((campus) => campus.campus_name_short === 'manglisi');
 
-  return manglisi ? <TsinandaliView campuse={manglisi} /> : <NotFoundView />;
+  return manglisi ? <ManglisiView campuse={manglisi} /> : <NotFoundView />;
 }
