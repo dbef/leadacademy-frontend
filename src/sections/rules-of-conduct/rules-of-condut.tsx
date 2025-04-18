@@ -29,7 +29,7 @@ export function RulesOfConduct() {
         '@media (max-width: 760px)': { padding: '24px !important' },
         backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 'contain',
+        backgroundSize: 'cover',
         backgroundAttachment: 'fixed', 
         backgroundColor: '#FAF6FD',
         backgroundPosition: 'center top',
