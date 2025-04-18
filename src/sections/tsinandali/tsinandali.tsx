@@ -2,8 +2,11 @@
 
 import type { CampusDto } from 'src/types/campus';
 
+import parser from 'html-react-parser';
+
 import { Box, Stack, Typography } from '@mui/material';
 
+import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
 import MapsTsinandali from './maps';
@@ -44,11 +47,14 @@ export function TsinandaliView({ campuse }: CampusProps) {
           },
           '@media (max-width: 1000px)': {
             padding: '64px 24px',
-            marginTop: '50px',
           },
           '@media (max-width: 760px)': {
-            padding: '24px !important',
+            padding: '64px 24px ',
           },
+          backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
+          backgroundColor: '#FAF6FD',
         }}
       >
         <Typography variant="h3" sx={{ mb: 3, fontFeatureSettings: "'case' on" }}>
@@ -57,19 +63,13 @@ export function TsinandaliView({ campuse }: CampusProps) {
             'Tsinandali Camp, “Chateau Mosmieri” '
           )}
         </Typography>
-        <Typography>
-          {renderLanguage(
-            'კამპუსის გარშემო არაერთი მნიშვნელოვანი კულტურული და ისტორიული ძეგლი მდებარეობს, რას სტუდენტებს საშუალებას აძლევს, რომ დაგეგმონ გასვლითი, შემეცნებითი ტურები და ექსკურსიები. აქვე მდებარეობს არაერთი ლოკალური წარმოება და ადგილობრივი ბიზნესი, რაც ჩვენს სტუდენტებს საშუალებას აძლევს მეწარმეობის და ბიზნესის განვითარების კუთხით პრაქტიკული ცოდნა მიიღონ.',
-            'The campus is surrounded by many important cultural and historical monuments, which allows students to plan field trips and excursions. There are also several local productions and local businesses here, which allows our students to gain practical knowledge in the field of entrepreneurship and business development.'
-          )}
-        </Typography>
       </Stack>
       <CarouselAnimation data={arrData} />
       <LocationAndInfrastructure />
-      <ExperienceView />
-      <Box sx={{ paddingTop: '128px' }}>
-        <MapsTsinandali />
-      </Box>
+      {/* <ExperienceView /> */}
+
+      <MapsTsinandali />
+
       <RecommendedItems />
       {/* <Testimonials /> */}
     </Stack>

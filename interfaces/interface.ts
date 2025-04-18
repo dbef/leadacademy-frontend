@@ -1235,6 +1235,13 @@ export interface components {
             /** @description Terms and Conditions Agreement */
             terms_and_conditions: boolean;
         };
+        CreatedApplicationDto: {
+            /**
+             * @description The id of the application
+             * @example 1234567890abcdef12345678
+             */
+            application_id: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -2207,7 +2214,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CreatedApplicationDto"];
+                };
             };
         };
     };

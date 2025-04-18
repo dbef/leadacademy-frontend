@@ -73,11 +73,6 @@ export function MainLayout({
 
   const renderHeader = () => {
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
       leftArea: (
         <>
           {/** @slot Nav mobile */}
@@ -87,6 +82,7 @@ export function MainLayout({
               mr: 1,
               ml: -1,
               [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+              color: 'white',
             })}
           />
           <NavMobile data={navData} open={open} onClose={onClose} />

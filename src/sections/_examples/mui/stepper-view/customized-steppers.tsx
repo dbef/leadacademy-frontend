@@ -65,12 +65,12 @@ export const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: { top: 22 },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage: `linear-gradient(to top, ${theme.vars.palette.success.light}, ${theme.vars.palette.success.light})`,
+      backgroundColor: '#3F8A62'
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage: `linear-gradient(to top, ${theme.vars.palette.success.main }, ${theme.vars.palette.success.main })`,
+      backgroundColor: '#3F8A62'
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -102,11 +102,11 @@ const ColorlibStepIconRoot = styled('div')<{
   ...(ownerState.active && {
     color: theme.vars.palette.common.white,
     boxShadow: '0 4px 10px 0 rgba(0,0,0,0.25)',
-    backgroundImage: `linear-gradient(to top, ${theme.vars.palette.success.light}, ${theme.vars.palette.success.main})`,
+   backgroundColor: '#3F8A62'
   }),
   ...(ownerState.completed && {
     color: theme.vars.palette.common.white,
-    backgroundImage: `linear-gradient(to top, ${theme.vars.palette.success.light}, ${theme.vars.palette.success.main})`,
+    backgroundColor: '#3F8A62'
   }),
 }));
 

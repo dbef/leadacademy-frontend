@@ -7,9 +7,9 @@ import { toast } from 'sonner';
 import { z as zod } from 'zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -17,17 +17,14 @@ import {
   Box,
   Radio,
   Modal,
+  Alert,
   Button,
-  Select,
   Checkbox,
-  MenuItem,
   RadioGroup,
   Typography,
-  InputLabel,
   FormControl,
   FormHelperText,
   FormControlLabel,
-  Alert,
 } from '@mui/material';
 
 import apiClient from 'src/api/apiClient';
@@ -68,6 +65,8 @@ export function MedicalInfo(props: MedicalInfoProps) {
       key: 'reject',
     },
   ];
+
+  const router = useRouter();
 
   const emergencyRelations = [
     {
@@ -189,7 +188,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
       setMedicalInfo(data);
       setLoading(true);
 
-      await apiClient('/api/v1/application', 'post', {
+      const application = await apiClient('/api/v1/application', 'post', {
         body: {
           ...parentInfo,
           ...studentInfo,
@@ -220,13 +219,13 @@ export function MedicalInfo(props: MedicalInfoProps) {
         },
       });
 
-      setLoading(false);
+      router.push(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/payment/redirect/${application.application_id}`
+      );
       toast.success(
         renderLanguage('აპლიკაცია წარმატებით გაიგზავნა', 'Application sent succesfully')
       );
-      setOpenModal(false);
-
-      setActiveStep(4);
+      setLoading(false);
     } catch (error: any) {
       if (error.message === 'API request failed with status 409') {
         toast.error(
@@ -558,252 +557,247 @@ export function MedicalInfo(props: MedicalInfoProps) {
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto' }}>
-          <Divider />
-          {renderBasicInfo()}
-          <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setMedicalInfo(values);
-                setActiveStep(2);
-              }}
-            >
-              {renderLanguage('მოსწავლე', 'Student')}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
-              onClick={() => setOpenModal(true)}
-            >
-              {renderLanguage('წესები და პირობები', 'Terms and Conditions')}
-            </Button>
-            <Modal
-              open={openModal}
-              onClose={() => setOpenModal(false)}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <Stack spacing={4}>
-                  <Typography variant="h4" align="left" sx={{ fontFeatureSettings: "'case' on" }}>
-                    {renderLanguage('წესები და პირობები', 'Terms and Conditions')}
-                  </Typography>
-                  <Alert severity="warning" sx={{width: 'fit-content'}}>
-                    {renderLanguage(
-                      'გთხოვთ, მონიშნოთ ყველა ველი! აუცილებელი ველის შევსების გარეშე, გაგრძელებას ვერ მოახერხებთ.',
-                      'Please select all fields! You cannot proceed without selecting all the required fields.'
-                    )}
-                  </Alert>
-                  {termsAndConditions.map((item, _index) => {
-                    if (item.is_required) {
-                      return (
-                        <Stack spacing={1} key={item.id}>
-                          <FormControl sx={{ width: '100%' }}>
-                            <FormControlLabel
-                              value="end"
-                              control={<Checkbox name={item.key} />}
-                              onChange={(e) => {
-                                if (item.key) {
-                                  setValue(
-                                    item.key as keyof MedicalInfoType,
-                                    values[item.key as keyof MedicalInfoType] ? false : true
-                                  );
-                                }
-                              }}
-                              label={
-                                <Typography
-                                  variant="subtitle2"
-                                  key={item.id}
-                                  sx={{ fontFeatureSettings: "'case' on" }}
-                                >
-                                  {_index + 1}. {renderLanguage(item.title_ka, item.title_en)}
-                                </Typography>
+        <Divider />
+        {renderBasicInfo()}
+        <Stack direction="row" sx={{ p: 3, justifyContent: 'space-between' }}>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setMedicalInfo(values);
+              setActiveStep(2);
+            }}
+          >
+            {renderLanguage('მოსწავლე', 'Student')}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
+            onClick={() => setOpenModal(true)}
+          >
+            {renderLanguage('წესები და პირობები', 'Terms and Conditions')}
+          </Button>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Stack spacing={4}>
+                <Typography variant="h4" align="left" sx={{ fontFeatureSettings: "'case' on" }}>
+                  {renderLanguage('წესები და პირობები', 'Terms and Conditions')}
+                </Typography>
+                <Alert severity="warning" sx={{ width: 'fit-content' }}>
+                  {renderLanguage(
+                    'გთხოვთ, მონიშნოთ ყველა ველი! აუცილებელი ველის შევსების გარეშე, გაგრძელებას ვერ მოახერხებთ.',
+                    'Please select all fields! You cannot proceed without selecting all the required fields.'
+                  )}
+                </Alert>
+                {termsAndConditions.map((item, _index) => {
+                  if (item.is_required) {
+                    return (
+                      <Stack spacing={1} key={item.id}>
+                        <FormControl sx={{ width: '100%' }}>
+                          <FormControlLabel
+                            value="end"
+                            control={<Checkbox name={item.key} />}
+                            onChange={(e) => {
+                              if (item.key) {
+                                setValue(
+                                  item.key as keyof MedicalInfoType,
+                                  values[item.key as keyof MedicalInfoType] ? false : true
+                                );
                               }
-                              labelPlacement="end"
-                            />
-                            <FormHelperText sx={{ color: 'error.main' }}>
-                              {item.key && errors[item.key as keyof MedicalInfoType]?.message
-                                ? (errors[item.key as keyof MedicalInfoType] as FieldError).message
-                                : ''}
-                            </FormHelperText>
-                          </FormControl>
-                          <ul style={{ margin: 0, paddingLeft: '20px', listStyleType: 'disc' }}>
-                            {(language === Language.KA ? item.points_ka : item.points_en).map(
-                              (point, index) => (
-                                <li key={index} style={{ marginBottom: '4px' }}>
-                                  <Typography variant="body2" component="span">
-                                    {point}
-                                  </Typography>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </Stack>
-                      );
-                    } else {
-                      return (
-                        <Stack spacing={1} key={item.id}>
-                          <Typography
-                            variant="subtitle2"
-                            key={item.id}
-                            sx={{ fontFeatureSettings: "'case' on" }}
-                          >
-                            {_index + 1}. {renderLanguage(item.title_ka, item.title_en)}
-                          </Typography>
-                          <ul style={{ margin: 0, paddingLeft: '20px', listStyleType: 'disc' }}>
-                            {(language === Language.KA ? item.points_ka : item.points_en).map(
-                              (point, index) => (
-                                <li key={index} style={{ marginBottom: '4px' }}>
-                                  <Typography variant="body2" component="span">
-                                    {point}
-                                  </Typography>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                          {item.key === 'media_release' ? (
-                            <Alert severity='warning' sx={{width: 'fit-content'}}>
-                              {renderLanguage(
-                                'გთხოვთ, აირჩიოთ ქვემოთ მოცემული ორი ვარიანტიდან ერთ-ერთი:',
-                                'Click one of the options:'
-                              )}
-                            </Alert>
-                          ) : null}
-
-                          {item.key === 'media_release' ? (
-                            <>
-                              <FormControl sx={{ width: '100%' }}>
-                                <FormControlLabel
-                                  value="end"
-                                  control={
-                                    <Checkbox
-                                      value={values.media_release}
-                                      checked={values.media_release === 'confirm' ? true : false}
-                                    />
-                                  }
-                                  onChange={(e) => {
-                                    setValue('media_release' as keyof MedicalInfoType, 'confirm');
-                                  }}
-                                  label={
-                                    <ul>
-                                      <li>
-                                        {' '}
-                                        {renderLanguage(
-                                          'ვადასტურებ, რომ ვაცხადებ თანხმობას, ჩემი შვილის ფოტოების გამოყენებაზე',
-                                          `I confirm that I have given prior consent for my child's photos to be taken.`
-                                        )}
-                                      </li>
-                                    </ul>
-                                  }
-                                  labelPlacement="end"
-                                />
-                              </FormControl>
-                              <FormControl sx={{ width: '100%' }}>
-                                <FormControlLabel
-                                  value="end"
-                                  control={
-                                    <Checkbox
-                                      value={values.media_release}
-                                      checked={values.media_release === 'reject' ? true : false}
-                                    />
-                                  }
-                                  onChange={(e) => {
-                                    setValue('media_release' as keyof MedicalInfoType, 'reject');
-                                  }}
-                                  label={
-                                    <ul>
-                                      <li>
-                                        {' '}
-                                        {renderLanguage(
-                                          'უარს ვამბობ ჩემი შვილის ფოტოების გამოყენებაზე',
-                                          `I refuse to give prior permission to use my child’s photos.`
-                                        )}
-                                      </li>
-                                    </ul>
-                                  }
-                                  labelPlacement="end"
-                                />
-                              </FormControl>
-                              <FormHelperText sx={{ color: 'error.main' }}>
-                                {errors.media_release?.message ? errors.media_release.message : ''}
-                              </FormHelperText>
-                            </>
-                          ) : null}
-                        </Stack>
-                      );
-                    }
-                  })}
-                  <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-                    <FormControl sx={{ width: '100%' }}>
-                      <FormControlLabel
-                        value="end"
-                        control={<Checkbox value={values.medical_terms} />}
-                        onChange={(e) =>
-                          setValue('medical_terms', values.medical_terms ? false : true)
-                        }
-                        label={renderLanguage(
-                          'ფორმის შევსებით ვადასტურებ, რომ გავეცი ყველა მნიშვნელოვანი და შესაბამისი ინფორმაცია ჩემი შვილის ჯანმრთელობისა და სამედიცინო ისტორიის შესახებ',
-                          "By completing the form, I confirm that I have provided all relevant and relevant information about my child's health and medical history."
-                        )}
-                        labelPlacement="end"
-                      />
-                      <FormHelperText sx={{ color: 'error.main' }}>
-                        {errors.medical_terms?.message ? errors.medical_terms.message : ''}
-                      </FormHelperText>
-                    </FormControl>
-                  </Stack>
-                  <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-                    <FormControl sx={{ width: '100%' }}>
-                      <FormControlLabel
-                        value="end"
-                        control={
-                          <Checkbox value={values.terms_and_conditions} name="medical_terms" />
-                        }
-                        onChange={(e) =>
-                          setValue(
-                            'terms_and_conditions',
-                            values.terms_and_conditions ? false : true
-                          )
-                        }
-                        label={
-                          <Typography variant="body2">
+                            }}
+                            label={
+                              <Typography
+                                variant="subtitle2"
+                                key={item.id}
+                                sx={{ fontFeatureSettings: "'case' on" }}
+                              >
+                                {_index + 1}. {renderLanguage(item.title_ka, item.title_en)}
+                              </Typography>
+                            }
+                            labelPlacement="end"
+                          />
+                          <FormHelperText sx={{ color: 'error.main' }}>
+                            {item.key && errors[item.key as keyof MedicalInfoType]?.message
+                              ? (errors[item.key as keyof MedicalInfoType] as FieldError).message
+                              : ''}
+                          </FormHelperText>
+                        </FormControl>
+                        <ul style={{ margin: 0, paddingLeft: '20px', listStyleType: 'disc' }}>
+                          {(language === Language.KA ? item.points_ka : item.points_en).map(
+                            (point, index) => (
+                              <li key={index} style={{ marginBottom: '4px' }}>
+                                <Typography variant="body2" component="span">
+                                  {point}
+                                </Typography>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </Stack>
+                    );
+                  } else {
+                    return (
+                      <Stack spacing={1} key={item.id}>
+                        <Typography
+                          variant="subtitle2"
+                          key={item.id}
+                          sx={{ fontFeatureSettings: "'case' on" }}
+                        >
+                          {_index + 1}. {renderLanguage(item.title_ka, item.title_en)}
+                        </Typography>
+                        <ul style={{ margin: 0, paddingLeft: '20px', listStyleType: 'disc' }}>
+                          {(language === Language.KA ? item.points_ka : item.points_en).map(
+                            (point, index) => (
+                              <li key={index} style={{ marginBottom: '4px' }}>
+                                <Typography variant="body2" component="span">
+                                  {point}
+                                </Typography>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                        {item.key === 'media_release' ? (
+                          <Alert severity="warning" sx={{ width: 'fit-content' }}>
                             {renderLanguage(
-                              'პლიკაციის გაგზავნით ვადასტურებ, რომ გავეცანი წესებსა და პირობებს',
-                              'By sending application I agree on Terms and conditions'
+                              'გთხოვთ, აირჩიოთ ქვემოთ მოცემული ორი ვარიანტიდან ერთ-ერთი:',
+                              'Click one of the options:'
                             )}
-                          </Typography>
-                        }
-                        labelPlacement="end"
-                      />
-                      <FormHelperText sx={{ color: 'error.main' }}>
-                        {errors.terms_and_conditions?.message
-                          ? errors.terms_and_conditions.message
-                          : ''}
-                      </FormHelperText>
-                    </FormControl>
-                  </Stack>
-                  <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-                    {' '}
-                    <Button variant="outlined" onClick={() => setOpenModal(false)}>
-                      {renderLanguage('გაუქმება', 'Close')}
-                    </Button>{' '}
-                    <LoadingButton
-                      variant="contained"
-                      color="primary"
-                      endIcon={
-                        <Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />
+                          </Alert>
+                        ) : null}
+
+                        {item.key === 'media_release' ? (
+                          <>
+                            <FormControl sx={{ width: '100%' }}>
+                              <FormControlLabel
+                                value="end"
+                                control={
+                                  <Checkbox
+                                    value={values.media_release}
+                                    checked={values.media_release === 'confirm' ? true : false}
+                                  />
+                                }
+                                onChange={(e) => {
+                                  setValue('media_release' as keyof MedicalInfoType, 'confirm');
+                                }}
+                                label={
+                                  <ul>
+                                    <li>
+                                      {' '}
+                                      {renderLanguage(
+                                        'ვადასტურებ, რომ ვაცხადებ თანხმობას, ჩემი შვილის ფოტოების გამოყენებაზე',
+                                        `I confirm that I have given prior consent for my child's photos to be taken.`
+                                      )}
+                                    </li>
+                                  </ul>
+                                }
+                                labelPlacement="end"
+                              />
+                            </FormControl>
+                            <FormControl sx={{ width: '100%' }}>
+                              <FormControlLabel
+                                value="end"
+                                control={
+                                  <Checkbox
+                                    value={values.media_release}
+                                    checked={values.media_release === 'reject' ? true : false}
+                                  />
+                                }
+                                onChange={(e) => {
+                                  setValue('media_release' as keyof MedicalInfoType, 'reject');
+                                }}
+                                label={
+                                  <ul>
+                                    <li>
+                                      {' '}
+                                      {renderLanguage(
+                                        'უარს ვამბობ ჩემი შვილის ფოტოების გამოყენებაზე',
+                                        `I refuse to give prior permission to use my child’s photos.`
+                                      )}
+                                    </li>
+                                  </ul>
+                                }
+                                labelPlacement="end"
+                              />
+                            </FormControl>
+                            <FormHelperText sx={{ color: 'error.main' }}>
+                              {errors.media_release?.message ? errors.media_release.message : ''}
+                            </FormHelperText>
+                          </>
+                        ) : null}
+                      </Stack>
+                    );
+                  }
+                })}
+                <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+                  <FormControl sx={{ width: '100%' }}>
+                    <FormControlLabel
+                      value="end"
+                      control={<Checkbox value={values.medical_terms} />}
+                      onChange={(e) =>
+                        setValue('medical_terms', values.medical_terms ? false : true)
                       }
-                      onClick={onSubmit}
-                      loading={loading}
-                    >
-                      {renderLanguage('აპლიკაციის გაგზავნა', 'Send Application')}
-                    </LoadingButton>{' '}
-                  </Stack>
+                      label={renderLanguage(
+                        'ფორმის შევსებით ვადასტურებ, რომ გავეცი ყველა მნიშვნელოვანი და შესაბამისი ინფორმაცია ჩემი შვილის ჯანმრთელობისა და სამედიცინო ისტორიის შესახებ',
+                        "By completing the form, I confirm that I have provided all relevant and relevant information about my child's health and medical history."
+                      )}
+                      labelPlacement="end"
+                    />
+                    <FormHelperText sx={{ color: 'error.main' }}>
+                      {errors.medical_terms?.message ? errors.medical_terms.message : ''}
+                    </FormHelperText>
+                  </FormControl>
                 </Stack>
-              </Box>
-            </Modal>
-          </Stack>
+                <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+                  <FormControl sx={{ width: '100%' }}>
+                    <FormControlLabel
+                      value="end"
+                      control={
+                        <Checkbox value={values.terms_and_conditions} name="medical_terms" />
+                      }
+                      onChange={(e) =>
+                        setValue('terms_and_conditions', values.terms_and_conditions ? false : true)
+                      }
+                      label={
+                        <Typography variant="body2">
+                          {renderLanguage(
+                            'პლიკაციის გაგზავნით ვადასტურებ, რომ გავეცანი წესებსა და პირობებს',
+                            'By sending application I agree on Terms and conditions'
+                          )}
+                        </Typography>
+                      }
+                      labelPlacement="end"
+                    />
+                    <FormHelperText sx={{ color: 'error.main' }}>
+                      {errors.terms_and_conditions?.message
+                        ? errors.terms_and_conditions.message
+                        : ''}
+                    </FormHelperText>
+                  </FormControl>
+                </Stack>
+                <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
+                  {' '}
+                  <Button variant="outlined" onClick={() => setOpenModal(false)}>
+                    {renderLanguage('გაუქმება', 'Close')}
+                  </Button>{' '}
+                  <LoadingButton
+                    variant="contained"
+                    color="primary"
+                    endIcon={<Iconify icon="eva:arrow-circle-right-fill" width={20} height={20} />}
+                    onClick={onSubmit}
+                    loading={loading}
+                  >
+                    {renderLanguage('აპლიკაციის გაგზავნა', 'Send Application')}
+                  </LoadingButton>{' '}
+                </Stack>
+              </Stack>
+            </Box>
+          </Modal>
+        </Stack>
       </Stack>
     </Form>
   );

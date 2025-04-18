@@ -48,18 +48,11 @@ export function HeaderSection({
     <HeaderRoot
       position="sticky"
       color="transparent"
-      isOffset={isOffset}
+      isOffset
       disableOffset={disableOffset}
       disableElevation={disableElevation}
       className={mergeClasses([layoutClasses.header, className])}
-      sx={[
-        (theme) => ({
-          ...(isOffset && {
-            '--color': `var(--offset-color, ${theme.vars.palette.text.primary})`,
-          }),
-        }),
-        ...(Array.isArray(sx) ? sx : [sx]),
-      ]}
+      sx={[...(Array.isArray(sx) ? sx : [sx])]}
       {...other}
     >
       {slots?.topArea}
@@ -94,10 +87,6 @@ const HeaderRoot = styled(AppBar, {
     content: '""',
     visibility: 'hidden',
     position: 'absolute',
-    transition: theme.transitions.create(['opacity', 'visibility'], {
-      easing: theme.transitions.easing.easeInOut,
-      duration: theme.transitions.duration.shorter,
-    }),
   };
 
   const bgStyles: CSSObject = {
@@ -109,6 +98,8 @@ const HeaderRoot = styled(AppBar, {
     left: 0,
     width: '100%',
     height: '100%',
+    backgroundColor: '#3D1746',
+    color: 'white',
     zIndex: pauseZindex.top,
     ...(isOffset && { opacity: 1, visibility: 'visible' }),
   };
@@ -124,7 +115,7 @@ const HeaderRoot = styled(AppBar, {
     width: `calc(100% - 48px)`,
     zIndex: pauseZindex.bottom,
     boxShadow: theme.vars.customShadows.z8,
-    ...(isOffset && { opacity: 0.48, visibility: 'visible' }),
+    // ...(isOffset && { opacity: 0.48, visibility: 'visible' }),
   };
 
   return {

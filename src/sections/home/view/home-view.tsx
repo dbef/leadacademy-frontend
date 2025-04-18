@@ -33,13 +33,65 @@ export function HomeView({ products }: HomeProps) {
 
   const arrData = [
     {
+      id: '1',
+      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
+      title_en: 'The best place for learning and fun!',
+      description_ka:
+        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
+      description_en: 'Join our informal hub and discover new opportunities!',
+      coverUrl: `${CONFIG.assetsDir}/assets/background/1.jpg`,
+      button_ka: `დარეგისტრირდი ახლავე`,
+      button_en: 'Register now',
+      type: 'image',
+      link: 'courses/register',
+    },
+    {
       id: '2',
       title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
       title_en: 'The best place for learning and fun!',
       description_ka:
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/sabado.jpg`,
+      coverUrl: `${CONFIG.assetsDir}/assets/background/2.jpg`,
+      button_ka: `დარეგისტრირდი ახლავე`,
+      button_en: 'Register now',
+      type: 'image',
+      link: 'courses/register',
+    },
+    {
+      id: '3',
+      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
+      title_en: 'The best place for learning and fun!',
+      description_ka:
+        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
+      description_en: 'Join our informal hub and discover new opportunities!',
+      coverUrl: `${CONFIG.assetsDir}/assets/background/3.jpg`,
+      button_ka: `დარეგისტრირდი ახლავე`,
+      button_en: 'Register now',
+      type: 'image',
+      link: 'courses/register',
+    },
+    {
+      id: '4',
+      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
+      title_en: 'The best place for learning and fun!',
+      description_ka:
+        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
+      description_en: 'Join our informal hub and discover new opportunities!',
+      coverUrl: `${CONFIG.assetsDir}/assets/background/4.jpg`,
+      button_ka: `დარეგისტრირდი ახლავე`,
+      button_en: 'Register now',
+      type: 'image',
+      link: 'courses/register',
+    },
+    {
+      id: '5',
+      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
+      title_en: 'The best place for learning and fun!',
+      description_ka:
+        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
+      description_en: 'Join our informal hub and discover new opportunities!',
+      coverUrl: `${CONFIG.assetsDir}/assets/background/5.jpg`,
       button_ka: `დარეგისტრირდი ახლავე`,
       button_en: 'Register now',
       type: 'image',

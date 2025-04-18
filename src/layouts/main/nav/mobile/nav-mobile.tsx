@@ -43,7 +43,13 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
       onClose={onClose}
       PaperProps={{
         sx: [
-          { display: 'flex', flexDirection: 'column', width: 'var(--layout-nav-mobile-width)' },
+          {
+            display: 'flex',
+            flexDirection: 'column',
+            width: 'var(--layout-nav-mobile-width)',
+            backgroundColor: '#3D1746',
+            color: 'white',
+          },
           ...(Array.isArray(sx) ? sx : [sx]),
         ],
       }}
@@ -72,7 +78,7 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
         >
           <NavUl>
             {data.map((list) => (
-              <NavList key={list.title} data={list} />
+              <NavList key={list.title} data={list} sx={{ color: 'white' }} />
             ))}
           </NavUl>
         </Nav>
