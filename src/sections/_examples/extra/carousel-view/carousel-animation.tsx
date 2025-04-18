@@ -161,9 +161,9 @@ function CarouselItem({ item, index, selected }: CarouselItemProps) {
         <m.div variants={varFade('inRight')}>
           {item.button_en && item.button_ka ? (
             <Button
-              color="primary"
+              
               variant="contained"
-              sx={{ mt: 3, display: { sm: 'inline-flex' }, fontFeatureSettings: '"case" on' }}
+              sx={{ mt: 3, display: { sm: 'inline-flex' }, fontFeatureSettings: '"case" on', backgroundColor: '#7F9A16' }}
               onClick={() => router.push(!item.link ? 'courses' : item.link)}
             >
               {renderLanguage(item.button_ka, item.button_en)}

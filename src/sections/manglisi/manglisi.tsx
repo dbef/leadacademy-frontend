@@ -54,7 +54,7 @@ export function ManglisiView({ campuse }: CampusProps) {
           backgroundColor: '#FAF6FD',
         }}
       >
-        <Typography variant="h3" sx={{ mb: 3, fontFeatureSettings: "'case' on" }}>
+        <Typography variant="h3" sx={{ mb: 3, fontFeatureSettings: "'case' on", color: 'success.main' }}>
           {renderLanguage('მანგლისის კამპუსი', 'Manglisi Campus')}
         </Typography>
       </Stack>

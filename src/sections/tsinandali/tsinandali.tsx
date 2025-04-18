@@ -57,7 +57,10 @@ export function TsinandaliView({ campuse }: CampusProps) {
           backgroundColor: '#FAF6FD',
         }}
       >
-        <Typography variant="h3" sx={{ mb: 3, fontFeatureSettings: "'case' on" }}>
+        <Typography
+          variant="h3"
+          sx={{ mb: 3, fontFeatureSettings: "'case' on", color: 'success.main' }}
+        >
           {renderLanguage(
             'წინანდლის კამპუსი “შატო მოსმიერი”',
             'Tsinandali Camp, “Chateau Mosmieri” '

@@ -93,7 +93,7 @@ export function LocationAndInfrastructure() {
           <Stack spacing={1}>
             {infrastructure.map((item) => (
               <Stack direction="row" spacing={2} key={item.id}>
-                <Iconify color="#0A66C2" icon="icon-park-outline:dot" />
+                <Iconify color="#3D1746" icon="icon-park-outline:dot" />
                 <Typography>{renderLanguage(item.title_ka, item.title_en)}</Typography>
               </Stack>
             ))}
