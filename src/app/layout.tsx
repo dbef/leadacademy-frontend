@@ -2,7 +2,7 @@ import 'src/global.css';
 
 import type { Metadata, Viewport } from 'next';
 
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
@@ -101,10 +101,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               >
                 <LocalizationProvider>
                   <AppRouterCacheProvider options={{ key: 'css' }}>
-                    <ThemeProvider
-                      defaultMode={themeConfig.defaultMode}
-                      modeStorageKey={themeConfig.modeStorageKey}
-                    >
+                    <ThemeProvider defaultMode="light" modeStorageKey={themeConfig.modeStorageKey}>
                       <MotionLazy>
                         <CheckoutProvider>
                           <Snackbar />

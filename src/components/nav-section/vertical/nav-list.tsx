@@ -72,6 +72,7 @@ export function NavList({
       open={open}
       active={renderIsActive(data.path)}
       disabled={data.disabled}
+      sx={{ color: renderIsActive(data.path) ? 'success.main' : 'white' }}
       // options
       depth={depth}
       render={render}

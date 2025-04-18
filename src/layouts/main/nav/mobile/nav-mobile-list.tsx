@@ -61,6 +61,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
       title={data.title}
       // state
       open={open}
+      sx={{ color: renderIsActive() ? 'success.main' : 'white' }}
       active={renderIsActive()}
       // options
       hasChild={!!data.children}
@@ -89,6 +90,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
                     borderRadius: 1.5,
                     backgroundSize: 'auto 88%',
                     backgroundPosition: 'center',
+                    color: 'white',
                     backgroundRepeat: 'no-repeat',
                     backgroundImage: `url(${CONFIG.assetsDir}/assets/illustrations/illustration-dashboard.webp)`,
                     border: `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,

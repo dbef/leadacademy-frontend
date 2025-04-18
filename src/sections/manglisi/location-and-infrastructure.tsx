@@ -1,5 +1,8 @@
+import parser from 'html-react-parser';
+
 import { Card, Stack, Typography } from '@mui/material';
 
+import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
@@ -22,11 +25,14 @@ export function LocationAndInfrastructure() {
         },
         '@media (max-width: 1000px)': {
           padding: '64px 24px',
-          marginTop: '50px',
         },
         '@media (max-width: 760px)': {
-          padding: '24px !important',
+          padding: '64px 24px ',
         },
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundColor: '#FAF6FD',
       }}
     >
       <Card
@@ -43,9 +49,45 @@ export function LocationAndInfrastructure() {
             )}
           </Typography>
           <Typography>
-            {renderLanguage(
-              'წინანდლის კამპუსი მდებარეობს ისტორიულ და კულტურულად მნიშვნელოვან რეგიონში, რომელიც გამოირჩევა თავისი უნიკალური ბუნებით და მდიდარი კულტურული მემკვიდრეობით. კამპუსი გთავაზობთ თანამედროვე ინფრასტრუქტურას, რომელიც მოიცავს სასწავლო შენობებს, ლაბორატორიებს, ბიბლიოთეკას და დასასვენებელ ზონებს. სტუდენტებს აქვთ შესაძლებლობა ისარგებლონ თანამედროვე ტექნოლოგიებით და რესურსებით, რაც ხელს უწყობს მათი აკადემიური და პროფესიული განვითარების პროცესს.',
-              'The Tsinandali campus is located in a historically and culturally significant region characterized by its unique nature and rich cultural heritage. The campus offers modern infrastructure, including educational buildings, laboratories, a library, and recreational areas. Students have access to modern technologies and resources that facilitate their academic and professional development.'
+            {parser(
+              renderLanguage(
+                `ლიდერობის აკადემია „საბადო-ს“ მანგლისის კამპუსი უნიკალურ აკადემიურ და
+             დასასვენებელ სივრცეს წარმოადგენს.
+                <br/>
+                <br/>
+             12 ათას კვადრატულ მეტრზე მოწყობილი სივრცე სპეციალურად „საბადოს“
+             საჭიროებებისთვის შეიქმნა და უახლესი ტექნოლოგიური აღჭურვილობით,
+             კომფორტით, ეკოლოგიურად სუფთა გარემოთი და უსაფრთხო გარემოთი
+             გამოირჩევა.
+             <br/>
+             <br/>
+             ფართო და მწვანე ეზოში 3000 კვადრატულ მეტრიან ძირითად ნაგებობას 50-ზე
+             მეტი სტუმრის მიღება შეუძლია. კომპლექსს აქვს თავისი აკადემიური და სამუშაო
+             სივრცეები, საკონფერენციო დარბაზი, ბიბლიოთეკა, ობსერვატორია, ლაუნჯები,
+             სტადიონი, ჯიმი, სათამაშო, სამუშაო, დასასვენებელი და STEAM-ის სივრცეები.
+             ცალკე ნაგებობაშია განლაგებული „საბადო-ს“ საკუთარი კინოთეატრი.
+                <br/>
+                <br/>
+             კამპუსი მანგლისის ცენტრში მდებარეობს, ტყიან მასივში, ისტორიული და
+             კულტურული თვალსაზრისით მნიშვნელოვან რეგიონში და სტუმრებს სთავაზობს
+             „ჰაიქინგის“ და საფეხმავლო ტურების შესაძლებლობას. 
+             <br/>
+             <br/>
+             `,
+                `The Leadership Academy &quot;Sabado&quot; Manglisi Campus represents a unique academic and
+             recreational space.
+             Spanning 12,000 square meters, the space is specially designed for the needs of &quot;Sabado&quot;
+             and is distinguished by its modern technological equipment, comfort, eco-friendly
+             environment, and safety.
+             The main building, set in a spacious and green yard, can accommodate over 50 guests in
+             its 3,000 square meters. The complex features its own academic and working spaces, a
+             conference hall, a library, an observatory, lounges, a stadium, a gym, play areas,
+             workspaces, recreational areas, and STEAM spaces. &quot;Sabado&quot; also has its own cinema
+             located in a separate building.
+             The campus is located in the center of Manglisi, within a forested area, in a region of
+             significant historical and cultural importance, and offers guests opportunities for hiking and
+             walking tours.`
+              )
             )}
           </Typography>
           <Stack spacing={1}>

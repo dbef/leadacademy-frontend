@@ -7,12 +7,12 @@ import { z as zod } from 'zod';
 import { m } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { Step, Stepper, StepLabel, Card } from '@mui/material';
+import { Step, Stepper, StepLabel } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
 
+import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
 import { MedicalInfo } from './medical-info';
@@ -209,6 +209,10 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
           padding: '0px !important',
         },
         paddingBottom: '128px',
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundColor: '#FAF6FD',
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
@@ -219,11 +223,11 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
         sx={{
           padding: '24px',
           marginTop: '48px',
-          border: '0.25px solid rgba(0, 0, 0, 0.1);',
           borderRadius: '8px',
           maxWidth: '1172px',
           width: '100%',
-          bgcolor: 'background.paper',
+          bgcolor: '#FAF6FD',
+          border: '1px solid #DDBDEA',
         }}
       >
         <Stepper
@@ -234,7 +238,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
             position: 'sticky',
             top: 64,
             zIndex: 10,
-            bgcolor: 'background.paper',
+            bgcolor: '#FAF6FD',
             padding: '15px 0px',
           }}
         >
@@ -253,7 +257,9 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
           animate="animate"
           exit="exit"
           variants={stepVariants}
-          style={{ marginTop: '24px' }}
+          style={{
+            marginTop: '24px',
+          }}
         >
           {activeStep === steps.length && selectedCourse ? (
             <CourseThankYou open course={selectedCourse} />

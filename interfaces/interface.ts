@@ -36,6 +36,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/users/access-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["UsersController_getAccessToken"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/auth/sign-up": {
         parameters: {
             query?: never;
@@ -481,6 +497,54 @@ export interface paths {
         options?: never;
         head?: never;
         patch: operations["NewsController_update"];
+        trace?: never;
+    };
+    "/api/v1/payment/redirect/{application_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PaymentController_getAccessToken"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/{application_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PaymentController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payment/callback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PaymentController_callBack"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/api/v1/application": {
@@ -1171,6 +1235,13 @@ export interface components {
             /** @description Terms and Conditions Agreement */
             terms_and_conditions: boolean;
         };
+        CreatedApplicationDto: {
+            /**
+             * @description The id of the application
+             * @example 1234567890abcdef12345678
+             */
+            application_id: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -1211,6 +1282,23 @@ export interface operations {
         };
         responses: {
             201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UsersController_getAccessToken: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2049,6 +2137,65 @@ export interface operations {
             };
         };
     };
+    PaymentController_getAccessToken: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the application to create a payment for */
+                application_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    PaymentController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the application to create a payment for */
+                application_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseDto"];
+                };
+            };
+        };
+    };
+    PaymentController_callBack: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ApplicationController_create: {
         parameters: {
             query?: never;
@@ -2067,7 +2214,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CreatedApplicationDto"];
+                };
             };
         };
     };
@@ -2088,6 +2237,8 @@ export interface operations {
                 searchText?: string;
                 /** @description Field to sort by */
                 sortBy?: string;
+                /** @description Field to sort by */
+                is_published?: string;
                 /** @description Direction of sorting */
                 direction?: string;
             };
