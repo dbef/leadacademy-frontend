@@ -16,14 +16,14 @@ export async function generateMetadata(): Promise<Metadata> {
       applicationName: CONFIG.appName,
       openGraph: {
         title: `პროგრამები - ${CONFIG.appName}`,
-        description: 'დარეგისტრირდი ახლავე',
+        description: 'დარეგისტრირდი აქ',
         url: `https://sabado.edu.ge/courses/register`,
         type: 'article',
       },
       twitter: {
         card: 'summary_large_image',
         title: `პროგრამები - ${CONFIG.appName}`,
-        description: 'დარეგისტრირდი ახლავე',
+        description: 'დარეგისტრირდი აქ',
       },
     };
   } catch (error) {
@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
       title: `პროგრამები - ${CONFIG.appName}`,
-      description: 'დარეგისტრირდი ახლავე',
+      description: 'დარეგისტრირდი აქ',
     };
   }
 }
@@ -47,5 +47,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     },
   });
 
-  return <CourseListMain products={courses} location={location ? location : 'all'} season={season}/>;
+  return (
+    <CourseListMain products={courses} location={location ? location : 'all'} season={season} />
+  );
 }

@@ -1,27 +1,22 @@
 export const infrastructure = [
   {
     id: 1,
-    title_ka: 'კარგი ინფრასტრუქტურა და თანამედროვე ტექნოლოგიები',
-    title_en: 'Good infrastructure and modern technologies',
+    title_ka: '„საბადო-ს“ მანგლისის კამპუსი - უნიკალური აკადემიური და დასასვენებელი სივრცე',
+    title_en: '"Sabado" Manglisi Campus - a unique academic and recreational space',
   },
   {
     id: 2,
-    title_ka: 'კამპუსი მდებარეობს ისტორიულ და კულტურულად მნიშვნელოვან რეგიონში',
-    title_en: 'The campus is located in a historically and culturally significant region',
+    title_ka: 'ფართო, მწვანე ეზო და ეკოლოგიურად სუფთა გარემო',
+    title_en: 'Spacious, green yard and eco-friendly environment',
   },
   {
     id: 3,
-    title_ka: 'კამპუსი გთავაზობთ თანამედროვე ინფრასტრუქტურას',
-    title_en: 'The campus offers modern infrastructure',
+    title_ka: 'აკადემიური სივრცე სრულყოფილი ტექნოლოგიური აღჭურვილობით',
+    title_en: 'Academic space equipped with advanced technology',
   },
   {
     id: 4,
-    title_ka: 'სასწავლო შენობები, ლაბორატორიები, ბიბლიოთეკა და დასასვენებელი ზონები',
-    title_en: 'Educational buildings, laboratories, library and recreational areas',
-  },
-  {
-    id: 5,
-    title_ka: 'სტუდენტებს აქვთ შესაძლებლობა ისარგებლონ თანამედროვე ტექნოლოგიებით და რესურსებით',
-    title_en: 'Students have access to modern technologies and resources',
+    title_ka: 'ბევრი სპორტი, სათამაშო და დასასვენებელი სივრცეები და საფეხმავლო ტურები',
+    title_en: 'Numerous sports, play, recreational spaces, and hiking tours',
   },
 ];

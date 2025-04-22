@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { Box, Stack, Typography } from '@mui/material';
 
+import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
 import { rulesOfConductData } from './data';
@@ -26,6 +27,12 @@ export function RulesOfConduct() {
         '@media (max-width: 1200px)': { padding: '28px 64px' },
         '@media (max-width: 1000px)': { padding: '28px 24px' },
         '@media (max-width: 760px)': { padding: '24px !important' },
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed', 
+        backgroundColor: '#FAF6FD',
+        backgroundPosition: 'center top',
       }}
     >
       <Stack spacing={4}>

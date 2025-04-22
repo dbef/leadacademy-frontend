@@ -166,6 +166,9 @@ export function DashboardLayout({
       isNavMini={isNavMini}
       layoutQuery={layoutQuery}
       cssVars={navVars.section}
+      sx={{
+        backgroundColor: '#3D1746'
+      }}
       onToggleNav={() =>
         settings.setField(
           'navLayout',

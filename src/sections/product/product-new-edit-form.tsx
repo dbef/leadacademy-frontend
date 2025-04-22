@@ -80,8 +80,8 @@ export function ProductNewEditForm({ course }: CourseProps) {
 
   const isDeleting = useBoolean();
 
-  const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(new Date()));
-  const [endDate, setEndDate] = useState<IDatePickerControl>(dayjs(new Date()));
+  const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(course ? new Date(course.start_date) : new Date()));
+  const [endDate, setEndDate] = useState<IDatePickerControl>(dayjs(course ? new Date(course.end_date) : new Date()));
   const [selectedFiles, setSelectedFiles] = useState<FileDto[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedDocs, setSelectedDocs] = useState<FileDto[]>([]);

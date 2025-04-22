@@ -9,8 +9,9 @@ import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
-import { Tab, Chip, TextField, Typography, Autocomplete, Stack, Button } from '@mui/material';
+import { Tab, Chip, Stack, Button, TextField, Typography, Autocomplete } from '@mui/material';
 
+import { CONFIG } from 'src/global-config';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { CustomTabs } from 'src/components/custom-tabs';
@@ -180,6 +181,12 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
           '@media (max-width: 760px)': {
             padding: '24px !important',
           },
+          backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
+          backgroundAttachment: 'fixed',
+          backgroundColor: '#FAF6FD',
+          backgroundPosition: 'center top',
         }}
       >
         <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on", marginBottom: '50px' }}>

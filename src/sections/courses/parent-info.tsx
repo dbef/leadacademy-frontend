@@ -132,7 +132,12 @@ export function RegisterParentView(props: ParentInfoProps) {
   });
 
   const renderBasicInfo = () => (
-    <Stack spacing={3} sx={{ p: 3 }}>
+    <Stack
+      spacing={3}
+      sx={{
+        p: 3,
+      }}
+    >
       <Typography
         sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         variant="subtitle2"
@@ -287,7 +292,7 @@ export function RegisterParentView(props: ParentInfoProps) {
 
   return (
     <Form methods={methods} onSubmit={onSubmit}>
-      <Divider/>
+      <Divider />
       <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto' }}>
         {renderBasicInfo()}
         {renderAddress()}

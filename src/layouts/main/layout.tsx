@@ -73,11 +73,6 @@ export function MainLayout({
 
   const renderHeader = () => {
     const headerSlots: HeaderSectionProps['slots'] = {
-      topArea: (
-        <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-          This is an info Alert.
-        </Alert>
-      ),
       leftArea: (
         <>
           {/** @slot Nav mobile */}
@@ -87,6 +82,7 @@ export function MainLayout({
               mr: 1,
               ml: -1,
               [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+              color: 'white',
             })}
           />
           <NavMobile data={navData} open={open} onClose={onClose} />
@@ -146,10 +142,18 @@ export function MainLayout({
   const renderMain = () => <MainSection {...slotProps?.main}>{children}</MainSection>;
 
   const actions = [
-    { icon: <TwitterIcon />, name: 'Copy' },
-    { icon: <LinkedinIcon />, name: 'Save' },
-    { icon: <InstagramIcon />, name: 'Print' },
-    { icon: <FacebookIcon />, name: 'Share' },
+    { icon: <TwitterIcon />, name: 'X', link: 'https://x.com/' },
+    { icon: <LinkedinIcon />, name: 'LinkedIn', link: 'https://www.linkedin.com/' },
+    {
+      icon: <InstagramIcon />,
+      name: 'Instagram',
+      link: 'https://www.instagram.com/sabado.leadership.academy?igsh=MTdjMmIzY2g2eXZuMA%3D%3D&utm_source=qr',
+    },
+    {
+      icon: <FacebookIcon />,
+      name: 'Facebook',
+      link: 'https://www.facebook.com/share/16Aibb1B4y/?mibextid=wwXIfr',
+    },
   ];
 
   return (
@@ -180,7 +184,16 @@ export function MainLayout({
         icon={<Iconify icon="ic:baseline-contact-support" color="#fff" />}
       >
         {actions.map((action) => (
-          <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.open(action.link, '_blank');
+              }
+            }}
+          />
         ))}
       </SpeedDial>
     </LayoutSection>

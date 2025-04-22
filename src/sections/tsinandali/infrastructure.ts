@@ -6,22 +6,22 @@ export const infrastructure = [
   },
   {
     id: 2,
-    title_ka: 'კამპუსი მდებარეობს ისტორიულ და კულტურულად მნიშვნელოვან რეგიონში',
-    title_en: 'The campus is located in a historically and culturally significant region',
+    title_ka: 'ისტორიული რეგიონი და კულტურული მრავალფეროვნება',
+    title_en: 'Historical region and cultural diversity',
   },
   {
     id: 3,
-    title_ka: 'კამპუსი გთავაზობთ თანამედროვე ინფრასტრუქტურას',
-    title_en: 'The campus offers modern infrastructure',
+    title_ka: 'კომფორტული სივრცე და ვრცელი კომპლექსი',
+    title_en: 'Comfortable space and expansive complex',
   },
   {
     id: 4,
-    title_ka: 'სასწავლო შენობები, ლაბორატორიები, ბიბლიოთეკა და დასასვენებელი ზონები',
-    title_en: 'Educational buildings, laboratories, library and recreational areas',
+    title_ka: 'აუზი, კავკასიონის ხედი და ვენახები',
+    title_en: 'Swimming pool, view of the Caucasus Mountains, and vineyards',
   },
   {
     id: 5,
-    title_ka: 'სტუდენტებს აქვთ შესაძლებლობა ისარგებლონ თანამედროვე ტექნოლოგიებით და რესურსებით',
-    title_en: 'Students have access to modern technologies and resources',
+    title_ka: 'გემრიელი სამზარეულო, რესტორანი და უნიკალური ღვინის კულტურა',
+    title_en: 'Delicious cuisine, restaurant, and unique wine culture',
   },
 ];

@@ -1,12 +1,17 @@
+import type { CampusDto } from 'src/types/campus';
+
+import parser from 'html-react-parser';
+
 import { Card, Stack, Typography } from '@mui/material';
 
+import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
-import { Iconify } from 'src/components/iconify';
+export type LocationAndInfrastructureProps = {
+  campus: CampusDto;
+};
 
-import { infrastructure } from './infrastructure';
-
-export function LocationAndInfrastructure() {
+export function LocationAndInfrastructure({ campus }: LocationAndInfrastructureProps) {
   const { renderLanguage } = useLanguage();
 
   return (
@@ -22,11 +27,14 @@ export function LocationAndInfrastructure() {
         },
         '@media (max-width: 1000px)': {
           padding: '64px 24px',
-          marginTop: '50px',
         },
         '@media (max-width: 760px)': {
-          padding: '24px !important',
+          padding: '64px 24px',
         },
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundColor: '#FAF6FD',
       }}
     >
       <Card
@@ -43,19 +51,8 @@ export function LocationAndInfrastructure() {
             )}
           </Typography>
           <Typography>
-            {renderLanguage(
-              'წინანდლის კამპუსი მდებარეობს ისტორიულ და კულტურულად მნიშვნელოვან რეგიონში, რომელიც გამოირჩევა თავისი უნიკალური ბუნებით და მდიდარი კულტურული მემკვიდრეობით. კამპუსი გთავაზობთ თანამედროვე ინფრასტრუქტურას, რომელიც მოიცავს სასწავლო შენობებს, ლაბორატორიებს, ბიბლიოთეკას და დასასვენებელ ზონებს. სტუდენტებს აქვთ შესაძლებლობა ისარგებლონ თანამედროვე ტექნოლოგიებით და რესურსებით, რაც ხელს უწყობს მათი აკადემიური და პროფესიული განვითარების პროცესს.',
-              'The Tsinandali campus is located in a historically and culturally significant region characterized by its unique nature and rich cultural heritage. The campus offers modern infrastructure, including educational buildings, laboratories, a library, and recreational areas. Students have access to modern technologies and resources that facilitate their academic and professional development.'
-            )}
+            {parser(renderLanguage(campus.description_ka, campus.description_en))}
           </Typography>
-          <Stack spacing={1}>
-            {infrastructure.map((item) => (
-              <Stack direction="row" spacing={2} key={item.id}>
-                <Iconify color="#0A66C2" icon="icon-park-outline:dot" />
-                <Typography>{renderLanguage(item.title_ka, item.title_en)}</Typography>
-              </Stack>
-            ))}
-          </Stack>
         </Stack>
       </Card>
     </Stack>

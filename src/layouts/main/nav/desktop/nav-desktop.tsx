@@ -25,7 +25,7 @@ export function NavDesktop({ data, sx, ...other }: NavMainProps) {
         }}
       >
         {data.map((list) => (
-          <NavList key={list.title} data={list} sx={{ fontFeatureSettings: '"case" on' }} />
+          <NavList key={list.title} data={list} sx={{ fontFeatureSettings: '"case" on', color: 'white' }} />
         ))}
       </NavUl>
     </Nav>
