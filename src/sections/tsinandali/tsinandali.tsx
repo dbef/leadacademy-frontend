@@ -2,17 +2,13 @@
 
 import type { CampusDto } from 'src/types/campus';
 
-import parser from 'html-react-parser';
-
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
 import MapsTsinandali from './maps';
 // import { Testimonials } from './testimonials';
-import { ExperienceView } from './experience-view';
-import { RecommendedItems } from './recommended-things';
 import { LocationAndInfrastructure } from './location-and-infrastructure';
 import { CarouselAnimation } from '../_examples/extra/carousel-view/carousel-animation';
 
@@ -68,12 +64,12 @@ export function TsinandaliView({ campuse }: CampusProps) {
         </Typography>
       </Stack>
       <CarouselAnimation data={arrData} />
-      <LocationAndInfrastructure />
+      <LocationAndInfrastructure campus={campuse}/>
       {/* <ExperienceView /> */}
 
       <MapsTsinandali />
 
-      <RecommendedItems />
+      {/* <RecommendedItems /> */}
       {/* <Testimonials /> */}
     </Stack>
   );

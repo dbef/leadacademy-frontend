@@ -16,7 +16,6 @@ import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll
 
 import { CarouselAnimation } from 'src/sections/_examples/extra/carousel-view/carousel-animation';
 
-import { SmallDesc } from '../small-desc';
 import CoursesSection from '../courses-section';
 import { LocationsSection } from '../campuses-section';
 
@@ -40,8 +39,8 @@ export function HomeView({ products }: HomeProps) {
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
       coverUrl: `${CONFIG.assetsDir}/assets/background/1.jpg`,
-      button_ka: `დარეგისტრირდი ახლავე`,
-      button_en: 'Register now',
+      button_ka: `დარეგისტრირდი აქ`,
+      button_en: 'Register Here',
       type: 'image',
       link: 'courses/register',
     },
@@ -53,8 +52,8 @@ export function HomeView({ products }: HomeProps) {
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
       coverUrl: `${CONFIG.assetsDir}/assets/background/2.jpg`,
-      button_ka: `დარეგისტრირდი ახლავე`,
-      button_en: 'Register now',
+      button_ka: `დარეგისტრირდი აქ`,
+      button_en: 'Register Here',
       type: 'image',
       link: 'courses/register',
     },
@@ -66,8 +65,8 @@ export function HomeView({ products }: HomeProps) {
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
       coverUrl: `${CONFIG.assetsDir}/assets/background/3.jpg`,
-      button_ka: `დარეგისტრირდი ახლავე`,
-      button_en: 'Register now',
+      button_ka: `დარეგისტრირდი აქ`,
+      button_en: 'Register Here',
       type: 'image',
       link: 'courses/register',
     },
@@ -79,8 +78,8 @@ export function HomeView({ products }: HomeProps) {
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
       coverUrl: `${CONFIG.assetsDir}/assets/background/4.jpg`,
-      button_ka: `დარეგისტრირდი ახლავე`,
-      button_en: 'Register now',
+      button_ka: `დარეგისტრირდი აქ`,
+      button_en: 'Register Here',
       type: 'image',
       link: 'courses/register',
     },
@@ -92,8 +91,8 @@ export function HomeView({ products }: HomeProps) {
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
       coverUrl: `${CONFIG.assetsDir}/assets/background/5.jpg`,
-      button_ka: `დარეგისტრირდი ახლავე`,
-      button_en: 'Register now',
+      button_ka: `დარეგისტრირდი აქ`,
+      button_en: 'Register Here',
       type: 'image',
       link: 'courses/register',
     },

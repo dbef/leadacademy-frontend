@@ -32,7 +32,14 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   ]);
 
   const renderImage = () => (
-    <Box sx={{ position: 'relative', px: 1, pt: 1 }}>
+    <Box
+      sx={{ position: 'relative', px: 1, pt: 1, cursor: 'pointer' }}
+      onClick={() => {
+        router.push(
+          language === Language.KA ? `/courses/${item.course_id}` : `/en/courses/${item.course_id}`
+        );
+      }}
+    >
       <Image
         alt={item.media_course_assn[0]?.media?.media_name}
         src={item.media_course_assn[0]?.media?.media_url}
@@ -97,7 +104,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
     <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
       <Button
         sx={{
-          color: '#7F9A16'
+          color: '#7F9A16',
         }}
         fullWidth
         onClick={() => {
@@ -129,10 +136,25 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   );
 
   return (
-    <Card sx={[{ width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA' }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
+    <Card
+      sx={[
+        { width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA' },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+      {...other}
+    >
       {renderImage()}
       <Stack spacing={2} sx={{ px: 2, py: 2.5 }}>
-        <Tooltip title={renderLanguage(item.title_ka, item.title_en)}>
+        <Tooltip
+          title={renderLanguage(item.title_ka, item.title_en)}
+          onClick={() => {
+            router.push(
+              language === Language.KA
+                ? `/courses/${item.course_id}`
+                : `/en/courses/${item.course_id}`
+            );
+          }}
+        >
           <Typography
             variant="subtitle1"
             component="div"
@@ -142,11 +164,12 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
               marginTop: '2px',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              cursor: 'pointer',
               display: '-webkit-box',
               WebkitLineClamp: 1,
               WebkitBoxOrient: 'vertical',
               fontFeatureSettings: "'case' on",
-              color: '#285C45'
+              color: '#285C45',
             }}
           >
             {renderLanguage(item.title_ka, item.title_en)}
@@ -177,7 +200,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
                 >
                   {`${renderLanguage(
                     lecturer.lecturer.first_name_ka || '',
-                    lecturer.lecturer.first_name_ka || ''
+                    lecturer.lecturer.first_name_en || ''
                   )} ${renderLanguage(lecturer.lecturer.last_name_ka, lecturer.lecturer.last_name_en)}`}
                 </Typography>
               </Stack>

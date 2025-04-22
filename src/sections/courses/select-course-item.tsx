@@ -202,7 +202,7 @@ export function SelectCourseItem({
                 >
                   {`${renderLanguage(
                     lecturer.lecturer.first_name_ka || '',
-                    lecturer.lecturer.first_name_ka || ''
+                    lecturer.lecturer.first_name_en || ''
                   )} ${renderLanguage(lecturer.lecturer.last_name_ka, lecturer.lecturer.last_name_en)}`}
                 </Typography>
               </Stack>

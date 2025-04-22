@@ -4,7 +4,6 @@ import { CONFIG } from 'src/global-config';
 
 import { RegisterOnCourseView } from 'src/sections/courses/course-register-view';
 
-
 type Props = {
   params: { id: string };
 };
@@ -18,14 +17,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       applicationName: CONFIG.appName,
       openGraph: {
         title: `რეგისტრაცია - ${CONFIG.appName}`,
-        description: 'დარეგისტრირდი ახლავე',
+        description: 'დარეგისტრირდი აქ',
         url: `https://sabado.edu.ge/courses/register`,
         type: 'article',
       },
       twitter: {
         card: 'summary_large_image',
         title: `რეგისტრაცია - ${CONFIG.appName}`,
-        description: 'დარეგისტრირდი ახლავე',
+        description: 'დარეგისტრირდი აქ',
       },
     };
   } catch (error) {
@@ -33,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return {
       title: `რეგისტრაცია - ${CONFIG.appName}`,
-      description: 'დარეგისტრირდი ახლავე',
+      description: 'დარეგისტრირდი აქ',
     };
   }
 }

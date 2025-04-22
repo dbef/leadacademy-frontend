@@ -19,9 +19,10 @@ import { Iconify } from 'src/components/iconify';
 
 type Props = {
   course: CourseDto;
+  id: string;
 };
 
-export function FailedPage({ course }: Props) {
+export function FailedPage({ course, id }: Props) {
   return (
     <Dialog
       fullWidth
@@ -68,6 +69,16 @@ export function FailedPage({ course }: Props) {
             justifyContent: 'center',
           }}
         >
+          <Button
+            component={RouterLink}
+            href={`${process.env.NEXT_PUBLIC_API_URL}/api/v1/payment/redirect/${id}`}
+            size="large"
+            color="inherit"
+            variant="contained"
+            startIcon={<Iconify icon="eva:arrow-ios-back-fill" />}
+          >
+            Try again
+          </Button>
           <Button
             component={RouterLink}
             href="/"

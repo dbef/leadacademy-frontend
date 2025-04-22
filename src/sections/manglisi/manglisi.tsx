@@ -9,7 +9,6 @@ import { useLanguage } from 'src/contexts/language-context';
 
 import MapsTsinandali from './maps';
 // import { Testimonials } from './testimonials';
-import { RecommendedItems } from './recommended-things';
 import { LocationAndInfrastructure } from './location-and-infrastructure';
 import { CarouselAnimation } from '../_examples/extra/carousel-view/carousel-animation';
 
@@ -59,12 +58,12 @@ export function ManglisiView({ campuse }: CampusProps) {
         </Typography>
       </Stack>
       <CarouselAnimation data={arrData} />
-      <LocationAndInfrastructure />
+      <LocationAndInfrastructure campus={campuse}/>
       {/* <ExperienceView /> */}
       {/* <Box sx={{ paddingTop: '128px' }}> */}
       <MapsTsinandali />
       {/* </Box> */}
-      <RecommendedItems />
+      {/* <RecommendedItems /> */}
       {/* <Testimonials /> */}
     </Stack>
   );

@@ -56,7 +56,7 @@ export const rulesOfConductData = [
       {
         id: 1,
         title_ka:
-          'იყავით პასუხისმგებელი თქვენს ქმედებებზე. აღიარეთ შეცდომები და ეცადეთ მათი გამოსწორებას.',
+          'იყავით პასუხისმგებელი თქვენს ქმედებებზე. აღიარეთ შეცდომები და ეცადეთ მათ გამოსწორებას.',
         title_en:
           'Be accountable for your behavior. Own up to mistakes and work to make things right.',
       },
@@ -99,14 +99,14 @@ export const rulesOfConductData = [
       {
         id: 2,
         title_ka:
-          'არ შეხვიდეთ შეზღუდულ ზონებში, როგორიცაა პერსონალის ოფისები, ტექნიკური ტერიტორიები ან სამზარეულო, ნებართვის გარეშე.',
+          'ნებართვის გარეშე, არ შეხვიდეთ შეზღუდულ ზონებში, როგორიცაა პერსონალის ოფისები, ტექნიკური ტერიტორიები ან სამზარეულო.',
         title_en:
           'Do not enter restricted areas, such as staff offices, maintenance zones, or kitchens, without approval.',
       },
       {
         id: 3,
         title_ka:
-          'სტუდენტის პირად სივრცეში/საცხოვრებელ ოთახში დაუშვებელია სხვა სტუდენტის, ან პერსონალის (გარდა, ვიწრო სპეციალიზაციისა: მაგ: დალაგება) შესვლა დღის ან ღამის ნებისმიერი პერიოდის განმავლობაში. ნებისმიერი ჯგუფური ინტერაქციის, და აქტივობისთვის გამოყენებულ უნდა იქნას მხოლოდ საზოგადო/აკადემიური სივრცე.',
+          'სტუდენტის პირად სივრცეში/საცხოვრებელ ოთახში დაუშვებელია სხვა სტუდენტის ან პერსონალის (გარდა, ვიწრო სპეციალიზაციისა: მაგ: დალაგება) შესვლა დღის ან ღამის ნებისმიერი პერიოდის განმავლობაში. ნებისმიერი ჯგუფური ინტერაქციის და აქტივობისთვის გამოყენებულ უნდა იქნეს მხოლოდ საზოგადო/აკადემიური სივრცე.',
         title_en:
           "It is prohibited for another student or staff member (except for narrow specializations, e.g., cleaning) to enter a student's personal space/living room at any time of day or night. Any group interaction and activities should only take place in public/academic spaces.",
       },
@@ -140,7 +140,7 @@ export const rulesOfConductData = [
       {
         id: 1,
         title_ka:
-          'გაეცანით საგანგებო გამოსასვლელებს, შეკრების ადგილებსა და პროცედურებს სხვადასხვა კლიმატური ან სამედიცინო შემთხვევებისთვის.',
+          'გაეცანით საგანგებო გამოსასვლელებს, შეკრების ადგილებსა და პროცედურებს სხვადასხვა კლიმატური ან სამედიცინო შემთხვევისთვის.',
         title_en:
           'Familiarize yourself with emergency exits, assembly points, and procedures for climate changes or medical emergencies.',
       },
@@ -160,7 +160,7 @@ export const rulesOfConductData = [
       {
         id: 1,
         title_ka:
-          'ნებისმიერი ტრავმა ან ავადმყოფობა, რამდენადაც უმნიშვნელო იყოს, აცნობეთ ხელმძღვანელს.',
+          'ნებისმიერი ტრავმის ან ავადმყოფობის შესახებ, რამდენადაც უმნიშვნელო უნდა იყოს იგი, აცნობეთ ხელმძღვანელს.',
         title_en: 'Report all injuries or illnesses to a manager, no matter how minor.',
       },
       {
@@ -220,7 +220,7 @@ export const rulesOfConductData = [
       {
         id: 1,
         title_ka:
-          'მოერიდეთ მცენარეების, ხეების ან ველური ბუნების დაზიანებას. არ დაწეროთ ხეებზე, და არ შეაწუხოთ ცხოველები.',
+          'მოერიდეთ მცენარეების, ხეების ან ველური ბუნების დაზიანებას. არ დაწეროთ ხეებზე და არ შეაწუხოთ ცხოველები.',
         title_en:
           'Avoid damaging plants, trees, or wildlife. This includes not carving into trees, or disturbing animals.',
       },
@@ -274,7 +274,7 @@ export const rulesOfConductData = [
       {
         id: 1,
         title_ka:
-          'პერსონალური ელექტრონული მოწყობილობების გამოყენება (ტელეფონები, პლანშეტები და სხვა) დასაშვებია მხოლოდ განსაზღვრულ დროსა და სივრცეებში.',
+          ' პერსონალური ელექტრონული მოწყობილობების გამოყენება (ტელეფონები, პლანშეტები და სხვა.) დასაშვებია მხოლოდ განსაზღვრულ დროსა და სივრცეებში.',
         title_en:
           'Personal electronics (phones, tablets, etc.) may only be used during designated times and in specified areas.',
       },
@@ -313,7 +313,7 @@ export const rulesOfConductData = [
       },
       {
         id: 2,
-        title_ka: 'სადილის შემდეგ, მოიწესრიგეთ თეფში და ადგილი.',
+        title_ka: 'სადილის შემდეგ მოაწესრიგეთ თეფში და ადგილი.',
         title_en: 'Clean your dishes and area after eating.',
       },
       {
@@ -325,7 +325,7 @@ export const rulesOfConductData = [
       {
         id: 4,
         title_ka:
-          'გაითვალისწინეთ სხვა მოსწავლეების საკვების ალერგია ან სპეციალური დიეტური საჭიროებები. არ შესთავაზოთ მათ საკვები, წინასწარი შემოწმების გარეშე.',
+          ' გაითვალისწინეთ სხვა მოსწავლეების საკვებზე ალერგია ან სპეციალური დიეტური საჭიროებები. არ შესთავაზოთ მათ საკვები წინასწარი შემოწმების გარეშე.',
         title_en:
           'Be considerate of other participants with dietary restrictions or food allergies. Do not offer them food without checking first.',
       },
@@ -350,15 +350,14 @@ export const rulesOfConductData = [
     children: [
       {
         id: 1,
-        title_ka:
-          'ბანაკი არ მიესალმება მისი მონაწილეების მიერ ნებისმიერი ტიპის თამბაქოს ან ნიკოტინის შემცველი ალტერნატივის მოხმარებას. მათი მოხმარება პერსონალისთვის დასაშვებია მხოლოდ ამისათვის სპეციალურად გამოყოფილ ადგილებზე და კატეგორიულად დაუშვებელია მოხმარება სხვა ტერიტორიაზე, განკუთრებით შენობასა და საძინებლებში.',
+        title_ka: `ბანაკი არ მიესალმება მისი მონაწილეების მიერ ნებისმიერი ტიპის თამბაქოს ან ნიკოტინის შემცველი ალტერნატივის მოხმარებას. მათი მოხმარება პერსონალისთვის დასაშვებია მხოლოდ ამისათვის სპეციალურად გამოყოფილ ადგილებზე და კატეგორიულად დაუშვებელია მოხმარება სხვა ტერიტორიაზე, განკუთრებით შენობასა და საძინებლებში.`,
         title_en:
           'The Camp does not condone the use of any type of tobacco or nicotine-containing alternatives by its participants. Their use for the working personal/staff is only permitted in specifically designated areas and is strictly prohibited in other areas, including buildings and dormitories.',
       },
       {
         id: 2,
         title_ka:
-          'კატეგორიულად აკრძალულია ნებისმიერი ისეთი ტიპის სასმელის მოხმარება რომელიც შეიცავს ნებისმიერი ოდენობით ალკოჰოლს.',
+          'კატეგორიულად აკრძალულია ნებისმიერი ისეთი ტიპის სასმლის მოხმარება, რომელიც შეიცავს ნებისმიერი ოდენობით ალკოჰოლს.',
         title_en:
           'The consumption of any type of beverage containing any amount of alcohol is strictly forbidden.',
       },
@@ -407,7 +406,7 @@ export const rulesOfConductData = [
   {
     id: 20,
     title_ka:
-      'გამოიყენეთ ბანაკი, როგორც შესაძლებლობა, ისწავლოთ, განვითარდეთ და შეიქმნათ დაუვიწყარი მოგონებები.',
+      'გამოიყენეთ ბანაკი როგორც შესაძლებლობა, ისწავლოთ, განვითარდეთ და შეიქმნათ დაუვიწყარი მოგონებები.',
     title_en: 'Use the Camp as an opportunity to learn, grow, and create lasting memories.',
     children: [],
   },

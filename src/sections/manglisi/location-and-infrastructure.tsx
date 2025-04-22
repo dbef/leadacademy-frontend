@@ -1,3 +1,5 @@
+import type { CampusDto } from 'src/types/campus';
+
 import parser from 'html-react-parser';
 
 import { Card, Stack, Typography } from '@mui/material';
@@ -5,11 +7,12 @@ import { Card, Stack, Typography } from '@mui/material';
 import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
-import { Iconify } from 'src/components/iconify';
 
-import { infrastructure } from './infrastructure';
+export type LocationAndInfrastructureProps = {
+  campus: CampusDto;
+};
 
-export function LocationAndInfrastructure() {
+export function LocationAndInfrastructure({ campus }: LocationAndInfrastructureProps) {
   const { renderLanguage } = useLanguage();
 
   return (
@@ -49,55 +52,8 @@ export function LocationAndInfrastructure() {
             )}
           </Typography>
           <Typography>
-            {parser(
-              renderLanguage(
-                `ლიდერობის აკადემია „საბადო-ს“ მანგლისის კამპუსი უნიკალურ აკადემიურ და
-             დასასვენებელ სივრცეს წარმოადგენს.
-                <br/>
-                <br/>
-             12 ათას კვადრატულ მეტრზე მოწყობილი სივრცე სპეციალურად „საბადოს“
-             საჭიროებებისთვის შეიქმნა და უახლესი ტექნოლოგიური აღჭურვილობით,
-             კომფორტით, ეკოლოგიურად სუფთა გარემოთი და უსაფრთხო გარემოთი
-             გამოირჩევა.
-             <br/>
-             <br/>
-             ფართო და მწვანე ეზოში 3000 კვადრატულ მეტრიან ძირითად ნაგებობას 50-ზე
-             მეტი სტუმრის მიღება შეუძლია. კომპლექსს აქვს თავისი აკადემიური და სამუშაო
-             სივრცეები, საკონფერენციო დარბაზი, ბიბლიოთეკა, ობსერვატორია, ლაუნჯები,
-             სტადიონი, ჯიმი, სათამაშო, სამუშაო, დასასვენებელი და STEAM-ის სივრცეები.
-             ცალკე ნაგებობაშია განლაგებული „საბადო-ს“ საკუთარი კინოთეატრი.
-                <br/>
-                <br/>
-             კამპუსი მანგლისის ცენტრში მდებარეობს, ტყიან მასივში, ისტორიული და
-             კულტურული თვალსაზრისით მნიშვნელოვან რეგიონში და სტუმრებს სთავაზობს
-             „ჰაიქინგის“ და საფეხმავლო ტურების შესაძლებლობას. 
-             <br/>
-             <br/>
-             `,
-                `The Leadership Academy &quot;Sabado&quot; Manglisi Campus represents a unique academic and
-             recreational space.
-             Spanning 12,000 square meters, the space is specially designed for the needs of &quot;Sabado&quot;
-             and is distinguished by its modern technological equipment, comfort, eco-friendly
-             environment, and safety.
-             The main building, set in a spacious and green yard, can accommodate over 50 guests in
-             its 3,000 square meters. The complex features its own academic and working spaces, a
-             conference hall, a library, an observatory, lounges, a stadium, a gym, play areas,
-             workspaces, recreational areas, and STEAM spaces. &quot;Sabado&quot; also has its own cinema
-             located in a separate building.
-             The campus is located in the center of Manglisi, within a forested area, in a region of
-             significant historical and cultural importance, and offers guests opportunities for hiking and
-             walking tours.`
-              )
-            )}
+            {parser(renderLanguage(campus.description_ka, campus.description_en))}
           </Typography>
-          <Stack spacing={1}>
-            {infrastructure.map((item) => (
-              <Stack direction="row" spacing={2} key={item.id}>
-                <Iconify color="#3D1746" icon="icon-park-outline:dot" />
-                <Typography>{renderLanguage(item.title_ka, item.title_en)}</Typography>
-              </Stack>
-            ))}
-          </Stack>
         </Stack>
       </Card>
     </Stack>
