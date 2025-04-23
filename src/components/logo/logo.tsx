@@ -187,8 +187,6 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
     </svg>
   );
 
-
-
   return (
     <LogoRoot
       ref={ref}
@@ -209,9 +207,9 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
       {...other}
     >
       <svg
-        width="51"
-        height="32"
-        viewBox="0 0 51 32"
+        width={props.width ? props.width.toString() : '51'}
+        height={props.height ? props.height.toString() : '32'}
+        viewBox={`0 0 ${props.width ? props.width.toString() : '51'} ${props.height ? props.height.toString() : '32'}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -223,7 +221,7 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
         </g>
         <defs>
           <clipPath id="clip0_503_1070">
-            <rect width="51" height="32" fill="white" />
+            <rect width={props.width ? props.width.toString() : '51'} height={props.height ? props.height.toString() : '32'}fill="white" />
           </clipPath>
         </defs>
       </svg>

@@ -7,6 +7,8 @@ import { Fragment } from 'react';
 import Portal from '@mui/material/Portal';
 import { styled } from '@mui/material/styles';
 
+import { CONFIG } from 'src/global-config';
+
 import { AnimateLogoZoom } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
@@ -24,10 +26,17 @@ export function SplashScreen({ portal = true, slotProps, sx, ...other }: SplashS
 
   return (
     <PortalWrapper>
-      <LoadingWrapper {...slotProps?.wrapper}>
+      <LoadingWrapper
+        {...slotProps?.wrapper}
+        sx={{
+          backgroundColor: 'red',
+        }}
+      >
         <LoadingContent sx={sx} {...other}>
           <AnimateLogoZoom />
+    
         </LoadingContent>
+
       </LoadingWrapper>
     </PortalWrapper>
   );
@@ -52,5 +61,10 @@ const LoadingContent = styled('div')(({ theme }) => ({
   position: 'fixed',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: theme.vars.palette.background.default,
+  backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundAttachment: 'fixed',
+  backgroundColor: '#FAF6FD',
+  backgroundPosition: 'center top',
 }));

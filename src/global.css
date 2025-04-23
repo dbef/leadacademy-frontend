@@ -77,3 +77,24 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
 }
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: fit-content;
+  font-size: 20px;
+  font-family: system-ui,sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #0000;
+  -webkit-text-stroke: 1px #A4C121;
+  background: 
+    linear-gradient(-60deg,#0000 45%,#A4C121 0 55%,#0000 0) 
+    0/300% 100% no-repeat text;
+  animation: l3 2s linear infinite;
+  margin-top: -25px;
+}
+.loader:before {
+  content: "Sabado";
+}
+@keyframes l3 {
+  0%{background-position: 100%}
+}

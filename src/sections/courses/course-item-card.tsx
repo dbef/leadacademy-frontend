@@ -59,6 +59,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
         flexDirection: 'column',
         [`& .${labelClasses.root}`]: { typography: 'caption', color: 'text.secondary' },
         marginTop: '20px',
+        height: '110px'
       }}
     >
       <Box sx={{ display: 'flex', gap: '10px' }}>
@@ -138,7 +139,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   return (
     <Card
       sx={[
-        { width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA' },
+        { width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA'},
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...other}

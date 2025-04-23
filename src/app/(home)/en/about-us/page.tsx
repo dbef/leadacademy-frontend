@@ -18,6 +18,14 @@ export async function generateMetadata(): Promise<Metadata> {
         description: `The work of the Academy is based on the core values that are essential for the formation of leaders, future citizens, and constitute the essential foundation of the Academy's work and each of its activities.`,
         url: `https://sabado.edu.ge/en/about-us`,
         type: 'article',
+        images: [
+          {
+            url: `${CONFIG.assetsDir}/assets/background/main-thumb.jpg`,
+            width: 1200,
+            height: 630,
+            alt: 'Sabado',
+          },
+        ],
       },
       twitter: {
         card: 'summary_large_image',

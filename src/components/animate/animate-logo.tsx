@@ -26,26 +26,27 @@ export const AnimateLogoZoom = forwardRef<HTMLDivElement, AnimateLogoProps>((pro
   return (
     <LogoZoomRoot ref={ref} sx={sx} {...other}>
       <m.span
-        animate={{ scale: [1, 0.9, 0.9, 1, 1], opacity: [1, 0.48, 0.48, 1, 1] }}
-        transition={{
-          duration: 2,
-          repeatDelay: 1,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
+        // animate={{ scale: [1, 0.9, 0.9, 1, 1], opacity: [1, 0.48, 0.48, 1, 1] }}
+        // transition={{
+        //   duration: 2,
+        //   repeatDelay: 1,
+        //   repeat: Infinity,
+        //   ease: 'easeInOut',
+        // }}
       >
         {logo ?? (
           <Logo
             disabled
             {...slotProps?.logo}
             sx={[
-              { width: 64, height: 64 },
+              { width: 64, height: 64, marginLeft: '12px' },
               ...(Array.isArray(slotProps?.logo?.sx)
                 ? (slotProps?.logo?.sx ?? [])
                 : [slotProps?.logo?.sx]),
             ]}
           />
         )}
+        <div className="loader" />
       </m.span>
 
       <LogoZoomPrimaryOutline

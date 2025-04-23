@@ -18,6 +18,14 @@ export async function generateMetadata(): Promise<Metadata> {
         description: 'Tsinandali Campus',
         url: `https://sabado.edu.ge/en/tsinandali`,
         type: 'article',
+        images: [
+          {
+            url: `${CONFIG.assetsDir}/assets/background/main-thumb.jpg`,
+            width: 1200,
+            height: 630,
+            alt: 'Sabado',
+          },
+        ],
       },
       twitter: {
         card: 'summary_large_image',
@@ -36,10 +44,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+  const campuses = await apiClient('/api/v1/campus', 'get');
 
-   const campuses = await apiClient('/api/v1/campus', 'get');
+  const tsinandali = campuses.find((campus) => campus.campus_name_short === 'tsinandali');
 
-   const tsinandali = campuses.find((campus) => campus.campus_name_short === 'tsinandali');
-
-  return tsinandali ? <TsinandaliView campuse={tsinandali}/> : <NotFoundView/>;
+  return tsinandali ? <TsinandaliView campuse={tsinandali} /> : <NotFoundView />;
 }
