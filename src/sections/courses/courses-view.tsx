@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
-import Pagination, { paginationClasses } from '@mui/material/Pagination';
 import { Tab, Chip, Stack, Button, TextField, Typography, Autocomplete } from '@mui/material';
 
 import { CONFIG } from 'src/global-config';
@@ -164,8 +163,7 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
   const { renderLanguage, language } = useLanguage();
 
   return (
-    <>
-      <Box
+    <Box
         {...other}
         sx={{
           padding: '28px 256px',
@@ -358,16 +356,5 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
           )}
         </Grid>
       </Box>
-
-      {products.length > 8 && (
-        <Pagination
-          count={8}
-          sx={{
-            mt: { xs: 5, md: 8 },
-            [`& .${paginationClasses.ul}`]: { justifyContent: 'center' },
-          }}
-        />
-      )}
-    </>
   );
 }

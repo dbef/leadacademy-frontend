@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
       title: `მანგლისი - საბადო`,
-      description:`მანგლისი - საბადო`,
+      description: `მანგლისი - საბადო`,
       keywords: 'პროგრამა, საბადო, სწავლება, განათლება',
       applicationName: 'საბადო',
       openGraph: {
@@ -18,6 +18,14 @@ export async function generateMetadata(): Promise<Metadata> {
         description: 'მანგლისის კამპუსი',
         url: `https://sabado.edu.ge/manglisi`,
         type: 'article',
+        images: [
+          {
+            url: `${CONFIG.assetsDir}/assets/background/main-thumb.jpg`,
+            width: 1200,
+            height: 630,
+            alt: 'Sabado',
+          },
+        ],
       },
       twitter: {
         card: 'summary_large_image',

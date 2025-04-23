@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 import { useLanguage } from 'src/contexts/language-context';
 
+import { Logo } from 'src/components/logo';
 import { varFade, MotionContainer } from 'src/components/animate';
 import { Carousel, useCarousel, CarouselArrowNumberButtons } from 'src/components/carousel';
 
@@ -147,6 +148,9 @@ function CarouselItem({ item, index, selected }: CarouselItemProps) {
         }}
       >
         <m.div variants={varFade('inRight')}>
+          <Logo />
+        </m.div>
+        <m.div variants={varFade('inRight')}>
           <Typography sx={{ mb: 1, typography: { xs: 'subtitle1', md: 'h3' } }}>
             {renderLanguage(item.title_ka, item.title_en)}
           </Typography>
@@ -161,9 +165,13 @@ function CarouselItem({ item, index, selected }: CarouselItemProps) {
         <m.div variants={varFade('inRight')}>
           {item.button_en && item.button_ka ? (
             <Button
-              
               variant="contained"
-              sx={{ mt: 3, display: { sm: 'inline-flex' }, fontFeatureSettings: '"case" on', backgroundColor: '#7F9A16' }}
+              sx={{
+                mt: 3,
+                display: { sm: 'inline-flex' },
+                fontFeatureSettings: '"case" on',
+                backgroundColor: '#7F9A16',
+              }}
               onClick={() => router.push(!item.link ? 'courses' : item.link)}
             >
               {renderLanguage(item.button_ka, item.button_en)}

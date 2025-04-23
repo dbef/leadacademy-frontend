@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
+import { CONFIG } from 'src/global-config';
 
 import { NotFoundView } from 'src/sections/error';
 import { TsinandaliView } from 'src/sections/tsinandali/tsinandali';
@@ -9,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
       title: `წინანდალი - საბადო`,
-      description:`წინანდალი - საბადო`,
+      description: `წინანდალი - საბადო`,
       keywords: 'პროგრამა, საბადო, სწავლება, განათლება',
       applicationName: 'საბადო',
       openGraph: {
@@ -17,6 +18,14 @@ export async function generateMetadata(): Promise<Metadata> {
         description: 'წინანდლის კამპუსი',
         url: `https://sabado.edu.ge/manglisi`,
         type: 'article',
+        images: [
+          {
+            url: `${CONFIG.assetsDir}/assets/background/main-thumb.jpg`,
+            width: 1200,
+            height: 630,
+            alt: 'Sabado',
+          },
+        ],
       },
       twitter: {
         card: 'summary_large_image',
@@ -35,10 +44,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+  const campuses = await apiClient('/api/v1/campus', 'get');
 
-   const campuses = await apiClient('/api/v1/campus', 'get');
+  const tsinandali = campuses.find((campus) => campus.campus_name_short === 'tsinandali');
 
-   const tsinandali = campuses.find((campus) => campus.campus_name_short === 'tsinandali');
-
-  return tsinandali ? <TsinandaliView campuse={tsinandali}/> : <NotFoundView/>;
+  return tsinandali ? <TsinandaliView campuse={tsinandali} /> : <NotFoundView />;
 }

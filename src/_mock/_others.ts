@@ -112,12 +112,12 @@ export const _socials = [
   {
     value: 'facebook',
     label: 'Facebook',
-    path: 'https://www.facebook.com/caitlyn.kerluke',
+    path: 'https://www.facebook.com/share/16Aibb1B4y/?mibextid=wwXIfr',
   },
   {
     value: 'instagram',
     label: 'Instagram',
-    path: 'https://www.instagram.com/caitlyn.kerluke',
+    path: 'https://www.instagram.com/sabado.leadership.academy?igsh=MTdjMmIzY2g2eXZuMA%3D%3D&utm_source=qr',
   },
   {
     value: 'linkedin',
