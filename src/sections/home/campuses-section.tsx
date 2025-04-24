@@ -24,7 +24,7 @@ export function LocationsSection() {
   const [campuses, setCampuses] = useState<CampusDto[]>([]);
   const [selectedCampuse, setSelectedCampuse] = useState<CampusDto | undefined>();
 
-  const [selectedTab, setSelectedTab] = useState('tsinandali');
+  const [selectedTab, setSelectedTab] = useState('manglisi');
 
   const router = useRouter();
 
@@ -34,7 +34,7 @@ export function LocationsSection() {
     const mappedCampuses = response.map((campus) => ({
       title_ka: campus.campus_name_ka,
       title_en: campus.campus_name_en,
-      value: campus.campus_name_en,
+      value: campus.campus_name_short || '',
     }));
 
     setCampuses(response);
@@ -46,6 +46,8 @@ export function LocationsSection() {
     if (tabs.length === 3) return;
     fetchCampuses();
   }, []);
+
+  console.log('Selected Campus:', selectedCampuse);
 
   return (
     <Box
@@ -75,7 +77,7 @@ export function LocationsSection() {
         value={selectedTab}
         onChange={(_event, newValue) => {
           setSelectedTab(newValue);
-          setSelectedCampuse(campuses.find((item) => item.campus_name_en === newValue));
+          setSelectedCampuse(campuses.find((item) => item.campus_name_short === newValue));
         }}
       >
         {tabs.map((tab) => (
