@@ -274,7 +274,7 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
           sx={{ color: 'success.main' }}
         >
           <Iconify icon="solar:user-check-bold" />
-          {renderLanguage('დადასტურება', 'Approve')}
+          {renderLanguage('საბანკო გადმორიცხვის მეილის გაგზავნა', 'Send bank transfer email')}
         </MenuItem>
 
         <MenuItem
@@ -296,13 +296,13 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
       open={confirmDialog.value}
       onClose={confirmDialog.onFalse}
       title={renderLanguage('დადასტურება', 'Approve')}
-      content={renderLanguage('გსურთ აპლიკანტის დადასტურება?', 'Confirm this applicant')}
+      content={renderLanguage('გსურთ მეილის გაგზავნა?', 'Do you want to send email?')}
       action={
         <Button
           variant="contained"
           color="success"
           onClick={() => {
-            handleApproveOrReject(row.application_id || '', 'pending-payment');
+            handleApproveOrReject(row.application_id || '', 'pending');
             confirmDialog.onFalse();
           }}
         >

@@ -45,7 +45,7 @@ export function ApplicantsTable({ course_id }: Props) {
     { value: 'approved', label: 'Approved', label_ka: 'დადასტურებული' },
     { value: 'pending', label: 'Pending', label_ka: 'მომლოდინე' },
     { value: 'rejected', label: 'Rejected', label_ka: 'გაუქმებული' },
-    { value: 'pending-payment', label: 'Payment Pending', label_ka: 'გადასახდელია' },
+    { value: 'paid', label: 'Paied', label_ka: 'გადახდილია' },
   ];
 
   const TABLE_HEAD: TableHeadCellProps[] = [
@@ -177,7 +177,7 @@ export function ApplicantsTable({ course_id }: Props) {
         approved: response.filter((item) => item.status === 'approved').length,
         rejected: response.filter((item) => item.status === 'rejected').length,
         pending: response.filter((item) => item.status === 'pending').length,
-        pending_payment: response.filter((item) => item.status === 'pending-payment').length,
+        pending_payment: response.filter((item) => item.status === 'paid').length,
         all: response.length,
       });
     }
@@ -313,11 +313,11 @@ export function ApplicantsTable({ course_id }: Props) {
                     (tab.value === 'approved' && 'success') ||
                     (tab.value === 'pending' && 'warning') ||
                     (tab.value === 'rejected' && 'error') ||
-                    (tab.value === 'pending-payment' && 'info') ||
+                    (tab.value === 'paid' && 'info') ||
                     'default'
                   }
                 >
-                  {['approved', 'pending', 'rejected', 'pending-payment'].includes(tab.value)
+                  {['approved', 'pending', 'rejected', 'paid'].includes(tab.value)
                     ? data.filter((item) => item.status === tab.value).length
                     : data.length}
                 </Label>
