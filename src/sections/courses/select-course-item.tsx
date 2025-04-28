@@ -77,7 +77,7 @@ export function SelectCourseItem({
           {renderLanguage(item?.campuse?.campus_name_ka || '', item?.campuse?.campus_name_en || '')}
         </Typography>
       </Box>
-      <Box sx={{ display: 'flex', gap: '10px' }}>
+      {/* <Box sx={{ display: 'flex', gap: '10px' }}>
         <Iconify
           width="20px"
           height="25px"
@@ -90,7 +90,7 @@ export function SelectCourseItem({
             `${item.max_students - Number(item?._count?.application || 0)} Places left`
           )}
         </Typography>
-      </Box>
+      </Box> */}
       <Box sx={{ display: 'flex', gap: '10px' }}>
         <Iconify
           width="20px"

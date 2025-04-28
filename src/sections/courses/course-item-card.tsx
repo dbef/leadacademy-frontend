@@ -84,7 +84,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
           {`${renderDate(new Date(item.start_date), language)} - ${renderDate(new Date(item.end_date), language)}`}
         </Typography>
       </Box>
-      <Box sx={{ display: 'flex', gap: '10px' }}>
+      {/* <Box sx={{ display: 'flex', gap: '10px' }}>
         <Iconify
           width="20px"
           height="25px"
@@ -97,7 +97,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
             `${item.max_students - Number(item?._count?.application || 0)} Places left`
           )}
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 
