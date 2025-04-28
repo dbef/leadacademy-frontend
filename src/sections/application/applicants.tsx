@@ -285,7 +285,7 @@ export function ApplicantsTable({ course_id }: Props) {
           loading={loading}
           onClick={onGetExporProduct}
         >
-          {renderLanguage('ექსელის ექსპორტი', 'Export to Excel')}
+          {renderLanguage('აპლიკანტების ექსელის ექსპორტი', 'Export to Excel')}
         </LoadingButton>
         <Tabs
           value={currentFilters.status}
