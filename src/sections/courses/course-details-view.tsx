@@ -108,12 +108,6 @@ export function CourseDetailsView(props: CourseEditViewProps) {
             {`${renderDate(new Date(course.start_date), language)} - ${renderDate(new Date(course.end_date), language)}`}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Typography variant="body2">
-            {renderLanguage('კურსის ღირებულება:', 'Course Price:')} ₾
-            {renderLanguage(`${course.price}`, `${course.price}`)}
-          </Typography>
-        </Box>
 
         <Button
           fullWidth
@@ -218,6 +212,12 @@ export function CourseDetailsView(props: CourseEditViewProps) {
             ))}
         </Stack>
       ) : null}
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Typography variant="body2">
+          {renderLanguage('კურსის ღირებულება:', 'Course Price:')} ₾
+          {renderLanguage(`${course.price}`, `${course.price}`)}
+        </Typography>
+      </Box>
     </Stack>
   );
 

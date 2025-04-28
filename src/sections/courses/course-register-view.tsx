@@ -168,7 +168,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     },
     {
       id: 3,
-      label_ka: 'სტუდენტი',
+      label_ka: 'აპლიკანტი',
       label_en: 'Student',
     },
     {

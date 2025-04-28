@@ -167,11 +167,11 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
         <Field.Text
           name="student_name"
-          label={renderLanguage('სტუდენტის სახელი', `Student's name`)}
+          label={renderLanguage('აპლიკანტის სახელი', `Applicant's name`)}
         />
         <Field.Text
           name="student_lastname"
-          label={renderLanguage('სტუდენტის გვარი', "Student's last name")}
+          label={renderLanguage('აპლიკანტის გვარი', "Applicant's last name")}
         />
       </Stack>
       <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
@@ -312,8 +312,8 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         >
           {renderLanguage(
-            'აქვს თუ არა სტუდენტს რაიმე სპეციალური საგანმანათლებლო საჭიროება?',
-            'Does student have any special educational needs?'
+            'აქვს თუ არა აპლიკანტს რაიმე სპეციალური საგანმანათლებლო საჭიროება?',
+            'Does applicant have any special educational needs?'
           )}
         </Typography>
         <Field.Text
@@ -328,8 +328,8 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         >
           {renderLanguage(
-            'როგორ ურთიერთობს სტუდენტი თანატოლებთან?',
-            'How does student interact with peers?'
+            'როგორ ურთიერთობს აპლიკანტი თანატოლებთან?',
+            'How does applicant interact with peers?'
           )}
         </Typography>
         <Field.Text
@@ -344,8 +344,8 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
         >
           {renderLanguage(
-            'არის თუ არა რაიმე, რაც უნდა ვიცოდეთ სტუდენტის ქცევისა და სოციალური უნარების შესახებ?',
-            'Is there anything we should know about students’ behaviour or social skills?'
+            'არის თუ არა რაიმე, რაც უნდა ვიცოდეთ აპლიკანტის ქცევისა და სოციალური უნარების შესახებ?',
+            'Is there anything we should know about applicant’s behaviour or social skills?'
           )}
         </Typography>
         <Field.Text

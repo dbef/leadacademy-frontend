@@ -229,7 +229,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
     } catch (error: any) {
       if (error.message === 'API request failed with status 409') {
         toast.error(
-          renderLanguage('სტუდენტი უკვე დარეგისტრირებულია', 'Student is already registered')
+          renderLanguage('აპლიკანტი უკვე დარეგისტრირებულია', 'Applicant is already registered')
         );
         setLoading(false);
         return;
@@ -259,7 +259,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
               variant="subtitle2"
               sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
             >
-              {renderLanguage('აქვს თუ არა სტუდენტს ალერგია?', 'Does student have alergies?')}
+              {renderLanguage('აქვს თუ არა აპლიკანტს ალერგია?', 'Does applicant have alergies?')}
             </Typography>
             <Stack spacing={3} direction="row">
               <FormControlLabel
@@ -302,8 +302,8 @@ export function MedicalInfo(props: MedicalInfoProps) {
               sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
             >
               {renderLanguage(
-                'აქვს თუ არა სტუდენტს დიეტური შეზღუდვები?',
-                'Does student have dietary restrictions?'
+                'აქვს თუ არა აპლიკანტსს დიეტური შეზღუდვები?',
+                'Does applicant have dietary restrictions?'
               )}
             </Typography>
             <Stack spacing={3} direction="row">
@@ -349,8 +349,8 @@ export function MedicalInfo(props: MedicalInfoProps) {
               sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
             >
               {renderLanguage(
-                'იღებს თუ არა სტუდენტი რაიმე სახის მედიკამენტებს?',
-                'Does student take any medication?'
+                'იღებს თუ არა აპლიკანტი რაიმე სახის მედიკამენტებს?',
+                'Does applicant take any medication?'
               )}
             </Typography>
             <Stack spacing={3} direction="row">
@@ -397,8 +397,8 @@ export function MedicalInfo(props: MedicalInfoProps) {
               sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
             >
               {renderLanguage(
-                'აქვს თუ არა სტუდენტს რაიმე სამედიცინო მდგომარეობა ან ფიზიკური შეზღუდვები?',
-                'Does student have any medical or physical restrictions?'
+                'აქვს თუ არა აპლიკანტს რაიმე სამედიცინო მდგომარეობა ან ფიზიკური შეზღუდვები?',
+                'Does applicant have any medical or physical restrictions?'
               )}
             </Typography>
             <Stack spacing={3} direction="row">
@@ -444,8 +444,8 @@ export function MedicalInfo(props: MedicalInfoProps) {
               sx={{ fontFeatureSettings: "'case' on", textTransform: 'uppercase' }}
             >
               {renderLanguage(
-                'არის თუ არა რაიმე დამატებითი ინფორმაცია, რომელიც უნდა ვიცოდეთ სტუდენტზე?',
-                'Is there any additional information we should know about the student?'
+                'არის თუ არა რაიმე დამატებითი ინფორმაცია, რომელიც უნდა ვიცოდეთ აპლიკანტზე?',
+                'Is there any additional information we should know about the applicant?'
               )}
             </Typography>
             <Stack spacing={3} direction="row">
@@ -506,7 +506,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
       <Stack spacing={3} direction={{ xs: 'row', md: 'row' }}>
         <Field.Text
           name="emergency_relation"
-          label={renderLanguage('კავშირი სტუდენტთან', 'Relation with student')}
+          label={renderLanguage('კავშირი აპლიკანტთან', 'Relation with applicant')}
           fullWidth
           multiline
         />

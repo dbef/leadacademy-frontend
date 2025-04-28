@@ -108,7 +108,7 @@ export function MainLayout({
             <LanguagePopover data={allLangs} />
             {/** @slot Sign in button */}
             <SignInButton />
-            <IconButton
+            {/* <IconButton
               onClick={() => {
                 setMode('light');
                 settings.setState({ colorScheme: 'light' });
@@ -119,7 +119,7 @@ export function MainLayout({
               ) : (
                 <Iconify icon="line-md:sunny-outline-to-moon-loop-transition" />
               )}
-            </IconButton>
+            </IconButton> */}
             {/** @slot Purchase button */}
           </Box>
         </>
