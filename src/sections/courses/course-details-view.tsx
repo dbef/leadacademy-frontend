@@ -82,7 +82,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Iconify
             width="24px"
             height="24px"
@@ -95,7 +95,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
               `${course.max_students - Number(course?._count?.application || 0)} Places left`
             )}
           </Typography>
-        </Box>
+        </Box> */}
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Iconify
