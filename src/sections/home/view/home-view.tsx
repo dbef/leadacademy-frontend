@@ -14,6 +14,7 @@ import { CONFIG } from 'src/global-config';
 
 import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll-progress';
 
+import { NewsSection } from 'src/sections/news-section/news-section';
 import { CarouselAnimation } from 'src/sections/_examples/extra/carousel-view/carousel-animation';
 
 import CoursesSection from '../courses-section';
@@ -114,6 +115,9 @@ export function HomeView({ products }: HomeProps) {
       </Stack> */}
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <LocationsSection />
+      </Stack>
+      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
+        <NewsSection />
       </Stack>
       {/* <BackToTopButton isVisible={isVisible} onClick={onBackToTop} />
 

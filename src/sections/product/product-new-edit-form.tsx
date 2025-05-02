@@ -235,6 +235,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
           keywords_ka: values.keywords_ka ? values.keywords_ka.join(',') : undefined,
           course_media: selectedFiles,
           course_files: selectedDocs,
+          language: 'en',
           lecturers: selectedLecturers.map((item) => item.id),
           campus_id: selectedCampus?.campus_id,
         },
