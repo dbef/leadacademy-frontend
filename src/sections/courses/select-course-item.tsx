@@ -16,6 +16,7 @@ import { Language, useLanguage } from 'src/contexts/language-context';
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
 import { labelClasses } from 'src/components/label';
+import { FlagIcon } from 'src/components/flag-icon';
 import { Carousel, useCarousel } from 'src/components/carousel';
 
 import { renderDate } from './helpers';
@@ -77,20 +78,15 @@ export function SelectCourseItem({
           {renderLanguage(item?.campuse?.campus_name_ka || '', item?.campuse?.campus_name_en || '')}
         </Typography>
       </Box>
-      {/* <Box sx={{ display: 'flex', gap: '10px' }}>
-        <Iconify
-          width="20px"
-          height="25px"
-          icon="eva:people-fill"
-          sx={{ ml: 0.25, flexShrink: 0, color: 'success.main' }}
-        />
+      <Box sx={{ display: 'flex', gap: '10px' }}>
+        {item.language === 'ka' ? <FlagIcon code="GE" /> : <FlagIcon code="GB" />}
         <Typography sx={{ fontSize: '15px' }}>
           {renderLanguage(
-            `დარჩენილია ${item.max_students - Number(item?._count?.application || 0)} ადგილი`,
-            `${item.max_students - Number(item?._count?.application || 0)} Places left`
+            `${item.language === 'ka' ? 'ქართული' : 'ინგლისური'}`,
+            `${item.language === 'ka' ? 'Georgian' : 'English'}`
           )}
         </Typography>
-      </Box> */}
+      </Box>
       <Box sx={{ display: 'flex', gap: '10px' }}>
         <Iconify
           width="20px"

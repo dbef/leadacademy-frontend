@@ -222,10 +222,6 @@ export function MedicalInfo(props: MedicalInfoProps) {
       router.push(
         `${process.env.NEXT_PUBLIC_API_URL}/api/v1/payment/redirect/${application.application_id}`
       );
-      toast.success(
-        renderLanguage('აპლიკაცია წარმატებით გაიგზავნა', 'Application sent succesfully')
-      );
-      setLoading(false);
     } catch (error: any) {
       if (error.message === 'API request failed with status 409') {
         toast.error(
@@ -791,7 +787,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
                     onClick={onSubmit}
                     loading={loading}
                   >
-                    {renderLanguage('აპლიკაციის გაგზავნა', 'Send Application')}
+                    {renderLanguage('გადახდა', 'Payment')}
                   </LoadingButton>{' '}
                 </Stack>
               </Stack>

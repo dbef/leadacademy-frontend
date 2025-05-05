@@ -30,5 +30,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   const courses = await apiClient('/api/v1/courses', 'get');
 
-  return <HomeView products={courses} />;
+  const images = await apiClient('/api/v1/gallery/cover', 'get');
+
+  return <HomeView products={courses} images={images} />;
 }
