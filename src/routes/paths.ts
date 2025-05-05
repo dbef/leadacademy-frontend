@@ -40,7 +40,10 @@ export const paths = {
     details: (id: string) => `/product/${id}`,
     demo: { details: `/product/${MOCK_ID}` },
   },
- 
+  news: {
+    root: `/news`,
+    details: (id: string) => `/news/${id}`,
+  },
   post: {
     root: `/post`,
     details: (title: string) => `/post/${kebabCase(title)}`,
@@ -134,6 +137,16 @@ export const paths = {
       new: `${ROOTS.DASHBOARD}/product/new`,
       details: (id: string) => `${ROOTS.DASHBOARD}/product/${id}`,
       edit: (id: string) => `${ROOTS.DASHBOARD}/product/${id}/edit`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/product/${MOCK_ID}`,
+        edit: `${ROOTS.DASHBOARD}/product/${MOCK_ID}/edit`,
+      },
+    },
+    news: {
+      root: `${ROOTS.DASHBOARD}/news`,
+      new: `${ROOTS.DASHBOARD}/news/new`,
+      details: (id: string) => `${ROOTS.DASHBOARD}/product/${id}`,
+      edit: (id: string) => `${ROOTS.DASHBOARD}/news/${id}/edit`,
       demo: {
         details: `${ROOTS.DASHBOARD}/product/${MOCK_ID}`,
         edit: `${ROOTS.DASHBOARD}/product/${MOCK_ID}/edit`,

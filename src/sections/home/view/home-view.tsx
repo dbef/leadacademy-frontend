@@ -1,5 +1,6 @@
 'use client';
 
+import type { FileDto } from 'src/types/file';
 import type { FabProps } from '@mui/material/Fab';
 import type { CourseDto } from 'src/types/course-type';
 import type { UseBackToTopReturn } from 'minimal-shared/hooks';
@@ -14,6 +15,7 @@ import { CONFIG } from 'src/global-config';
 
 import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll-progress';
 
+import { NewsSection } from 'src/sections/news-section/news-section';
 import { CarouselAnimation } from 'src/sections/_examples/extra/carousel-view/carousel-animation';
 
 import CoursesSection from '../courses-section';
@@ -23,80 +25,27 @@ import { LocationsSection } from '../campuses-section';
 
 type HomeProps = {
   products: CourseDto[];
+  images: FileDto[];
 };
 
-export function HomeView({ products }: HomeProps) {
+export function HomeView({ products, images }: HomeProps) {
   const pageProgress = useScrollProgress();
 
   const { onBackToTop, isVisible } = useBackToTop('90%');
 
-  const arrData = [
-    {
-      id: '1',
+  const coverImages = images.map((item) => ({
+      id: item.media_id,
       title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
       title_en: 'The best place for learning and fun!',
       description_ka:
         'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
       description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/1.jpg`,
+      coverUrl: item.media_url,
       button_ka: `დარეგისტრირდი აქ`,
       button_en: 'Register Here',
       type: 'image',
       link: 'courses/register',
-    },
-    {
-      id: '2',
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/2.jpg`,
-      button_ka: `დარეგისტრირდი აქ`,
-      button_en: 'Register Here',
-      type: 'image',
-      link: 'courses/register',
-    },
-    {
-      id: '3',
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/3.jpg`,
-      button_ka: `დარეგისტრირდი აქ`,
-      button_en: 'Register Here',
-      type: 'image',
-      link: 'courses/register',
-    },
-    {
-      id: '4',
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/4.jpg`,
-      button_ka: `დარეგისტრირდი აქ`,
-      button_en: 'Register Here',
-      type: 'image',
-      link: 'courses/register',
-    },
-    {
-      id: '5',
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: `${CONFIG.assetsDir}/assets/background/5.jpg`,
-      button_ka: `დარეგისტრირდი აქ`,
-      button_en: 'Register Here',
-      type: 'image',
-      link: 'courses/register',
-    },
-  ];
+    }));
 
   return (
     <>
@@ -105,7 +54,7 @@ export function HomeView({ products }: HomeProps) {
         progress={pageProgress.scrollYProgress}
         sx={[(theme) => ({ position: 'fixed', zIndex: theme.zIndex.appBar + 1 })]}
       />
-      <CarouselAnimation data={arrData} />
+      <CarouselAnimation data={coverImages} />
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <CoursesSection products={products} />
       </Stack>
@@ -114,6 +63,9 @@ export function HomeView({ products }: HomeProps) {
       </Stack> */}
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <LocationsSection />
+      </Stack>
+      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
+        <NewsSection />
       </Stack>
       {/* <BackToTopButton isVisible={isVisible} onClick={onBackToTop} />
 

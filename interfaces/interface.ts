@@ -435,6 +435,38 @@ export interface paths {
         patch: operations["CampusController_update"];
         trace?: never;
     };
+    "/api/v1/admin/news": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["NewsController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/news/{news_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["NewsController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["NewsController_update"];
+        trace?: never;
+    };
     "/api/v1/admin/lecturer": {
         parameters: {
             query?: never;
@@ -465,38 +497,6 @@ export interface paths {
         options?: never;
         head?: never;
         patch: operations["LecturerController_update"];
-        trace?: never;
-    };
-    "/api/v1/news": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["NewsController_findAll"];
-        put?: never;
-        post: operations["NewsController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/news/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["NewsController_findOne"];
-        put?: never;
-        post?: never;
-        delete: operations["NewsController_remove"];
-        options?: never;
-        head?: never;
-        patch: operations["NewsController_update"];
         trace?: never;
     };
     "/api/v1/payment/redirect/{application_id}": {
@@ -614,6 +614,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/gallery/cover": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GalleryController_coverImages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/campus": {
         parameters: {
             query?: never;
@@ -622,6 +638,38 @@ export interface paths {
             cookie?: never;
         };
         get: operations["CampusController_findAllCampuses"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/news": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["NewsController_findAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/news/{news_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["NewsController_findOne"];
         put?: never;
         post?: never;
         delete?: never;
@@ -817,6 +865,8 @@ export interface components {
             description_ka: string;
             /** @description Description in English */
             description_en: string;
+            /** @description language */
+            language: string;
             /** @description Start date of the course */
             start_date: string;
             /** @description Is the course published? */
@@ -914,6 +964,8 @@ export interface components {
             is_published: boolean;
             /** @description Description in English */
             description_en: string;
+            /** @description language */
+            language: string;
             /**
              * Format: date-time
              * @description Start date of the course
@@ -982,6 +1034,8 @@ export interface components {
             description_ka?: string;
             /** @description Description in English */
             description_en?: string;
+            /** @description language */
+            language?: string;
             /** @description Start date of the course */
             start_date?: string;
             /** @description End date of the course */
@@ -1136,6 +1190,118 @@ export interface components {
             /** @description Course files */
             campus_files?: components["schemas"]["FileDto"][];
         };
+        CreateNewsDto: {
+            /** @description Title in Georgian */
+            title_ka: string;
+            /** @description Title in English */
+            title_en: string;
+            /** @description Description in Georgian */
+            description_ka: string;
+            /** @description Description in English */
+            description_en: string;
+            /** @description Course media */
+            news_media?: components["schemas"]["FileDto"][];
+            /** @description kewords ka */
+            keywords_ka?: string;
+            /** @description kewords ka */
+            hash_tags?: string;
+            /** @description kewords ka */
+            keywords_en?: string;
+            /** @description kewords ka */
+            short_des_en?: string;
+            /** @description kewords ka */
+            short_des_ka?: string;
+        };
+        NewsMediaDto: {
+            /**
+             * Format: uuid
+             * @description Unique ID of the course media
+             */
+            news_media_id: string;
+            /**
+             * Format: uuid
+             * @description ID of the associated course
+             */
+            news_id: string;
+            /** @description URL of the media file */
+            media_url: string;
+            /** @description Original name of the media file */
+            original_name: string;
+            /** @description Location of the media file */
+            location: string;
+            /** @description Type of the media file */
+            type: string;
+            /** @description Position of the media file */
+            position: number;
+            /**
+             * Format: date-time
+             * @description Date the media was created
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description Date the media was last updated
+             */
+            updated_at: string;
+        };
+        MediaNewsAssnDto: {
+            news_media_assn_id: string;
+            media_id: string;
+            news_id: string;
+            media?: components["schemas"]["FileDto"];
+        };
+        NewsDto: {
+            /**
+             * Format: uuid
+             * @description Unique ID of the news item
+             */
+            news_id: string;
+            title_ka: string;
+            title_en: string;
+            description_ka: string;
+            description_en: string;
+            /**
+             * Format: date-time
+             * @description Creation timestamp (auto-filled by server if omitted)
+             */
+            created_at?: string;
+            /**
+             * Format: date-time
+             * @description Last update timestamp (auto-filled by server if omitted)
+             */
+            updated_at?: string;
+            hashtags?: string;
+            short_des_ka?: string;
+            short_des_en?: string;
+            keywords_ka?: string;
+            keywords_en?: string;
+            /** @description List of media associated with the news item */
+            news_media?: components["schemas"]["NewsMediaDto"][];
+            /** @description List of media associated with the news item */
+            news_media_assn: components["schemas"]["MediaNewsAssnDto"][];
+        };
+        UpdateNewsDto: {
+            /** @description Title in Georgian */
+            title_ka?: string;
+            /** @description Title in English */
+            title_en?: string;
+            /** @description Description in Georgian */
+            description_ka?: string;
+            /** @description Description in English */
+            description_en?: string;
+            /** @description Course media */
+            news_media?: components["schemas"]["FileDto"][];
+            /** @description kewords ka */
+            keywords_ka?: string;
+            /** @description kewords ka */
+            hash_tags?: string;
+            /** @description kewords ka */
+            keywords_en?: string;
+            /** @description kewords ka */
+            short_des_en?: string;
+            /** @description kewords ka */
+            short_des_ka?: string;
+        };
         CreateLecturerDto: {
             /** @description Profile picture URL */
             picture?: string;
@@ -1152,8 +1318,6 @@ export interface components {
             /** @description Biography in English */
             biography_en: string;
         };
-        CreateNewsDto: Record<string, never>;
-        UpdateNewsDto: Record<string, never>;
         CreateApplicationDto: {
             /**
              * Format: uuid
@@ -1241,6 +1405,12 @@ export interface components {
              * @example 1234567890abcdef12345678
              */
             application_id: string;
+        };
+        NewsRtDto: {
+            /** @description List of news items */
+            data: components["schemas"]["NewsDto"][];
+            /** @description Total number of news items */
+            count: number;
         };
     };
     responses: never;
@@ -1925,6 +2095,77 @@ export interface operations {
             };
         };
     };
+    NewsController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateNewsDto"];
+            };
+        };
+        responses: {
+            /** @description News item created successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NewsDto"];
+                };
+            };
+        };
+    };
+    NewsController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Unique ID of the news item */
+                news_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    NewsController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Unique ID of the news item */
+                news_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateNewsDto"];
+            };
+        };
+        responses: {
+            /** @description News item updated successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NewsDto"];
+                };
+            };
+        };
+    };
     LecturerController_findAll: {
         parameters: {
             query?: never;
@@ -2035,105 +2276,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["LecturerDto"];
                 };
-            };
-        };
-    };
-    NewsController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NewsController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateNewsDto"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NewsController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NewsController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    NewsController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateNewsDto"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
@@ -2312,6 +2454,26 @@ export interface operations {
             };
         };
     };
+    GalleryController_coverImages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description List of all media files */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FileDto"][];
+                };
+            };
+        };
+    };
     CampusController_findAllCampuses: {
         parameters: {
             query?: never;
@@ -2328,6 +2490,60 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CampusDto"][];
+                };
+            };
+        };
+    };
+    NewsController_findAll: {
+        parameters: {
+            query: {
+                /** @description Number of rows per page */
+                rowsPerPage: number;
+                /** @description Current page number */
+                page: number;
+                /** @description Text to search for */
+                searchText?: string;
+                /** @description Field to sort by */
+                sortBy: string;
+                /** @description Direction of sorting */
+                direction: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description List of all news items */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NewsRtDto"];
+                };
+            };
+        };
+    };
+    NewsController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Unique ID of the news item */
+                news_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Details of a specific news item */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NewsDto"];
                 };
             };
         };

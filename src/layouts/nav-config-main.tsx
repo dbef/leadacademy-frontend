@@ -32,6 +32,12 @@ export const navData: NavMainProps['data'] = [
     path: '/courses',
     icon: <Iconify width={22} icon="mdi:book-open-variant" />, // Education
   },
+  {
+    title: 'სიახლეები',
+    title_en: 'News',
+    path: '/news',
+    icon: <Iconify width={22} icon="tabler:news" />, // Education
+  },
   // {
   //   title_en: 'Gallery',
   //   title: 'გალერია',

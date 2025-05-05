@@ -25,7 +25,16 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Chip, Button, Avatar, TextField, IconButton, Autocomplete } from '@mui/material';
+import {
+  Chip,
+  Button,
+  Avatar,
+  TextField,
+  IconButton,
+  Autocomplete,
+  Select,
+  MenuItem,
+} from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -64,6 +73,7 @@ export const CreateCourseSchema = zod.object({
   short_des_en: zod.string().optional(),
   short_des_ka: zod.string().optional(),
   is_published: zod.boolean(),
+  language: zod.string(),
 });
 
 type CourseProps = {
@@ -80,8 +90,12 @@ export function ProductNewEditForm({ course }: CourseProps) {
 
   const isDeleting = useBoolean();
 
-  const [startDate, setStartDate] = useState<IDatePickerControl>(dayjs(course ? new Date(course.start_date) : new Date()));
-  const [endDate, setEndDate] = useState<IDatePickerControl>(dayjs(course ? new Date(course.end_date) : new Date()));
+  const [startDate, setStartDate] = useState<IDatePickerControl>(
+    dayjs(course ? new Date(course.start_date) : new Date())
+  );
+  const [endDate, setEndDate] = useState<IDatePickerControl>(
+    dayjs(course ? new Date(course.end_date) : new Date())
+  );
   const [selectedFiles, setSelectedFiles] = useState<FileDto[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedDocs, setSelectedDocs] = useState<FileDto[]>([]);
@@ -166,6 +180,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
     short_des_en: course ? course.short_des_en : '',
     short_des_ka: course ? course.short_des_ka : '',
     is_published: course ? course.is_published : false,
+    language: course ? course.language : 'ka',
   };
 
   const methods = useForm<NewCourseSchema>({
@@ -235,6 +250,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
           keywords_ka: values.keywords_ka ? values.keywords_ka.join(',') : undefined,
           course_media: selectedFiles,
           course_files: selectedDocs,
+          language: 'en',
           lecturers: selectedLecturers.map((item) => item.id),
           campus_id: selectedCampus?.campus_id,
         },
@@ -551,11 +567,23 @@ export function ProductNewEditForm({ course }: CourseProps) {
           }}
           slotProps={{ textField: { fullWidth: true } }}
         />
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={values.language}
+          label="ენა"
+          onChange={(e) => {
+            setValue('language', e.target.value);
+          }}
+        >
+          <MenuItem value="ka">ქართული</MenuItem>
+          <MenuItem value="eng">ინგლისური</MenuItem>
+        </Select>
       </Stack>
     </Card>
   );
 
-  console.log('Values:', values.is_published, course)
+  console.log('Values:', values.is_published, course);
 
   const renderActions = () => (
     <Box

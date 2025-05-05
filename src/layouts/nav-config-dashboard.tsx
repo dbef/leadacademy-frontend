@@ -89,13 +89,11 @@ export const navData: NavSectionProps['data'] = [
       { title: 'ფაილ მენეჯერი', path: paths.dashboard.fileManager, icon: ICONS.folder },
       {
         title: 'სიახლეები',
-        path: paths.dashboard.post.root,
+        path: paths.dashboard.news.root,
         icon: ICONS.blog,
         children: [
-          { title: 'List', path: paths.dashboard.post.root },
-          { title: 'Details', path: paths.dashboard.post.demo.details },
-          { title: 'Create', path: paths.dashboard.post.new },
-          { title: 'Edit', path: paths.dashboard.post.demo.edit },
+          { title: 'ყველა', path: paths.dashboard.news.root },
+          { title: 'დამატება', path: paths.dashboard.news.new },
         ],
       },
       {
@@ -150,7 +148,6 @@ export const navData: NavSectionProps['data'] = [
   //         { title: 'Details', path: paths.dashboard.order.demo.details },
   //       ],
   //     },
-
 
   //     {
   //       title: 'Job',

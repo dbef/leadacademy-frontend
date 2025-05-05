@@ -14,6 +14,7 @@ import { Language, useLanguage } from 'src/contexts/language-context';
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
 import { labelClasses } from 'src/components/label';
+import { FlagIcon } from 'src/components/flag-icon';
 import { Carousel, useCarousel } from 'src/components/carousel';
 
 import { renderDate } from './helpers';
@@ -59,7 +60,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
         flexDirection: 'column',
         [`& .${labelClasses.root}`]: { typography: 'caption', color: 'text.secondary' },
         marginTop: '20px',
-        height: '110px'
+        height: '110px',
       }}
     >
       <Box sx={{ display: 'flex', gap: '10px' }}>
@@ -84,20 +85,15 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
           {`${renderDate(new Date(item.start_date), language)} - ${renderDate(new Date(item.end_date), language)}`}
         </Typography>
       </Box>
-      {/* <Box sx={{ display: 'flex', gap: '10px' }}>
-        <Iconify
-          width="20px"
-          height="25px"
-          icon="eva:people-fill"
-          sx={{ ml: 0.25, flexShrink: 0, color: 'success.main' }}
-        />
+      <Box sx={{ display: 'flex', gap: '10px' }}>
+        {item.language === 'ka' ? <FlagIcon code="GE" /> : <FlagIcon code="GB" />}
         <Typography sx={{ fontSize: '15px' }}>
           {renderLanguage(
-            `დარჩენილია ${item.max_students - Number(item?._count?.application || 0)} ადგილი`,
-            `${item.max_students - Number(item?._count?.application || 0)} Places left`
+            `${item.language === 'ka' ? 'ქართული' : 'ინგლისური'}`,
+            `${item.language === 'ka' ? 'Georgian' : 'English'}`,
           )}
         </Typography>
-      </Box> */}
+      </Box>
     </Box>
   );
 
@@ -139,7 +135,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   return (
     <Card
       sx={[
-        { width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA'},
+        { width: 1, backgroundColor: '#FAF6FD', border: '1px solid #DDBDEA' },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
       {...other}

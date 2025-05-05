@@ -9,8 +9,6 @@ import parser from 'html-react-parser';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import CardHeader from '@mui/material/CardHeader';
 import { Avatar, Button, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
@@ -18,10 +16,10 @@ import { useRouter } from 'src/routes/hooks';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
+import { FlagIcon } from 'src/components/flag-icon';
 import { FileThumbnail } from 'src/components/file-thumbnail';
 
 import { renderDate } from './helpers';
-import { CarouselThumbsY } from '../_examples/extra/carousel-view/carousel-thumbs-y';
 // ----------------------------------------------------------------------
 
 export type NewCourseSchema = zod.infer<typeof CreateCourseSchema>;
@@ -82,21 +80,6 @@ export function CourseDetailsView(props: CourseEditViewProps) {
           </Typography>
         </Box>
 
-        {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Iconify
-            width="24px"
-            height="24px"
-            icon="eva:people-fill"
-            sx={{ color: 'success.main' }}
-          />
-          <Typography sx={{ fontSize: '16px', fontWeight: '500' }}>
-            {renderLanguage(
-              `დარჩენილია ${course.max_students - Number(course?._count?.application || 0)} ადგილი`,
-              `${course.max_students - Number(course?._count?.application || 0)} Places left`
-            )}
-          </Typography>
-        </Box> */}
-
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Iconify
             width="24px"
@@ -108,7 +91,15 @@ export function CourseDetailsView(props: CourseEditViewProps) {
             {`${renderDate(new Date(course.start_date), language)} - ${renderDate(new Date(course.end_date), language)}`}
           </Typography>
         </Box>
-
+        <Box sx={{ display: 'flex', gap: '10px' }}>
+          {props.course.language === 'ka' ? <FlagIcon code="GE" /> : <FlagIcon code="GB" />}
+          <Typography sx={{ fontSize: '15px' }}>
+            {renderLanguage(
+              `${props.course.language === 'ka' ? 'ქართული' : 'ინგლისური'}`,
+              `${props.course.language === 'ka' ? 'Georgian' : 'English'}`
+            )}
+          </Typography>
+        </Box>
         <Button
           fullWidth
           variant="contained"
