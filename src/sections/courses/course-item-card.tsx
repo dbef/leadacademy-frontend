@@ -9,6 +9,8 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import { Stack, Avatar, Tooltip, Typography } from '@mui/material';
 
+import { RouterLink } from 'src/routes/components';
+
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Image } from 'src/components/image';
@@ -24,8 +26,6 @@ type CarouselItemProps = CardProps & {
 };
 
 export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
-  const router = useRouter();
-
   const { renderLanguage, language } = useLanguage();
 
   const carousel = useCarousel({ slidesToShow: 'auto', slideSpacing: '20px', loop: true }, [
@@ -35,11 +35,9 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
   const renderImage = () => (
     <Box
       sx={{ position: 'relative', px: 1, pt: 1, cursor: 'pointer' }}
-      onClick={() => {
-        router.push(
-          language === Language.KA ? `/courses/${item.course_id}` : `/en/courses/${item.course_id}`
-        );
-      }}
+      component={RouterLink}
+      href={language === Language.KA ? `/courses/${item.url_id}` : `/en/courses/${item.url_id}`}
+      target="_blank"
     >
       <Image
         alt={item.media_course_assn[0]?.media?.media_name}
@@ -90,7 +88,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
         <Typography sx={{ fontSize: '15px' }}>
           {renderLanguage(
             `${item.language === 'ka' ? 'ქართული' : 'ინგლისური'}`,
-            `${item.language === 'ka' ? 'Georgian' : 'English'}`,
+            `${item.language === 'ka' ? 'Georgian' : 'English'}`
           )}
         </Typography>
       </Box>
@@ -103,29 +101,25 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
         sx={{
           color: '#7F9A16',
         }}
+        LinkComponent={RouterLink}
+        href={language === Language.KA ? `/courses/${item.url_id}` : `/en/courses/${item.url_id}`}
+        target="_blank"
         fullWidth
-        onClick={() => {
-          router.push(
-            language === Language.KA
-              ? `/courses/${item.course_id}`
-              : `/en/courses/${item.course_id}`
-          );
-        }}
       >
         {renderLanguage('ინფორმაცია', 'Information')}
       </Button>
       <Button
         variant="contained"
         fullWidth
+        LinkComponent={RouterLink}
+        href={
+          language === Language.KA
+            ? `/courses/register/${item.course_id}`
+            : `/en/courses/register/${item.course_id}`
+        }
+        target="_blank"
         sx={{ backgroundColor: '#7F9A16' }}
         size="large"
-        onClick={() => {
-          router.push(
-            language === Language.KA
-              ? `/courses/register/${item.course_id}`
-              : `/en/courses/register/${item.course_id}`
-          );
-        }}
       >
         {renderLanguage('რეგისტრაცია', 'Register')}
       </Button>
@@ -142,19 +136,14 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
     >
       {renderImage()}
       <Stack spacing={2} sx={{ px: 2, py: 2.5 }}>
-        <Tooltip
-          title={renderLanguage(item.title_ka, item.title_en)}
-          onClick={() => {
-            router.push(
-              language === Language.KA
-                ? `/courses/${item.course_id}`
-                : `/en/courses/${item.course_id}`
-            );
-          }}
-        >
+        <Tooltip title={renderLanguage(item.title_ka, item.title_en)}>
           <Typography
             variant="subtitle1"
-            component="div"
+            component={RouterLink}
+            href={
+              language === Language.KA ? `/courses/${item.url_id}` : `/en/courses/${item.url_id}`
+            }
+            target="_blank"
             color="inherit"
             sx={{
               height: '25px',
@@ -163,6 +152,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
               textOverflow: 'ellipsis',
               cursor: 'pointer',
               display: '-webkit-box',
+              textDecoration: 'none',
               WebkitLineClamp: 1,
               WebkitBoxOrient: 'vertical',
               fontFeatureSettings: "'case' on",

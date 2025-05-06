@@ -23,7 +23,6 @@ type CarouselItemProps = CardProps & {
 export function NewsItem({ item, sx, ...other }: CarouselItemProps) {
   const { renderLanguage } = useLanguage();
 
-  const router = useRouter();
 
   const renderImage = () => (
     <Box sx={{ px: 1, pt: 1 }}>

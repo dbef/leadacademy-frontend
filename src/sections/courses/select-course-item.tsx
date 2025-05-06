@@ -109,8 +109,8 @@ export function SelectCourseItem({
         onClick={() => {
           router.push(
             language === Language.KA
-              ? `/courses/${item.course_id}`
-              : `/en/courses/${item.course_id}`
+              ? `/courses/${item.url_id}`
+              : `/en/courses/${item.url_id}`
           );
         }}
       >
