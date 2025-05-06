@@ -646,6 +646,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/news/generate-url-id": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["NewsController_generateUrl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/news": {
         parameters: {
             query?: never;
@@ -966,6 +982,8 @@ export interface components {
             description_en: string;
             /** @description language */
             language: string;
+            /** @description URL id */
+            url_id: string;
             /**
              * Format: date-time
              * @description Start date of the course
@@ -2491,6 +2509,23 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["CampusDto"][];
                 };
+            };
+        };
+    };
+    NewsController_generateUrl: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

@@ -6,7 +6,6 @@ import { Box, Card, Typography } from '@mui/material';
 
 import { Language, useLanguage } from 'src/contexts/language-context';
 
-
 interface NewsCardProps {
   news: INews;
 }
@@ -33,8 +32,10 @@ export function NewsCard({ news }: NewsCardProps) {
       }}
       onClick={() => {
         if (typeof window !== 'undefined') {
-          window.location.href =
+          const url =
             language === Language.KA ? `/news/${news.news_id}` : `/en/news/${news.news_id}`;
+
+          window.open(url, '_blank');
         }
       }}
     >

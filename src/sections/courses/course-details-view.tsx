@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import { Avatar, Button, Typography } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
+import { RouterLink } from 'src/routes/components';
 
 import { Language, useLanguage } from 'src/contexts/language-context';
 
@@ -106,13 +107,13 @@ export function CourseDetailsView(props: CourseEditViewProps) {
           sx={{
             backgroundColor: '#7F9A16',
           }}
-          onClick={() =>
-            router.push(
-              language === Language.KA
-                ? `/courses/register/${course.course_id}`
-                : `/en/courses/register/${course.course_id}`
-            )
+          component={RouterLink}
+          href={
+            language === Language.KA
+              ? `/courses/register/${course.course_id}`
+              : `/en/courses/register/${course.course_id}`
           }
+          target="_blank"
           size="large"
         >
           {renderLanguage('რეგისტრაცია', 'Register')}
