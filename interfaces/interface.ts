@@ -646,22 +646,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/news/generate-url-id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["NewsController_generateUrl"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/v1/news": {
         parameters: {
             query?: never;
@@ -899,6 +883,11 @@ export interface components {
              * @default 0
              */
             price: number;
+            /**
+             * @description Price of the course
+             * @default 0
+             */
+            day_price: number;
             /** @description Lecturer ID */
             lecturer_id?: string;
             /** @description List of lecturer IDs */
@@ -1005,6 +994,11 @@ export interface components {
              */
             price: number;
             /**
+             * @description Price of the course
+             * @default 0
+             */
+            day_price: number;
+            /**
              * Format: uuid
              * @description ID of the lecturer
              */
@@ -1068,6 +1062,11 @@ export interface components {
              * @default 0
              */
             price: number;
+            /**
+             * @description Day Price of the course
+             * @default 0
+             */
+            day_price: number;
             /** @description Lecturer ID */
             lecturer_id?: string;
             /** @description Course media */
@@ -1177,6 +1176,8 @@ export interface components {
             emergency_contact_name?: string;
             /** @description Additional Medical Information */
             emergency_contact_phone?: string;
+            /** @description Days attending */
+            days_attending?: number;
             /** @description Additional Medical Information */
             additional_comfort_info?: string;
             /** @description Medical Terms Agreement */
@@ -1368,6 +1369,8 @@ export interface components {
             address: string;
             /** @description City */
             city: string;
+            /** @description Days attending */
+            days_attending: number;
             /** @description Student First Name */
             student_name: string;
             /** @description Student Last Name */
@@ -2509,23 +2512,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["CampusDto"][];
                 };
-            };
-        };
-    };
-    NewsController_generateUrl: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };

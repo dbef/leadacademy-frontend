@@ -74,6 +74,7 @@ export const CreateCourseSchema = zod.object({
   short_des_ka: zod.string().optional(),
   is_published: zod.boolean(),
   language: zod.string(),
+  day_price: zod.number(),
 });
 
 type CourseProps = {
@@ -179,6 +180,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
     keywords_en: course && course.keywords_en ? course.keywords_en?.split(',') : [],
     short_des_en: course ? course.short_des_en : '',
     short_des_ka: course ? course.short_des_ka : '',
+    day_price: course ? course.day_price : 450,
     is_published: course ? course.is_published : false,
     language: course ? course.language : 'ka',
   };
@@ -517,6 +519,25 @@ export function ProductNewEditForm({ course }: CourseProps) {
         <Field.Text
           name="price"
           label={renderLanguage('ფასი', 'Price')}
+          placeholder="0.00"
+          type="number"
+          slotProps={{
+            inputLabel: { shrink: true },
+            input: {
+              startAdornment: (
+                <InputAdornment position="start" sx={{ mr: 0.75 }}>
+                  <Box component="span" sx={{ color: 'text.disabled' }}>
+                    ₾
+                  </Box>
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+
+        <Field.Text
+          name="day_price"
+          label={renderLanguage('დღიური ფასი', 'Daily Price')}
           placeholder="0.00"
           type="number"
           slotProps={{
