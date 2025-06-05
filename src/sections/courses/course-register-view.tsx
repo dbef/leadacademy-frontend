@@ -56,6 +56,7 @@ export type ParentInfoType = {
   relation: string;
   parent_dob: string;
   parent_gender: string;
+  days_attending: number;
   nationality: string;
   country: string;
   address: string;
@@ -106,6 +107,12 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
 
   const router = useRouter();
 
+  const date1 = new Date(course ? course.start_date : 0);
+  const date2 = new Date(course ? course.end_date : 0);
+
+  const diffTime = Math.abs(date2.getTime() - date1.getTime());
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
   const [completed, setCompleted] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [parentInfo, setParentInfo] = useState<ParentInfoType>({
@@ -121,6 +128,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     country: 'Georgia',
     parent_gender: 'male',
     nationality: 'Georgia',
+    days_attending: diffDays,
   });
   const [studentInfo, setStudentInfo] = useState<StudentInfoType>({
     student_name: '',

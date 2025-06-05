@@ -24,6 +24,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  InputAdornment,
 } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
@@ -53,6 +54,7 @@ export const RegisterParentSchema = zod.object({
   nationality: zod.string().min(1, { message: '' }).default('Georgia'),
   country: zod.string().min(1, { message: '' }).default('Georgia'),
   address: zod.string().min(1, { message: '' }),
+  days_attending: zod.number().min(1),
   city: zod.string().min(1, { message: '' }),
 });
 
@@ -90,6 +92,7 @@ export function RegisterParentView(props: ParentInfoProps) {
     relation: parentInfo.relation,
     parent_dob: parentInfo.parent_dob,
     parent_gender: parentInfo.parent_gender,
+    days_attending: parentInfo.days_attending,
     nationality: parentInfo.nationality,
     country: parentInfo.country,
     address: parentInfo.address,
@@ -124,6 +127,23 @@ export function RegisterParentView(props: ParentInfoProps) {
           ),
         });
       }
+
+      const date1 = new Date(course ? course.start_date : 0);
+      const date2 = new Date(course ? course.end_date : 0);
+
+      const diffTime = Math.abs(date2.getTime() - date1.getTime());
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      if (data.days_attending > diffDays) {
+        setError('days_attending', {
+          message: renderLanguage(
+            'მონაწილეობის დღეების რაოდენობა არ უნდა აღემატებოდეს კურსის ხანგრძლივობას',
+            'Number of attending days should not exceed course duration'
+          ),
+        });
+        return;
+      }
+
       setParentInfo(data);
       setActiveStep(2);
     } catch (error) {
@@ -287,6 +307,14 @@ export function RegisterParentView(props: ParentInfoProps) {
           }}
         />
       </Stack>
+      <Field.Text
+        name="days_attending"
+        label={renderLanguage('დღეების რაოდენობა', 'Number of Days Attending')}
+        placeholder="7"
+        type="number"
+        slotProps={{
+        }}
+      />
     </Stack>
   );
 
