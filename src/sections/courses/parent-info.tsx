@@ -288,7 +288,7 @@ export function RegisterParentView(props: ParentInfoProps) {
 
             // Handle backspace properly
             if (value.startsWith('995')) {
-              value = value.slice(3); // Remove the country code for easier handling
+              value = value.slice(3); 
             }
 
             let formattedValue = '+995';
