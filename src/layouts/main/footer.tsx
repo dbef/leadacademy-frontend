@@ -63,6 +63,17 @@ export function Footer({
       ],
     },
     {
+      headline: 'Terms and Conditions',
+      headline_ka: 'წესები და პირობები',
+      children: [
+        {
+          name: 'Terms and Conditions',
+          name_ka: 'წესები და პირობები',
+          href: language === Language.KA ? '/terms-and-conditions' : '/en/terms-and-conditions',
+        },
+      ],
+    },
+    {
       headline: 'Contact',
       headline_ka: 'საკონტაქტო ინფორმაცია',
       children: [
