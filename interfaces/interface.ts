@@ -856,6 +856,17 @@ export interface components {
             /** @description Total number of files */
             count: number;
         };
+        CreateCourseOptionDto: {
+            /** @description Start date of the course */
+            start_date: string;
+            /** @description End date of the course */
+            end_date: string;
+            /**
+             * @description Price of the course
+             * @default 0
+             */
+            option_price: number;
+        };
         CreateCourseDto: {
             /** @description Title in Georgian */
             title_ka: string;
@@ -906,6 +917,8 @@ export interface components {
             short_des_en?: string;
             /** @description kewords ka */
             short_des_ka?: string;
+            /** @description Course options */
+            course_options?: components["schemas"]["CreateCourseOptionDto"][];
         };
         ApplicationsCount: {
             /** @description Number of applications for the course */
@@ -952,6 +965,43 @@ export interface components {
             campus_name_short?: string;
             campus_media_assn: components["schemas"]["CampusFileAssnDto"][];
             campus_file_assn: components["schemas"]["CampusFileAssnDto"][];
+        };
+        CourseOptionsDto: {
+            /**
+             * Format: uuid
+             * @description Unique ID of the course option
+             */
+            course_options_id: string;
+            /**
+             * Format: date-time
+             * @description Start date of the course option
+             */
+            start_date: string;
+            /**
+             * Format: date-time
+             * @description End date of the course option
+             */
+            end_date: string;
+            /**
+             * @description Price of the course option
+             * @default 0
+             */
+            option_price: number;
+            /**
+             * Format: uuid
+             * @description ID of the course this option belongs to
+             */
+            course_id?: string;
+            /**
+             * Format: date-time
+             * @description End date of the course option
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description End date of the course option
+             */
+            updated_at: string;
         };
         CourseDto: {
             /**
@@ -1036,6 +1086,8 @@ export interface components {
             lecturer_course_assn: components["schemas"]["LecturerCourseAssnDto"][];
             /** @description Array of media associated with the course */
             campuse: components["schemas"]["CampusDto"];
+            /** @description List of course options */
+            course_options?: components["schemas"]["CourseOptionsDto"][];
         };
         EditCourseDto: {
             /** @description Title in Georgian */
@@ -1087,6 +1139,8 @@ export interface components {
             lecturers?: string[];
             /** @description List of category IDs */
             campus_id?: string;
+            /** @description Course options */
+            course_options?: components["schemas"]["CreateCourseOptionDto"][];
         };
         UpdateApplicationDtoAdmin: {
             status: string;
@@ -1192,6 +1246,10 @@ export interface components {
             updated_at: string;
             /** @description Course */
             course?: components["schemas"]["CourseDto"];
+            /** @description Course Option ID */
+            course_option_id?: string;
+            /** @description Course Option Details */
+            course_option: components["schemas"]["CourseOptionsDto"];
         };
         CreateCampusDto: {
             /** @description Title in Georgian */
@@ -1419,6 +1477,8 @@ export interface components {
             medical_terms: boolean;
             /** @description Terms and Conditions Agreement */
             terms_and_conditions: boolean;
+            /** @description Course Option ID */
+            course_option_id?: string;
         };
         CreatedApplicationDto: {
             /**

@@ -50,6 +50,18 @@ export function CourseDetailsView(props: CourseEditViewProps) {
 
   const { renderLanguage, language } = useLanguage();
 
+  const renderCoursePrice = () => {
+    if (course?.course_options?.length === 0) {
+      return course.price.toString() || '0';
+    }
+    const minPrice = course?.course_options?.reduce(
+      (min, curr) => (curr.option_price < min.option_price ? curr : min),
+      course.course_options[0]
+    );
+
+    return renderLanguage(`${minPrice?.option_price} დან`, `from ${minPrice?.option_price}`);
+  };
+
   const renderDetails = () => (
     <Card
       sx={{
@@ -206,8 +218,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
       ) : null}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Typography variant="body2">
-          {renderLanguage('კურსის ღირებულება:', 'Course Price:')} ₾
-          {renderLanguage(`${course.price}`, `${course.price}`)}
+          {renderLanguage('კურსის ღირებულება:', 'Course Price:')} ₾{renderCoursePrice()}
         </Typography>
       </Box>
     </Stack>

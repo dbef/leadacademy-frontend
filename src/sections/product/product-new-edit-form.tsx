@@ -5,6 +5,7 @@ import type { CampusDto } from 'src/types/campus';
 import type { LecturerDto } from 'src/types/lecturer';
 import type { CourseDto } from 'src/types/course-type';
 import type { IDatePickerControl } from 'src/types/common';
+import type { CreateCourseOption } from 'src/types/create-course-option';
 
 import dayjs from 'dayjs';
 import { z as zod } from 'zod';
@@ -29,11 +30,11 @@ import {
   Chip,
   Button,
   Avatar,
+  Select,
+  MenuItem,
   TextField,
   IconButton,
   Autocomplete,
-  Select,
-  MenuItem,
 } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
@@ -81,11 +82,24 @@ type CourseProps = {
   course?: CourseDto;
 };
 
+export interface NewCourseOption extends CreateCourseOption {
+  id: string;
+}
+
 export function ProductNewEditForm({ course }: CourseProps) {
   const router = useRouter();
 
   const keyWordsKa = ['განათლება', 'ბანაკი', 'სასწავლო კურსები'];
   const keyWordsEn = ['education', 'camp', 'courses'];
+
+  const courseOptionsRefactored = course?.course_options
+    ? course.course_options.map((option) => ({
+        id: option.course_options_id,
+        start_date: option.start_date,
+        end_date: option.end_date,
+        option_price: option.option_price,
+      }))
+    : [];
 
   const confirmDialog = useBoolean();
 
@@ -111,6 +125,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
       ? course.lecturer_course_assn.map((item) => item.lecturer)
       : []
   );
+  const [courseOptions, setCourseOptions] = useState<NewCourseOption[]>(courseOptionsRefactored);
 
   const handleDeleteCourse = async () => {
     try {
@@ -133,6 +148,19 @@ export function ProductNewEditForm({ course }: CourseProps) {
     }
   };
 
+  const handleAddNewCourseOption = () => {
+    const newOption: NewCourseOption = {
+      end_date: '',
+      start_date: '',
+      option_price: 0,
+      id: new Date().getTime().toString(), // Unique ID for the option
+    };
+    setCourseOptions((prev) => [...prev, newOption]);
+  };
+
+  const handleDeleteCourseOption = (id: string) => {
+    setCourseOptions((prev) => prev.filter((option) => option.id !== id));
+  };
   const handleFetchCampuses = useCallback(async () => {
     try {
       const [campusesRes, lecturersRes] = await Promise.all([
@@ -232,6 +260,11 @@ export function ProductNewEditForm({ course }: CourseProps) {
             course_files: selectedDocs,
             lecturers: selectedLecturers.map((item) => item.id),
             campus_id: selectedCampus?.campus_id,
+            course_options: courseOptions.map((option) => ({
+              start_date: new Date(option.start_date).toISOString(),
+              end_date: new Date(option.end_date).toISOString(),
+              option_price: option.option_price,
+            })),
           },
         });
 
@@ -255,6 +288,11 @@ export function ProductNewEditForm({ course }: CourseProps) {
           language: 'en',
           lecturers: selectedLecturers.map((item) => item.id),
           campus_id: selectedCampus?.campus_id,
+          course_options: courseOptions.map((option) => ({
+            start_date: new Date(option.start_date).toISOString(),
+            end_date: new Date(option.end_date).toISOString(),
+            option_price: option.option_price,
+          })),
         },
       });
 
@@ -600,11 +638,84 @@ export function ProductNewEditForm({ course }: CourseProps) {
           <MenuItem value="ka">ქართული</MenuItem>
           <MenuItem value="eng">ინგლისური</MenuItem>
         </Select>
+        <Button variant="contained" onClick={handleAddNewCourseOption}>
+          <Iconify icon="eva:plus-fill" />
+          {renderLanguage('კურსის ოფშენის დამატება', 'Add Course Option')}
+        </Button>
+        {courseOptions?.map((option) => (
+          <>
+            <Field.Text
+              name={`course_options[${option.id}].option_price`}
+              label={renderLanguage('ოფშენის ფასი', 'Option Price')}
+              placeholder="0.00"
+              type="number"
+              onChange={(e) => {
+                const updatedOptions = courseOptions.map((opt) => {
+                  if (opt.id === option.id) {
+                    return { ...opt, option_price: Number(e.target.value) };
+                  }
+                  return opt;
+                });
+                setCourseOptions(updatedOptions);
+              }}
+              value={option.option_price ? option.option_price : 0}
+              slotProps={{
+                inputLabel: { shrink: true },
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start" sx={{ mr: 0.75 }}>
+                      <Box component="span" sx={{ color: 'text.disabled' }}>
+                        ₾
+                      </Box>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+            <DatePicker
+              openTo="year"
+              views={['year', 'month', 'day']}
+              label={renderLanguage('დაწყების თარიღი', 'Start date')}
+              value={dayjs(option.start_date)}
+              onChange={(newValue) => {
+                const updatedOptions = courseOptions.map((opt) => {
+                  if (opt.id === option.id) {
+                    return { ...opt, start_date: dayjs(newValue).format('YYYY-MM-DD hh:mm') };
+                  }
+                  return opt;
+                });
+                setCourseOptions(updatedOptions);
+              }}
+              slotProps={{ textField: { fullWidth: true } }}
+            />
+            <DatePicker
+              openTo="year"
+              views={['year', 'month', 'day']}
+              label={renderLanguage('დამთავრების თარიღი', 'End date')}
+              value={dayjs(option.end_date)}
+              onChange={(newValue) => {
+                const updatedOptions = courseOptions.map((opt) => {
+                  if (opt.id === option.id) {
+                    return { ...opt, end_date: dayjs(newValue).format('YYYY-MM-DD hh:mm') };
+                  }
+                  return opt;
+                });
+                setCourseOptions(updatedOptions);
+              }}
+              slotProps={{ textField: { fullWidth: true } }}
+            />
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => handleDeleteCourseOption(option.id)}
+            >
+              {renderLanguage('წაშლა', 'Remove')}
+            </Button>
+          </>
+        ))}
       </Stack>
     </Card>
   );
-
-  console.log('Values:', values.is_published, course);
 
   const renderActions = () => (
     <Box

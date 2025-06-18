@@ -4,6 +4,7 @@ import type { CourseDto } from 'src/types/course-type';
 import type { Applications } from 'src/types/applicants';
 import type { TableHeadCellProps } from 'src/components/table';
 
+import dayjs from 'dayjs';
 import * as XLSX from 'xlsx';
 import { varAlpha } from 'minimal-shared/utils';
 import { useSetState } from 'minimal-shared/hooks';
@@ -105,6 +106,7 @@ export function ApplicantsTable({ course_id }: Props) {
     },
     { id: 'media_release', label: 'Media release', label_ka: 'მედია და გამოყენება', width: 88 },
     { id: 'created_at', label: 'Date', label_ka: 'თარიღი', width: 88 },
+    { id: 'days_selected', label: 'Days selected', label_ka: 'დღეები', width: 88 },
     { id: 'status', label: 'Status', label_ka: 'სტატუსი', width: 88 },
     { id: 'approve_reject', label: 'Approve/Reject', label_ka: 'დადასტურება/გაუქმება', width: 88 },
   ];
@@ -251,6 +253,9 @@ export function ApplicantsTable({ course_id }: Props) {
           თარიღი: item.created_at,
           სტატუსი: item.status,
           'მედია გამოყენება': item.media_release,
+          'არჩეული დღეები': item.course_option
+            ? `${dayjs(item.course_option?.start_date).format('DD/MM/YYYY')} - ${dayjs(item.course_option?.end_date).format('DD/MM/YYYY')}`
+            : `${dayjs(item?.course?.start_date).format('DD/MM/YYYY')} - ${dayjs(item?.course?.end_date).format('DD/MM/YYYY')}`,
         }));
         // Create Excel workbook and worksheet
         const workbook = XLSX.utils.book_new();

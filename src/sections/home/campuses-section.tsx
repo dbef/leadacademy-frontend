@@ -47,8 +47,6 @@ export function LocationsSection() {
     fetchCampuses();
   }, []);
 
-  console.log('Selected Campus:', selectedCampuse);
-
   return (
     <Box
       sx={{

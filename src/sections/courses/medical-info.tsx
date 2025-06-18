@@ -216,6 +216,7 @@ export function MedicalInfo(props: MedicalInfoProps) {
           social_skills: studentInfo.social_skills ? studentInfo.social_skills : '',
           course_id: course?.course_id || '',
           media_release: values.media_release ? values.media_release : '',
+          course_option_id: parentInfo.course_option || 'default',
         },
       });
 
