@@ -1,5 +1,6 @@
 import type { Applications } from 'src/types/applicants';
 
+import dayjs from 'dayjs';
 import { useBoolean, usePopover } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
@@ -224,7 +225,11 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
           }}
         />
       </TableCell>
-
+      <TableCell>
+        {row.course_option
+          ? `${dayjs(row.course_option?.start_date).format('DD/MM/YYYY')} - ${dayjs(row.course_option?.end_date).format('DD/MM/YYYY')}`
+          : `${dayjs(row?.course?.start_date).format('DD/MM/YYYY')} - ${dayjs(row?.course?.end_date).format('DD/MM/YYYY')}`}{' '}
+      </TableCell>
       <TableCell>
         <Label
           variant="soft"

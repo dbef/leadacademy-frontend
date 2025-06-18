@@ -61,6 +61,7 @@ export type ParentInfoType = {
   country: string;
   address: string;
   city: string;
+  course_option: string | null;
 };
 
 export type StudentInfoType = {
@@ -129,6 +130,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     parent_gender: 'male',
     nationality: 'Georgia',
     days_attending: diffDays,
+    course_option: 'default',
   });
   const [studentInfo, setStudentInfo] = useState<StudentInfoType>({
     student_name: '',

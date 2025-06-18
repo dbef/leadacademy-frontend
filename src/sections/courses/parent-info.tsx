@@ -1,33 +1,27 @@
 'use client';
 
 import type { components } from 'interfaces/interface';
-import type { IDatePickerControl } from 'src/types/common';
+import type { CourseOption } from 'src/types/course-option-dto';
 
 import dayjs from 'dayjs';
 import { z as zod } from 'zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import CardHeader from '@mui/material/CardHeader';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
   Radio,
   Button,
-  RadioGroup,
-  Typography,
-  FormControl,
-  FormControlLabel,
   Select,
   MenuItem,
+  RadioGroup,
+  Typography,
   InputLabel,
-  InputAdornment,
+  FormControl,
+  FormControlLabel,
 } from '@mui/material';
-
-import { useRouter } from 'src/routes/hooks';
 
 import { useLanguage } from 'src/contexts/language-context';
 
@@ -35,8 +29,7 @@ import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 import { CountrySelect } from 'src/components/country-select';
 
-import { CourseThankYou } from './thank-you/thank-you';
-import { ParentInfoType } from './course-register-view';
+import type { ParentInfoType } from './course-register-view';
 
 // ----------------------------------------------------------------------
 
@@ -56,6 +49,7 @@ export const RegisterParentSchema = zod.object({
   address: zod.string().min(1, { message: '' }),
   days_attending: zod.number().min(1),
   city: zod.string().min(1, { message: '' }),
+  course_option: zod.string().nullable(),
 });
 
 type ParentInfoProps = {
@@ -81,6 +75,19 @@ export function RegisterParentView(props: ParentInfoProps) {
     },
   ];
 
+  const courseOptions: CourseOption[] = [
+    {
+      course_options_id: 'default',
+      course_id: course.course_id,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      end_date: course.end_date,
+      start_date: course.start_date,
+      option_price: course.price,
+    },
+    ...(course?.course_options ? course.course_options : []),
+  ];
+
   const { renderLanguage } = useLanguage();
 
   const defaultValues = {
@@ -97,6 +104,7 @@ export function RegisterParentView(props: ParentInfoProps) {
     country: parentInfo.country,
     address: parentInfo.address,
     city: parentInfo.city,
+    course_option: parentInfo.course_option || null,
   };
 
   const methods = useForm<RegisterParentSchema>({
@@ -288,7 +296,7 @@ export function RegisterParentView(props: ParentInfoProps) {
 
             // Handle backspace properly
             if (value.startsWith('995')) {
-              value = value.slice(3); 
+              value = value.slice(3);
             }
 
             let formattedValue = '+995';
@@ -307,14 +315,26 @@ export function RegisterParentView(props: ParentInfoProps) {
           }}
         />
       </Stack>
-      <Field.Text
+      {/* <Field.Text
         name="days_attending"
         label={renderLanguage('დღეების რაოდენობა', 'Number of Days Attending')}
         placeholder="7"
         type="number"
-        slotProps={{
-        }}
-      />
+        slotProps={{}}
+      /> */}
+      <Select
+        id="demo-simple-select"
+        value={values.course_option}
+        label={renderLanguage('კურსის ვარიანტი', 'Course Option')}
+        onChange={(event) => setValue('course_option', event.target.value)}
+      >
+        {courseOptions.map((option, index) => (
+          <MenuItem key={option.course_options_id} value={option.course_options_id}>
+            {dayjs(option.start_date).format('DD/MM/YYYY')} -{' '}
+            {dayjs(option.end_date).format('DD/MM/YYYY')} - {option.option_price} ₾
+          </MenuItem>
+        ))}
+      </Select>
     </Stack>
   );
 

@@ -22,7 +22,5 @@ export default async function Page({ params }: Props) {
     },
   });
 
-  console.log('news', news);
-
   return <NewsCreateEditForm news={news} />;
 }
