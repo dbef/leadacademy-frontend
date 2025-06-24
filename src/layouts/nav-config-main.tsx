@@ -38,12 +38,12 @@ export const navData: NavMainProps['data'] = [
     path: '/news',
     icon: <Iconify width={22} icon="tabler:news" />, // Education
   },
-  // {
-  //   title_en: 'Gallery',
-  //   title: 'გალერია',
-  //   path: '/gallery',
-  //   icon: <Iconify width={22} icon="mdi:image-multiple" />, // Gallery
-  // },
+  {
+    title_en: 'Gallery',
+    title: 'გალერია',
+    path: '/gallery',
+    icon: <Iconify width={22} icon="mdi:image-multiple" />, // Gallery
+  },
   {
     title_en: 'Tsinandali',
     title: 'წინანდალი',
