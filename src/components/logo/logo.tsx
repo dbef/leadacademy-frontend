@@ -12,6 +12,8 @@ import { RouterLink } from 'src/routes/components';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { logoClasses } from './classes';
+import Image from 'next/image';
+import { CONFIG } from 'src/global-config';
 
 // ----------------------------------------------------------------------
 
@@ -206,25 +208,16 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
       ]}
       {...other}
     >
-      <svg
-        width={props.width ? props.width.toString() : '51'}
-        height={props.height ? props.height.toString() : '32'}
-        viewBox={`0 0 ${props.width ? props.width.toString() : '51'} ${props.height ? props.height.toString() : '32'}`}
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clipPath="url(#clip0_503_1070)">
-          <path
-            d="M25.1839 20.0891C24.7955 16.4591 22.8126 12.7557 19.0879 11.6446C18.4203 11.4454 15.1426 11.165 15.1457 10.7304L19.9118 9.42533C22.0639 8.70771 24.3582 5.87045 24.7938 3.70101C24.9567 2.88906 24.6071 0.167101 25.3412 0.0142313C26.4267 -0.212016 26.0281 2.22997 26.129 2.84931C26.963 7.98049 30.9594 10.1172 35.8365 10.5832C36.6036 11.3742 33.9803 11.189 33.6333 11.2606C29.64 12.0835 27.163 14.021 26.2342 18.1109C26.1272 18.5831 25.793 20.6416 25.793 20.9945V28.089C29.2019 28.8092 37.3223 25.2133 31.2425 22.2314C30.4212 21.8287 29.3018 21.9432 28.8368 21.1487C31.6001 21.6287 36.2271 22.9386 35.2318 26.5795C39.5778 24.7848 42.4935 21.2365 37.3328 18.0022C36.3345 17.3763 35.0839 17.1483 34.3159 16.318C38.0568 16.8618 43.6314 19.3937 43.1461 23.8623C46.7263 21.7899 47.9884 18.2337 44.9376 14.988C43.5006 13.4593 41.3323 12.8479 39.7949 11.4878C47.9167 12.8894 56.4004 20.67 46.5938 27.1342C36.6714 33.6748 15.1418 33.4704 5.00316 27.4255C-5.52826 21.1465 2.52916 12.9697 11.1829 11.4878C9.7358 12.8064 7.53924 13.4183 6.11641 14.9129C3.22186 17.9537 4.2629 22.0017 7.83164 23.8623C7.44324 19.3571 12.8563 16.8793 16.6619 16.318C14.952 17.6851 12.6004 18.0013 11.4805 20.0803C9.69881 23.3871 13.1297 25.3762 15.746 26.5791C14.9986 22.7979 19.1971 21.7043 22.141 21.1483C20.9229 22.2205 18.264 22.3358 17.6955 24.1589C16.8094 27.0019 23.1411 28.4842 25.1848 28.089C24.9867 25.5256 25.4539 22.6049 25.1848 20.0886L25.1839 20.0891Z"
-            fill="#A4C121"
-          />
-        </g>
-        <defs>
-          <clipPath id="clip0_503_1070">
-            <rect width={props.width ? props.width.toString() : '51'} height={props.height ? props.height.toString() : '32'}fill="white" />
-          </clipPath>
-        </defs>
-      </svg>
+      <Image
+        width={Number(props.width ? props.width.toString() : '51')}
+        height={Number(props.height ? props.height.toString() : '32')}
+        alt='Sabado Logo'
+        src={`${CONFIG.assetsDir}/logo/MainLogo.png`}
+        // viewBox={`0 0 ${props.width ? props.width.toString() : '51'} ${props.height ? props.height.toString() : '32'}`}
+        // fill="none"
+        // xmlns="http://www.w3.org/2000/svg"
+      />
+        
     </LogoRoot>
   );
 });
