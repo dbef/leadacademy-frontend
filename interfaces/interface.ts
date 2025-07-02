@@ -1337,6 +1337,7 @@ export interface components {
             title_en: string;
             description_ka: string;
             description_en: string;
+            url_id: string;
             /**
              * Format: date-time
              * @description Creation timestamp (auto-filled by server if omitted)

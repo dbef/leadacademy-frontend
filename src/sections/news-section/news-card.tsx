@@ -33,7 +33,7 @@ export function NewsCard({ news }: NewsCardProps) {
       onClick={() => {
         if (typeof window !== 'undefined') {
           const url =
-            language === Language.KA ? `/news/${news.news_id}` : `/en/news/${news.news_id}`;
+            language === Language.KA ? `/news/${news.url_id}` : `/en/news/${news.url_id}`;
 
           window.open(url, '_blank');
         }

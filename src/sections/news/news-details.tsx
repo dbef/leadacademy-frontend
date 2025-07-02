@@ -10,6 +10,8 @@ import { Typography } from '@mui/material';
 
 import { useLanguage } from 'src/contexts/language-context';
 
+import { CarouselThumbsX } from '../_examples/extra/carousel-view/carousel-thumbs-x';
+
 type NewsDetailsProps = {
   news: INews;
 };
@@ -28,12 +30,7 @@ export function NewsDetailsView(props: NewsDetailsProps) {
 
   const renderImage = () => (
     <Box sx={{ px: 1, pt: 1 }}>
-      <Box
-        component="img"
-        alt={news.title_en}
-        src={newsImages[0]?.coverUrl}
-        sx={{ objectFit: 'cover', aspectRatio: { xs: '16/9', sm: '16/9' }, borderRadius: '8px' }}
-      />
+      <CarouselThumbsX data={newsImages} />
     </Box>
   );
 
