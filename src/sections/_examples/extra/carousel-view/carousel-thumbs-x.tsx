@@ -51,22 +51,24 @@ export function CarouselThumbsX({ data }: Props) {
         />
       </Box>
 
-      <CarouselThumbs
-        ref={carousel.thumbs.thumbsRef}
-        options={carousel.options?.thumbs}
-        sx={{ width: { xs: 1, sm: 360 } }}
-      >
-        {data.map((item, index) => (
-          <CarouselThumb
-            key={item.id}
-            index={index}
-            src={item.coverUrl}
-            selected={index === carousel.thumbs.selectedIndex}
-            onClick={() => carousel.thumbs.onClickThumb(index)}
-            sx={{ width: { xs: 48, sm: 64 }, height: { xs: 48, sm: 64 } }}
-          />
-        ))}
-      </CarouselThumbs>
+      {data.length > 1 ? (
+        <CarouselThumbs
+          ref={carousel.thumbs.thumbsRef}
+          options={carousel.options?.thumbs}
+          sx={{ width: { xs: 1, sm: 360 } }}
+        >
+          {data.map((item, index) => (
+            <CarouselThumb
+              key={item.id}
+              index={index}
+              src={item.coverUrl}
+              selected={index === carousel.thumbs.selectedIndex}
+              onClick={() => carousel.thumbs.onClickThumb(index)}
+              sx={{ width: { xs: 48, sm: 64 }, height: { xs: 48, sm: 64 } }}
+            />
+          ))}
+        </CarouselThumbs>
+      ) : null}
     </div>
   );
 }
