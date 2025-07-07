@@ -100,9 +100,17 @@ export function Footer({
           [theme.breakpoints.up(layoutQuery)]: { textAlign: 'unset' },
         })}
       >
-        <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+            '@media (max-width: 1000px)': {
+              justifyContent: 'center',
+            },
+          }}
+        >
           <Logo />
-          <a href='https://dbef.ge' target="_blank" rel="noopener noreferrer">
+          <a href="https://dbef.ge" target="_blank" rel="noopener noreferrer">
             <DbefLogo />
           </a>
         </Box>
