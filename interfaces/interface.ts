@@ -2465,6 +2465,8 @@ export interface operations {
                 is_published?: string;
                 /** @description Direction of sorting */
                 direction?: string;
+                /** @description Direction of sorting */
+                status?: string;
             };
             header?: never;
             path?: never;

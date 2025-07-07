@@ -78,13 +78,15 @@ export function LocationsSection() {
           setSelectedCampuse(campuses.find((item) => item.campus_name_short === newValue));
         }}
       >
-        {tabs.map((tab) => (
-          <Tab
-            key={tab.value}
-            value={tab.value}
-            label={renderLanguage(tab.title_ka, tab.title_en)}
-          />
-        ))}
+        {tabs
+          .filter((item) => item.title_en === 'Manglisi Campus')
+          .map((tab) => (
+            <Tab
+              key={tab.value}
+              value={tab.value}
+              label={renderLanguage(tab.title_ka, tab.title_en)}
+            />
+          ))}
       </Tabs>
       <Box sx={{ marginTop: '20px' }}>
         {selectedCampuse ? (

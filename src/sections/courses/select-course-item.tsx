@@ -108,38 +108,38 @@ export function SelectCourseItem({
         fullWidth
         onClick={() => {
           router.push(
-            language === Language.KA
-              ? `/courses/${item.url_id}`
-              : `/en/courses/${item.url_id}`
+            language === Language.KA ? `/courses/${item.url_id}` : `/en/courses/${item.url_id}`
           );
         }}
       >
         {renderLanguage('ინფორმაცია', 'Information')}
       </Button>
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{ backgroundColor: '#7F9A16' }}
-        onClick={() => {
-          if (selectedCourse && selectedCourse.course_id === item.course_id) {
-            return;
-          }
-          router.push(
-            language === Language.KA
-              ? `/courses/register/${item.course_id}`
-              : `/en/courses/register/${item.course_id}`
-          );
-        }}
-      >
-        {renderLanguage(
-          selectedCourse && selectedCourse.course_id === item.course_id
-            ? 'კურსი არჩეულია'
-            : 'კურსის არჩევა',
-          selectedCourse && selectedCourse.course_id === item.course_id
-            ? 'Course already selected'
-            : 'Select Course'
-        )}
-      </Button>
+      {new Date(item.start_date).getMonth() !== 6 && (
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ backgroundColor: '#7F9A16' }}
+          onClick={() => {
+            if (selectedCourse && selectedCourse.course_id === item.course_id) {
+              return;
+            }
+            router.push(
+              language === Language.KA
+                ? `/courses/register/${item.course_id}`
+                : `/en/courses/register/${item.course_id}`
+            );
+          }}
+        >
+          {renderLanguage(
+            selectedCourse && selectedCourse.course_id === item.course_id
+              ? 'კურსი არჩეულია'
+              : 'კურსის არჩევა',
+            selectedCourse && selectedCourse.course_id === item.course_id
+              ? 'Course already selected'
+              : 'Select Course'
+          )}
+        </Button>
+      )}
     </Stack>
   );
 

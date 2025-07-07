@@ -16,6 +16,7 @@ import { Language, useLanguage } from 'src/contexts/language-context';
 import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
 import { Logo } from 'src/components/logo';
+import DbefLogo from 'src/components/dbef/dbef-logo';
 
 // ----------------------------------------------------------------------
 
@@ -55,11 +56,11 @@ export function Footer({
           name_ka: 'მანგლისი',
           href: language === Language.KA ? '/manglisi' : '/en/manglisi',
         },
-        {
-          name: 'Tsinandali',
-          name_ka: 'წინანდალი',
-          href: language === Language.KA ? '/tsinandali' : '/en/tsinandali',
-        },
+        // {
+        //   name: 'Tsinandali',
+        //   name_ka: 'წინანდალი',
+        //   href: language === Language.KA ? '/tsinandali' : '/en/tsinandali',
+        // },
       ],
     },
     {
@@ -99,7 +100,20 @@ export function Footer({
           [theme.breakpoints.up(layoutQuery)]: { textAlign: 'unset' },
         })}
       >
-        <Logo />
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+            '@media (max-width: 1000px)': {
+              justifyContent: 'center',
+            },
+          }}
+        >
+          <Logo />
+          <a href="https://dbef.ge" target="_blank" rel="noopener noreferrer">
+            <DbefLogo />
+          </a>
+        </Box>
 
         <Grid
           container

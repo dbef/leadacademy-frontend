@@ -113,23 +113,25 @@ export function CourseDetailsView(props: CourseEditViewProps) {
             )}
           </Typography>
         </Box>
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{
-            backgroundColor: '#7F9A16',
-          }}
-          component={RouterLink}
-          href={
-            language === Language.KA
-              ? `/courses/register/${course.course_id}`
-              : `/en/courses/register/${course.course_id}`
-          }
-          target="_blank"
-          size="large"
-        >
-          {renderLanguage('რეგისტრაცია', 'Register')}
-        </Button>
+        {new Date(course.start_date).getMonth() !== 6 && new Date(course.start_date) > new Date() && (
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              backgroundColor: '#7F9A16',
+            }}
+            component={RouterLink}
+            href={
+              language === Language.KA
+                ? `/courses/register/${course.course_id}`
+                : `/en/courses/register/${course.course_id}`
+            }
+            target="_blank"
+            size="large"
+          >
+            {renderLanguage('რეგისტრაცია', 'Register')}
+          </Button>
+        )}
       </Stack>
     </Card>
   );
