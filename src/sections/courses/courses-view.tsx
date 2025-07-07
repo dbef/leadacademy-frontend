@@ -3,13 +3,14 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { components } from 'interfaces/interface';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import { Tab, Chip, Stack, Button, TextField, Typography, Autocomplete } from '@mui/material';
 
+import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
 import { Language, useLanguage } from 'src/contexts/language-context';
 
@@ -20,12 +21,7 @@ import { ProductItemSkeleton } from '../product/product-skeleton';
 
 // ----------------------------------------------------------------------
 
-type Props = BoxProps & {
-  loading?: boolean;
-  products: components['schemas']['CourseDto'][];
-  season: string;
-  location: string;
-};
+type Props = BoxProps & {};
 
 export type SeasonType = {
   month_ka: string;
@@ -33,8 +29,34 @@ export type SeasonType = {
   value: string;
 };
 
-export function CourseListMain({ products, location, season, loading, sx, ...other }: Props) {
+export function CourseListMain() {
   const renderLoading = () => <ProductItemSkeleton />;
+
+  const [products, setProducts] = useState<components['schemas']['CourseDto'][]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const searchParams = useSearchParams();
+
+  const location = searchParams?.get('key');
+  const season = searchParams?.get('season');
+  const status = searchParams?.get('status');
+
+  const handleFetchCourses = useCallback(async () => {
+    setLoading(true);
+    const courses = await apiClient('/api/v1/courses', 'get', {
+      queryParams: {
+        location: location ? location : '',
+        season: season ? season : '',
+        status: status && status === 'completed' ? 'completed' : '',
+      },
+    });
+    setLoading(false);
+    setProducts(courses);
+  }, [status, location, season]);
+
+  useEffect(() => {
+    handleFetchCourses();
+  }, [location, season, status]);
 
   const months = [
     {
@@ -148,9 +170,9 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
   const router = useRouter();
 
   const tabs = [
-    { title_ka: 'წინანდალი', title_en: 'Tsinandali', value: 'tsinandali' },
+    // { title_ka: 'წინანდალი', title_en: 'Tsinandali', value: 'tsinandali' },
     { title_ka: 'მანგლისი', title_en: 'Manglisi', value: 'manglisi' },
-    { title_ka: 'ყველა', title_en: 'All', value: 'all' },
+    // { title_ka: 'ყველა', title_en: 'All', value: 'all' },
   ];
 
   const renderList = () =>
@@ -164,169 +186,148 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
 
   return (
     <Box
-        {...other}
-        sx={{
-          padding: '28px 256px',
-          '@media (max-width: 1400px)': {
-            padding: '64px 128px',
-          },
-          '@media (max-width: 1200px)': {
-            padding: '28px 64px',
-          },
-          '@media (max-width: 1000px)': {
-            padding: '28px 24px',
-          },
-          '@media (max-width: 760px)': {
-            padding: '24px !important',
-          },
-          backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'contain',
-          backgroundAttachment: 'fixed',
-          backgroundColor: '#FAF6FD',
-          backgroundPosition: 'center top',
-        }}
+      // {...other}
+      sx={{
+        padding: '28px 256px',
+        '@media (max-width: 1400px)': {
+          padding: '64px 128px',
+        },
+        '@media (max-width: 1200px)': {
+          padding: '28px 64px',
+        },
+        '@media (max-width: 1000px)': {
+          padding: '28px 24px',
+        },
+        '@media (max-width: 760px)': {
+          padding: '24px !important',
+        },
+        backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundAttachment: 'fixed',
+        backgroundColor: '#FAF6FD',
+        backgroundPosition: 'center top',
+      }}
+    >
+      <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on", marginBottom: '50px' }}>
+        {renderLanguage('პროგრამები', 'Programs')}
+      </Typography>
+      <Stack
+        direction={{ md: 'row', xs: 'column' }}
+        spacing={2}
+        justifyContent="space-between"
+        width="100%"
       >
-        <Typography variant="h3" sx={{ fontFeatureSettings: "'case' on", marginBottom: '50px' }}>
-          {renderLanguage('პროგრამები', 'Programs')}
-        </Typography>
-        <Stack
-          direction={{ md: 'row', xs: 'column' }}
-          spacing={2}
-          justifyContent="space-between"
-          width="100%"
-        >
-          <CustomTabs
-            value={selectedTab}
-            sx={{
-              width: {
-                md: 'fit-content',
-                xs: '100%',
-                backgroundColor: '#F5EDFA',
-              },
-              borderRadius: 1,
-              marginBottom: 5,
-            }}
-            onChange={(_event, newValue) => {
-              setSelectedTab(newValue);
-              if (newValue === 'all') {
-                router.push(language === Language.ENG ? `/en/courses` : `/courses`);
+        <CustomTabs
+          value={selectedTab}
+          sx={{
+            width: {
+              md: 'fit-content',
+              xs: '100%',
+              backgroundColor: '#F5EDFA',
+            },
+            borderRadius: 1,
+            marginBottom: 5,
+          }}
+          onChange={(_event, newValue) => {
+            setSelectedTab(newValue);
+            if (newValue === 'all') {
+              router.push(language === Language.ENG ? `/en/courses` : `/courses`);
 
-                return;
-              }
+              return;
+            }
 
-              if (selectedSeasons.length > 0) {
-                router.push(
-                  language === Language.ENG
-                    ? `/en/courses?key=${newValue}&season=${selectedSeasons.map((item) => item.value).join(',')}`
-                    : `/courses?key=${newValue}&season=${selectedSeasons.map((item) => item.value).join(',')}`
-                );
-
-                return;
-              }
-
+            if (selectedSeasons.length > 0) {
               router.push(
                 language === Language.ENG
-                  ? `/en/courses?key=${newValue}`
-                  : `/courses?key=${newValue}`
+                  ? `/en/courses?key=${newValue}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                  : `/courses?key=${newValue}&season=${selectedSeasons.map((item) => item.value).join(',')}`
               );
-            }}
-          >
-            {tabs.map((tab) => (
-              <Tab
-                key={tab.value}
-                value={tab.value}
-                sx={{ color: '#7C3C8F' }}
-                label={renderLanguage(tab.title_ka, tab.title_en)}
-              />
-            ))}
-          </CustomTabs>
-          <Stack
-            spacing={2}
-            direction={{ md: 'row', xs: 'column' }}
-            width={{ xs: '100%', md: '450px' }}
-          >
-            <Autocomplete
-              fullWidth
-              multiple
-              limitTags={3}
-              options={months}
-              defaultValue={seasons}
-              onChange={(event, value) => {
-                setSelectedSeasons(value);
-              }}
-              getOptionLabel={(option) => renderLanguage(option.month_ka, option.month_en)}
-              isOptionEqualToValue={(option, value) => option.value === value.value}
-              renderInput={(params) => (
-                <TextField {...params} label={renderLanguage('თვე', 'Month')} />
-              )}
-              renderOption={(props, option) => (
-                <li {...props} key={option.value}>
-                  {renderLanguage(option.month_ka, option.month_en)}
-                </li>
-              )}
-              renderTags={(selected, getTagProps) =>
-                selected.map((option, index) => (
-                  <Chip
-                    {...getTagProps({ index })}
-                    key={option.value}
-                    label={renderLanguage(option.month_ka, option.month_en)}
-                    size="small"
-                    sx={{
-                      color: '#285C45',
-                      backgroundColor: '#BDDDC9',
-                    }}
-                    variant="soft"
-                  />
-                ))
-              }
+
+              return;
+            }
+
+            router.push(
+              language === Language.ENG ? `/en/courses?key=${newValue}` : `/courses?key=${newValue}`
+            );
+          }}
+        >
+          {tabs.map((tab) => (
+            <Tab
+              key={tab.value}
+              value={tab.value}
+              sx={{ color: '#7C3C8F' }}
+              label={renderLanguage(tab.title_ka, tab.title_en)}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{
-                backgroundColor: '#7F9A16',
-              }}
-              onClick={() => {
-                if (selectedSeasons.length < 1) {
-                  if (location) {
-                    if (location === 'all') {
-                      router.push(language === Language.ENG ? `/en/courses` : `/courses`);
-                      return;
-                    }
-
-                    router.push(
-                      language === Language.ENG
-                        ? `/en/courses?key=${location}`
-                        : `/courses?key=${location}`
-                    );
-                  } else {
-                    router.push(language === Language.ENG ? `/en/courses` : `/courses`);
-                  }
-                }
-
-                if (selectedSeasons.length > 0 && location) {
+          ))}
+        </CustomTabs>
+        <Stack
+          spacing={2}
+          direction={{ md: 'row', xs: 'column' }}
+          width={{ xs: '100%', md: '450px' }}
+        >
+          <Autocomplete
+            fullWidth
+            multiple
+            limitTags={3}
+            options={months}
+            defaultValue={seasons}
+            onChange={(event, value) => {
+              setSelectedSeasons(value);
+            }}
+            getOptionLabel={(option) => renderLanguage(option.month_ka, option.month_en)}
+            isOptionEqualToValue={(option, value) => option.value === value.value}
+            renderInput={(params) => (
+              <TextField {...params} label={renderLanguage('თვე', 'Month')} />
+            )}
+            renderOption={(props, option) => (
+              <li {...props} key={option.value}>
+                {renderLanguage(option.month_ka, option.month_en)}
+              </li>
+            )}
+            renderTags={(selected, getTagProps) =>
+              selected.map((option, index) => (
+                <Chip
+                  {...getTagProps({ index })}
+                  key={option.value}
+                  label={renderLanguage(option.month_ka, option.month_en)}
+                  size="small"
+                  sx={{
+                    color: '#285C45',
+                    backgroundColor: '#BDDDC9',
+                  }}
+                  variant="soft"
+                />
+              ))
+            }
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{
+              backgroundColor: '#7F9A16',
+            }}
+            onClick={() => {
+              if (selectedSeasons.length < 1) {
+                if (location) {
                   if (location === 'all') {
-                    router.push(
-                      language === Language.ENG
-                        ? `/en/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
-                        : `/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
-                    );
-
+                    router.push(language === Language.ENG ? `/en/courses` : `/courses`);
                     return;
                   }
 
                   router.push(
                     language === Language.ENG
-                      ? `/en/courses?key=${location}&season=${selectedSeasons.map((item) => item.value).join(',')}`
-                      : `/courses?key=${location}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                      ? `/en/courses?key=${location}`
+                      : `/courses?key=${location}`
                   );
-
-                  return;
+                } else {
+                  router.push(language === Language.ENG ? `/en/courses` : `/courses`);
                 }
+              }
 
-                if (selectedSeasons.length > 0) {
+              if (selectedSeasons.length > 0 && location) {
+                if (location === 'all') {
                   router.push(
                     language === Language.ENG
                       ? `/en/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
@@ -335,26 +336,45 @@ export function CourseListMain({ products, location, season, loading, sx, ...oth
 
                   return;
                 }
-              }}
-            >
-              {renderLanguage('ძებნა', 'Search')}
-            </Button>
-          </Stack>
-        </Stack>
 
-        <Grid container spacing={3} sx={{ marginTop: '50px' }}>
-          {loading ? renderLoading() : renderList()}
-          {products.length < 1 && (
-            <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Typography variant="h5" sx={{ fontFeatureSettings: "'case' on" }}>
-                {renderLanguage(
-                  `ვერ მოიძებნა კურსები აღნისნულ კამპუსზე ან პერიოდში `,
-                  'No courses found for this campus or period'
-                )}
-              </Typography>
-            </Grid>
-          )}
-        </Grid>
-      </Box>
+                router.push(
+                  language === Language.ENG
+                    ? `/en/courses?key=${location}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                    : `/courses?key=${location}&season=${selectedSeasons.map((item) => item.value).join(',')}`
+                );
+
+                return;
+              }
+
+              if (selectedSeasons.length > 0) {
+                router.push(
+                  language === Language.ENG
+                    ? `/en/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+                    : `/courses?season=${selectedSeasons.map((item) => item.value).join(',')}`
+                );
+
+                return;
+              }
+            }}
+          >
+            {renderLanguage('ძებნა', 'Search')}
+          </Button>
+        </Stack>
+      </Stack>
+
+      <Grid container spacing={3} sx={{ marginTop: '50px' }}>
+        {loading ? renderLoading() : renderList()}
+        {products.length < 1 && (
+          <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Typography variant="h5" sx={{ fontFeatureSettings: "'case' on" }}>
+              {renderLanguage(
+                `ვერ მოიძებნა კურსები აღნისნულ კამპუსზე ან პერიოდში `,
+                'No courses found for this campus or period'
+              )}
+            </Typography>
+          </Grid>
+        )}
+      </Grid>
+    </Box>
   );
 }

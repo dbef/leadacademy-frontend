@@ -31,6 +31,15 @@ export const navData: NavMainProps['data'] = [
     title: 'პროგრამები',
     path: '/courses',
     icon: <Iconify width={22} icon="mdi:book-open-variant" />, // Education
+    children: [
+      {
+        subheader: '',
+        items: [
+          { title: 'მიმდინარე', title_en: 'Ongoing', path: '/courses?status=ongoing' },
+          { title: 'დასრულებული', title_en: 'Completed', path: '/courses?status=completed' },
+        ],
+      },
+    ],
   },
   {
     title: 'სიახლეები',
@@ -44,22 +53,22 @@ export const navData: NavMainProps['data'] = [
     path: '/gallery',
     icon: <Iconify width={22} icon="mdi:image-multiple" />, // Gallery
   },
-  {
-    title_en: 'Tsinandali',
-    title: 'წინანდალი',
-    path: '/tsinandali',
-    icon: <Iconify width={22} icon="mdi:map-marker" />,
-    children: [
-      {
-        subheader: '',
-        items: [
-          { title: 'კამპუსი', title_en: 'Campus', path: '/tsinandali/?key=tsinandali' },
-          { title: 'პროგრამები', title_en: 'Programs', path: '/courses/?key=tsinandali' },
-          { title: 'ქცევის წესები', title_en: 'Rules of conduct', path: '/rules-of-conduct' },
-        ],
-      },
-    ],
-  },
+  // {
+  //   title_en: 'Tsinandali',
+  //   title: 'წინანდალი',
+  //   path: '/tsinandali',
+  //   icon: <Iconify width={22} icon="mdi:map-marker" />,
+  //   children: [
+  //     {
+  //       subheader: '',
+  //       items: [
+  //         { title: 'კამპუსი', title_en: 'Campus', path: '/tsinandali/?key=tsinandali' },
+  //         { title: 'პროგრამები', title_en: 'Programs', path: '/courses/?key=tsinandali' },
+  //         { title: 'ქცევის წესები', title_en: 'Rules of conduct', path: '/rules-of-conduct' },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     title_en: 'Manglisi',
     title: 'მანგლისი',

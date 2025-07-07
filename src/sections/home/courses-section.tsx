@@ -143,14 +143,16 @@ export default function CoursesSection({ products }: HomeProps) {
           onChange={(e, value) => setSelectedTab(value)}
           sx={{ borderRadius: 1, backgroundColor: '#F5EDFA' }}
         >
-          {tabs.map((tab) => (
-            <Tab
-              key={tab.value}
-              value={tab.value}
-              sx={{ color: '#7C3C8F' }}
-              label={renderLanguage(tab.title_ka, tab.title_en)}
-            />
-          ))}
+          {tabs
+            .filter((item) => item.title_en === 'Manglisi Campus')
+            .map((tab) => (
+              <Tab
+                key={tab.value}
+                value={tab.value}
+                sx={{ color: '#7C3C8F' }}
+                label={renderLanguage(tab.title_ka, tab.title_en)}
+              />
+            ))}
         </CustomTabs>
 
         <Button

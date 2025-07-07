@@ -108,21 +108,24 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
       >
         {renderLanguage('ინფორმაცია', 'Information')}
       </Button>
-      <Button
-        variant="contained"
-        fullWidth
-        LinkComponent={RouterLink}
-        href={
-          language === Language.KA
-            ? `/courses/register/${item.course_id}`
-            : `/en/courses/register/${item.course_id}`
-        }
-        target="_blank"
-        sx={{ backgroundColor: '#7F9A16' }}
-        size="large"
-      >
-        {renderLanguage('რეგისტრაცია', 'Register')}
-      </Button>
+      {new Date(item.start_date).getMonth() !== 6 ||
+        (new Date(item.start_date) < new Date() && (
+          <Button
+            variant="contained"
+            fullWidth
+            LinkComponent={RouterLink}
+            href={
+              language === Language.KA
+                ? `/courses/register/${item.course_id}`
+                : `/en/courses/register/${item.course_id}`
+            }
+            target="_blank"
+            sx={{ backgroundColor: '#7F9A16' }}
+            size="large"
+          >
+            {renderLanguage('რეგისტრაცია', 'Register')}
+          </Button>
+        ))}
     </Stack>
   );
 
