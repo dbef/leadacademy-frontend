@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import { m } from 'framer-motion';
 
-import { Box, Card, Stack, Typography, useColorScheme } from '@mui/material';
+import { Box, Card, Modal, Stack, Typography, useColorScheme } from '@mui/material';
 
+import { CONFIG } from 'src/global-config';
 import { useLanguage } from 'src/contexts/language-context';
 
-import { Image } from 'src/components/image';
 import { varFade } from 'src/components/animate';
 import { Carousel, useCarousel } from 'src/components/carousel';
 
@@ -25,6 +26,10 @@ export function OurTeam() {
   const { renderLanguage } = useLanguage();
 
   const { mode } = useColorScheme();
+
+  const [selectedTeamMember, setSelectedTeamMember] = useState<TeamCardProps['member'] | null>(
+    null
+  );
 
   return (
     <Stack
@@ -62,7 +67,10 @@ export function OurTeam() {
             key={member.id}
             component={m.div}
             variants={varFade('in')}
-            sx={{ py: { xs: 8, md: 10 } }}
+            sx={{ py: { xs: 8, md: 10 }, cursor: 'pointer', width: '100%' }}
+            onClick={() => {
+              setSelectedTeamMember(member);
+            }}
           >
             <TeamCard
               member={{
@@ -70,11 +78,20 @@ export function OurTeam() {
                 name: renderLanguage(member.name_ka, member.name),
                 position: renderLanguage(member.position_ka, member.position),
                 avatarUrl: member.avatarUrl,
+                description_ka: member.description_ka,
+                description_en: member.description_en,
               }}
             />
           </Box>
         ))}
       </Carousel>
+      {selectedTeamMember && (
+        <TeamInfoModal
+          open={Boolean(selectedTeamMember)}
+          onClose={() => setSelectedTeamMember(null)}
+          member={selectedTeamMember!}
+        />
+      )}
     </Stack>
   );
 }
@@ -84,10 +101,20 @@ type TeamCardProps = {
     name: string;
     position: string;
     avatarUrl: string;
+    description_ka: string;
+    description_en: string;
   };
 };
 export const TeamCard = ({ member }: TeamCardProps) => (
-  <Card sx={{ padding: '10px', borderRadius: '0px', textAlign: 'center', paddingBottom: '15px' }}>
+  <Card
+    sx={{
+      padding: '10px',
+      borderRadius: '0px',
+      textAlign: 'center',
+      paddingBottom: '15px',
+      width: '100%',
+    }}
+  >
     <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 0.5, fontFeatureSettings: "'case' on" }}>
       {member.name}
     </Typography>
@@ -98,9 +125,55 @@ export const TeamCard = ({ member }: TeamCardProps) => (
     >
       {member.position}
     </Typography>
-
+    {/* 
     <Box sx={{ px: 1 }}>
       <Image alt={member.name} src={member.avatarUrl} ratio="1/1" />
-    </Box>
+    </Box> */}
   </Card>
 );
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+  outline: 'none',
+  backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundAttachment: 'fixed',
+  backgroundColor: '#FAF6FD',
+  backgroundPosition: 'center top',
+};
+
+export const TeamInfoModal = ({
+  open,
+  onClose,
+  member,
+}: {
+  open: boolean;
+  onClose: () => void;
+  member: TeamCardProps['member'];
+}) => {
+  const { renderLanguage } = useLanguage();
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+          {renderLanguage(member.name, member.name)}
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          {renderLanguage(member.description_ka, member.description_en)}
+        </Typography>
+      </Box>
+    </Modal>
+  );
+};

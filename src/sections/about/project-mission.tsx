@@ -38,11 +38,10 @@ export function ProjectMission() {
         transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
       >
         <Stack width={{ xs: '100%', md: '867px' }} direction="row" spacing={2}>
-    
           <Typography>
             {renderLanguage(
-              'დემოკრატიული და ჰუმანისტური ღირებულებების გარშემო არაფორმალურ, ინტერაქტიულ გარემოში შევქმნათ სივრცე, რომელიც ხელს შეუწყობს ლიდერობის უნარების განვითარებას და მომავლის, გლობალური სამყაროს სრულფასოვანი მოქალაქეების ჩამოყალიბებას',
-              `To create a space around democratic and humanistic values in an informal, interactive environment that will promote the development of leadership skills and the formation of full-fledged citizens of the future, a global world.`
+              'ჩვენ ხელს ვუწყობთ და ვავითარებთ არაფორმალურ განათლებას, რათა აღვზარდოთ აქტიური, პასუხისმგებლიანი, ეთიკური ლიდერები და მოქალაქეები. „საბადო“ ეხმარება პროგრამის მონაწილეებს, აღმოაჩინონ დაფარული პოტენციალი და განივითარონ ის ფასეულობები, უნარები და აზროვნების სისტემა, რომლებიც აუცილებელია  შედეგზე ორიენტირებული არსობრივი ცვლილებებისთვის.',
+              `We pioneer a transformative education model that cultivates active, responsible, and ethical leaders and citizens. Sabado empowers learners to unlock their hidden potential through core values, growth mindsets, and essential skills needed to lead meaningful change.`
             )}
           </Typography>
         </Stack>
