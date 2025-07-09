@@ -16,7 +16,8 @@ import { Language, useLanguage } from 'src/contexts/language-context';
 import { TwitterIcon, FacebookIcon, LinkedinIcon, InstagramIcon } from 'src/assets/icons';
 
 import { Logo } from 'src/components/logo';
-import DbefLogo from 'src/components/dbef/dbef-logo';
+
+import DBEFLogo from 'src/sections/dbef/dbef-logo';
 
 // ----------------------------------------------------------------------
 
@@ -111,7 +112,7 @@ export function Footer({
         >
           <Logo />
           <a href="https://dbef.ge" target="_blank" rel="noopener noreferrer">
-            <DbefLogo />
+            <DBEFLogo width={32} height={32}/>
           </a>
         </Box>
 

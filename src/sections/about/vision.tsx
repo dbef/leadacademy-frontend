@@ -43,36 +43,13 @@ export function Vision() {
           <Typography>
             {parser(
               renderLanguage(
-                `ჩვენი მიზანია შევქმნათ აკადემია, უნიკალური სივრცე, რომელიც საერთო
-ღირებულებების და პრინციპების გარშემო გააერთიანებს ახალ თაობას და ხელს
-შეუწყობს მას ლიდერობის უნარების გამომუშავებასა და თანამედროვე,
-გლობალურ სამყაროში პასუხისმგებლობიან მოქალაქედ ინტეგრაციაში.
-<br />
-<br />
-აკადემიის კურსები და აქტივობები სწორედ ამ მიზანს ემსახურება. „საბადო-ს“
-ამოცანაა იქცეს ინტელექტუალური მიზიდულობის ცენტრად, რომელიც ფეხს
-უწყობს თანამედროვე სამყაროს გამოწვევებს, დასაქმების ბაზრის მოთხოვნებს და
-ემსახურება ფართო საზოგადოებრივ და მსოფლმხედველობით ინტერესებს.
-<br />
-<br />
-თითოეული კურსის და აქტივობის საფუძველს ის ფასეულობები წარმოადგენს,
-რომელიც გვაერთიანებს და რომელზეც „საბადოს“ მსოფლმხედველობაა
-დაფუძნებული. მიგვაჩნია, რომ მომავლის მოქალაქეებს, ლიდერებს აუცილებლად
-სჭირდებათ ისეთი უნარები, როგორიცაა სამყაროს კრიტიკულ-ანალიტიკური აღქმა,
-გამოწვევებისადმი კრეატიული მიდგომების ჩამოყალიბება, სამყაროს
-მრავალფეროვნების შეცნობა, ტექნოლოგიური უნარები და თანამშრომლობისა და
-კომუნიკაციის ინკლუზიური, თანამშრომლობითი კულტურა.
-<br />
-<br />
-ჰუმანისტური აღზრდის საუკეთესო ტრადიციების მიხედვით ჩვენ გვჯერა
-თითოეული ადამიანის, ინდივიდის განსაკუთრებულობის და ჩვენი ამოცანაა
-დავეხმაროთ ყველა ჩვენს სტუმარს და მონაწილეს იპოვონ საკუთარი თავის
-საუკეთესო ვერსია.
-<br />
-<br />
-გვჯერა, რომ „საბადო“ მის მონაწილეებთან ერთად დიდ ნაბიჯს გადადგამს
-თავისუფალი, განათლებული და ღირსეული საზოგადოების მშენებლობაში.`,
-                `To create a space around democratic and humanistic values in an informal, interactive environment that will promote the development of leadership skills and the formation of full-fledged citizens of the future, a global world.`
+                `თანამედროვე განათლების სისტემა უპრეცედენტო სიჩქარით იცვლება, რაც განაპირობებს ეკონომიკური, კულტურული და სამუშაო გარემოს ფუნდამენტურ გარდაქმნას. ის, რაც თანამედროვედ გამოიყურება დღეს, მოძველებული იქნება ხვალ.
+მიმდინარე ცვლილებებს ფეხი რომ ავუწყოთ და დავრჩეთ კონკურენტული სწრაფად ცვალებად სამყაროში, უნდა გამოვიყენოთ განათლების ყოვლისმომცველი ძალა და აღმოვაჩინოთ დამალული პოტენციალი ჩვენი პროგრამების თითოეულ მონაწილეში. 
+მომავლის ლიდერებს უნდა ჰქონდეთ უნარი, შეიმეცნონ, გადაიაზრონ და შექმნან ახალი ძველის ნაცვლად. ამისთვის მათ სჭირდებათ, ტრადიციულ აკადემიურ მეთოდებთან ერთად, დაუთმონ დრო და ენერგია არაფორმალურ განათლებას.
+„საბადოში“ ჩვენ ვაერთიანებთ განსხვავებულ ადამიანებს, ხელს ვუწყობთ თანამშრომლობისა და კომუნიკაციის კულტურის ჩამოყალიბებას, ვეხმარებით მათ დაფარული ტალანტისა და უნარების აღმოჩენაში. ვუზიარებთ ცოდნას, ვზრუნავთ ჩვენს ფასეულობებზე და ამ გზით მიზნად ვისახავთ აქტიური, პასუხისმგებლიანი და ეთიკური ლიდერების ჩამოყალიბებას, რომლებიც შექმნიან უკეთეს მომავალს.
+„საბადოელებს“ უნდა შეეძლოთ კრიტიკულად აზროვნება, ჰქონდეთ მოქმედების ძალა და მისცენ მაგალითი სხვებს. ლიდერობისკენ ამ მოგზაურობაში მათ ხელს შეუწყობენ ჩვენი ექსპერტები, აღმზრდელები და მონაწილეთა დიდი ოჯახი.`,
+                `We recognize that the global educational landscape is evolving at an unprecedented pace, aiming to address paradigm shifts in economies, cultures, and work environments. What is relevant today may become obsolete tomorrow. To remain relevant—and competitive—we must harness the cumulative power of education and discover the untapped potential within each learner. Leaders of tomorrow must be equipped to learn, unlearn, and relearn, investing in informal education alongside traditional academic pathways.
+At Sabado, we bring diverse individuals together to foster collaboration and communication, empowering them to unlock their unique talents. By sharing our potential and promoting our shared values, we aim to cultivate active, responsible, and ethical leaders capable of shaping a better future. Our cohorts are encouraged to think critically, act with purpose, and inspire others, supported by a strong network of experts and alumni on their leadership journeys.`
               )
             )}
           </Typography>
