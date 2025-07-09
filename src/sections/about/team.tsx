@@ -147,6 +147,8 @@ const style = {
   backgroundAttachment: 'fixed',
   backgroundColor: '#FAF6FD',
   backgroundPosition: 'center top',
+  maxHeight: '70vh',
+  overflowY: 'auto',
 };
 
 export const TeamInfoModal = ({
