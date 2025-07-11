@@ -4,6 +4,8 @@ import { mergeClasses } from 'minimal-shared/utils';
 import Collapse from '@mui/material/Collapse';
 import { useTheme } from '@mui/material/styles';
 
+import { useLanguage } from 'src/contexts/language-context';
+
 import { NavList } from './nav-list';
 import { Nav, NavUl, NavLi, NavSubheader } from '../components';
 import { navSectionClasses, navSectionCssVars } from '../styles';
@@ -26,6 +28,7 @@ export function NavSectionVertical({
   const theme = useTheme();
 
   const cssVars = { ...navSectionCssVars.vertical(theme), ...overridesVars };
+
 
   return (
     <Nav

@@ -59,6 +59,7 @@ export function NavList({
     return false;
   };
 
+  const { renderLanguage } = useLanguage();
   const renderNavItem = () => (
     <NavItem
       ref={navItemRef}
@@ -66,7 +67,7 @@ export function NavList({
       path={data.path}
       icon={data.icon}
       info={data.info}
-      title={data.title}
+      title={renderLanguage(data.title, data.title_en || '')}
       caption={data.caption}
       // state
       open={open}

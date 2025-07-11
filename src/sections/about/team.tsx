@@ -67,10 +67,14 @@ export function OurTeam() {
             key={member.id}
             component={m.div}
             variants={varFade('in')}
-            sx={{ py: { xs: 8, md: 10 }, cursor: 'pointer', width: '100%' }}
-            onClick={() => {
-              setSelectedTeamMember(member);
+            sx={{
+              py: { xs: 8, md: 10 },
+              cursor: 'pointer',
+              width: '100%',
+              height: '300px', // Or any height you want for all cards
+              display: 'flex',
             }}
+            onClick={() => setSelectedTeamMember(member)}
           >
             <TeamCard
               member={{
@@ -113,6 +117,10 @@ export const TeamCard = ({ member }: TeamCardProps) => (
       textAlign: 'center',
       paddingBottom: '15px',
       width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
     }}
   >
     <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 0.5, fontFeatureSettings: "'case' on" }}>
@@ -125,10 +133,6 @@ export const TeamCard = ({ member }: TeamCardProps) => (
     >
       {member.position}
     </Typography>
-    {/* 
-    <Box sx={{ px: 1 }}>
-      <Image alt={member.name} src={member.avatarUrl} ratio="1/1" />
-    </Box> */}
   </Card>
 );
 
