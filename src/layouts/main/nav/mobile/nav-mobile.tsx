@@ -30,6 +30,7 @@ export type NavMobileProps = NavMainProps & {
 export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
   const pathname = usePathname();
 
+
   useEffect(() => {
     if (open) {
       onClose();

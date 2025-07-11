@@ -52,13 +52,15 @@ export function NavList({ data, sx, ...other }: NavListProps) {
     }
   }, [data.children, onToggle]);
 
+  const { renderLanguage } = useLanguage();
+
   const renderNavItem = () => (
     <NavItem
       ref={navItemRef}
       // slots
       path={data.path}
       icon={data.icon}
-      title={data.title}
+      title={renderLanguage(data.title, data.title_en || '')}
       // state
       open={open}
       sx={{ color: renderIsActive() ? 'success.main' : 'white' }}

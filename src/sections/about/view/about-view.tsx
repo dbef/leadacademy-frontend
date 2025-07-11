@@ -144,6 +144,12 @@ export function AboutView() {
           '@media (max-width: 760px)': {
             padding: '24px !important',
           },
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${CONFIG.assetsDir}/assets/background/mission-background.png)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundAttachment: 'fixed',
+          backgroundColor: '#FAF6FD',
+          backgroundPosition: 'center top',
         }}
       >
         <ProjectMission />
@@ -197,7 +203,7 @@ export function AboutView() {
         id="founders"
         sx={{
           paddingTop: isSelected('values') ? '150px' : '0px',
-          backgroundColor: '#285C45',
+          backgroundColor: '#4D5D17',
           padding: '64px 256px',
           '@media (max-width: 1400px)': {
             padding: '64px 128px',

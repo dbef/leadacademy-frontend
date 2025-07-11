@@ -1,6 +1,7 @@
 import type { CSSObject } from '@mui/material/styles';
 
 import { forwardRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { varAlpha, mergeClasses } from 'minimal-shared/utils';
 
 import { styled } from '@mui/material/styles';
@@ -32,6 +33,8 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>((props, ref) 
 
   const ownerState: StyledState = { open, active, variant: !subItem ? 'rootItem' : 'subItem' };
 
+  const router = useRouter();
+
   return (
     <ItemRoot
       disableRipple
@@ -44,6 +47,9 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>((props, ref) 
         [navSectionClasses.state.active]: active,
       })}
       {...other}
+      onClick={() => {
+        router.push(path);
+      }}
     >
       <ItemTitle {...ownerState}> {title}</ItemTitle>
 
