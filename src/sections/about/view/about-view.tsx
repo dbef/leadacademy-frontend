@@ -143,6 +143,9 @@ export function AboutView() {
           },
           '@media (max-width: 760px)': {
             padding: '24px !important',
+            backgroundAttachment: 'scroll', // <--- key fix
+            backgroundSize: 'cover', // <--- or '100% auto'
+            backgroundPosition: 'top center',
           },
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${CONFIG.assetsDir}/assets/background/mission-background.png)`,
           backgroundRepeat: 'no-repeat',
