@@ -104,9 +104,7 @@ export function AboutView() {
             variants={varFade('inRight', { distance: 24 })}
             sx={{
               fontFeatureSettings: "'case' on",
-              background: 'linear-gradient(90deg, #00A76F 0%, #00412B 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              color: '#607516',
             }}
           />
 
