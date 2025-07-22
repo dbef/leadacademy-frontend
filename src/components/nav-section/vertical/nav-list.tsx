@@ -64,7 +64,7 @@ export function NavList({
     <NavItem
       ref={navItemRef}
       // slots
-      path={data.path}
+      path={language === Language.ENG ? `/en${data.path}` : `${data.path}`}
       icon={data.icon}
       info={data.info}
       title={renderLanguage(data.title, data.title_en || '')}

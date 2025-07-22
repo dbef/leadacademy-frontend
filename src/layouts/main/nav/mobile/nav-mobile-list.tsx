@@ -58,7 +58,7 @@ export function NavList({ data, sx, ...other }: NavListProps) {
     <NavItem
       ref={navItemRef}
       // slots
-      path={data.path}
+      path={language === Language.ENG ? `/en${data.path}` : `${data.path}`}
       icon={data.icon}
       title={renderLanguage(data.title, data.title_en || '')}
       // state
