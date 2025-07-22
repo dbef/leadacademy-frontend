@@ -138,7 +138,7 @@ export default function CoursesSection({ products }: HomeProps) {
           },
         }}
       >
-        <CustomTabs
+        {/* <CustomTabs
           value={selectedTab}
           onChange={(e, value) => setSelectedTab(value)}
           sx={{ borderRadius: 1, backgroundColor: '#F5EDFA' }}
@@ -153,7 +153,7 @@ export default function CoursesSection({ products }: HomeProps) {
                 label={renderLanguage(tab.title_ka, tab.title_en)}
               />
             ))}
-        </CustomTabs>
+        </CustomTabs> */}
 
         <Button
           sx={{

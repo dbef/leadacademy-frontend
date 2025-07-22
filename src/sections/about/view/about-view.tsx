@@ -204,7 +204,7 @@ export function AboutView() {
         id="founders"
         sx={{
           paddingTop: isSelected('values') ? '150px' : '0px',
-          backgroundColor: '#4D5D17',
+          backgroundColor: '#043F2B',
           padding: '64px 256px',
           '@media (max-width: 1400px)': {
             padding: '64px 128px',

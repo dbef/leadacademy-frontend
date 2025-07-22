@@ -218,7 +218,7 @@ export function CourseListMain() {
         justifyContent="space-between"
         width="100%"
       >
-        <CustomTabs
+        {/* <CustomTabs
           value={selectedTab}
           sx={{
             width: {
@@ -260,7 +260,7 @@ export function CourseListMain() {
               label={renderLanguage(tab.title_ka, tab.title_en)}
             />
           ))}
-        </CustomTabs>
+        </CustomTabs> */}
         <Stack
           spacing={2}
           direction={{ md: 'row', xs: 'column' }}
