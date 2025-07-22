@@ -30,7 +30,7 @@ export function LocationsSection() {
 
   const fetchCampuses = useCallback(async () => {
     const response = await apiClient('/api/v1/campus', 'get');
-
+    
     const mappedCampuses = response.map((campus) => ({
       title_ka: campus.campus_name_ka,
       title_en: campus.campus_name_en,
@@ -39,7 +39,7 @@ export function LocationsSection() {
 
     setCampuses(response);
     setTabs(mappedCampuses);
-    setSelectedCampuse(response[0]);
+    setSelectedCampuse(response.find((item) => item.campus_name_short === 'manglisi'));
   }, []);
 
   useEffect(() => {
