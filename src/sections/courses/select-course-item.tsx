@@ -114,7 +114,7 @@ export function SelectCourseItem({
       >
         {renderLanguage('ინფორმაცია', 'Information')}
       </Button>
-      {new Date(item.start_date).getMonth() !== 6 && (
+      {new Date(item.start_date).getMonth() !== 6 && new Date(item.start_date).getMonth() !== 7 && (
         <Button
           variant="contained"
           fullWidth

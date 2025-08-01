@@ -108,7 +108,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
       >
         {renderLanguage('ინფორმაცია', 'Information')}
       </Button>
-      {new Date(item.start_date).getMonth() !== 6 && new Date(item.start_date) > new Date() && (
+      {new Date(item.start_date).getMonth() !== 6 && new Date(item.start_date).getMonth() !== 7 && new Date(item.start_date) > new Date() && (
         <Button
           variant="contained"
           fullWidth
