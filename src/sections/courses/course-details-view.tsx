@@ -113,7 +113,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
             )}
           </Typography>
         </Box>
-        {new Date(course.start_date).getMonth() !== 6 && new Date(course.start_date) > new Date() && (
+        {new Date(course.start_date).getMonth() !== 6 && new Date(course.start_date).getMonth() !== 7 && new Date(course.start_date) > new Date() && (
           <Button
             fullWidth
             variant="contained"
