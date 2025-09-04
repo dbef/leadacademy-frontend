@@ -4,6 +4,8 @@ import { CONFIG } from 'src/global-config';
 
 import { RulesOfConduct } from 'src/sections/rules-of-conduct/rules-of-condut';
 
+import { baseUrl } from '../constants';
+
 // ----------------------------------------------------------------------
 
 export const metadata: Metadata = {
@@ -17,6 +19,14 @@ export const metadata: Metadata = {
         alt: 'Sabado',
       },
     ],
+  },
+  metadataBase: baseUrl,
+  alternates: {
+    canonical: `/rules-of-conduct`,
+    languages: {
+      en: `/en/rules-of-conduct`,
+      ka: `/rules-of-conduct`,
+    },
   },
 };
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 
 import { NotFoundView } from 'src/sections/error';
 import { TsinandaliView } from 'src/sections/tsinandali/tsinandali';
@@ -31,6 +32,14 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `Tsinandali - Sabado`,
         description: 'Tsinandali Campus',
+      },
+      metadataBase: baseUrl,
+      alternates: {
+        canonical: `/en/tsinandali`,
+        languages: {
+          en: `/en/tsinandali`,
+          ka: `/tsinandali`,
+        },
       },
     };
   } catch (error) {

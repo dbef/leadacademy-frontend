@@ -6,6 +6,8 @@ import { CONFIG } from 'src/global-config';
 import { NotFoundView } from 'src/sections/error';
 import { TsinandaliView } from 'src/sections/tsinandali/tsinandali';
 
+import { baseUrl } from '../constants';
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
@@ -31,6 +33,14 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `წინანდალი - საბადო`,
         description: 'წინანდლის კამპუსი',
+      },
+      metadataBase: baseUrl,
+      alternates: {
+        canonical: `/tsinandali`,
+        languages: {
+          en: `/en/tsinandali`,
+          ka: `/tsinandali`,
+        },
       },
     };
   } catch (error) {

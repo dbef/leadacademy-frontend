@@ -6,12 +6,15 @@ import { CONFIG } from 'src/global-config';
 import { NotFoundView } from 'src/sections/error';
 import { ManglisiView } from 'src/sections/manglisi/manglisi';
 
+import { baseUrl } from '../constants';
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
       title: `მანგლისი - საბადო`,
       description: `მანგლისი - საბადო`,
-      keywords: 'პროგრამა, საბადო, სწავლება, განათლება',
+      keywords: `„Sabado საზაფხულო სკოლა“, „საბადო მანგლისი“, „ლიდერობის ბანაკი
+საქართველო“, „საბადო ლიდერშიპ აკადემია“`,
       applicationName: 'საბადო',
       openGraph: {
         title: `მანგლისი - საბადო`,
@@ -31,6 +34,14 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `მანგლისი - საბადო`,
         description: 'მანგლისის კამპუსი',
+      },
+      metadataBase: baseUrl,
+      alternates: {
+        canonical: `/manglisi`,
+        languages: {
+          en: `/en/manglisi`,
+          ka: `/manglisi`,
+        },
       },
     };
   } catch (error) {

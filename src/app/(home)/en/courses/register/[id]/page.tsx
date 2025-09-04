@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 import axios, { endpoints } from 'src/lib/axios';
 
 import { RegisterOnCourseView } from 'src/sections/courses/course-register-view';
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 
     return {
+      metadataBase: baseUrl,
       title: `Register on ${course.title_en} - ${CONFIG.appName}`,
       description: course.short_des_en || 'Course details and information.',
       keywords: course.keywords_en,
@@ -50,6 +52,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             alt: course.title_en,
           },
         ],
+      },
+         alternates: {
+        canonical: `/en/courses/register/${id}`,
+        languages: {
+          en: `/en/courses/register/${id}`,
+          ka: `/courses/register/${id}`,
+        },
       },
     };
   } catch (error) {

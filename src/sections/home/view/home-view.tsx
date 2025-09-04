@@ -34,18 +34,18 @@ export function HomeView({ products, images }: HomeProps) {
   const { onBackToTop, isVisible } = useBackToTop('90%');
 
   const coverImages = images.map((item) => ({
-      id: item.media_id,
-      title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
-      title_en: 'The best place for learning and fun!',
-      description_ka:
-        'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
-      description_en: 'Join our informal hub and discover new opportunities!',
-      coverUrl: item.media_url,
-      button_ka: `დარეგისტრირდი აქ`,
-      button_en: 'Register Here',
-      type: 'image',
-      link: 'courses/register',
-    }));
+    id: item.media_id,
+    title_ka: 'საუკეთესო ადგილი სწავლისა და გართობისთვის!',
+    title_en: 'The best place for learning and fun!',
+    description_ka:
+      'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები!',
+    description_en: 'Join our informal hub and discover new opportunities!',
+    coverUrl: item.media_url,
+    button_ka: `დარეგისტრირდი აქ`,
+    button_en: 'Register Here',
+    type: 'image',
+    link: 'courses/register',
+  }));
 
   return (
     <>
@@ -54,7 +54,7 @@ export function HomeView({ products, images }: HomeProps) {
         progress={pageProgress.scrollYProgress}
         sx={[(theme) => ({ position: 'fixed', zIndex: theme.zIndex.appBar + 1 })]}
       />
-      <CarouselAnimation data={coverImages} />
+      {coverImages.length > 0 && <CarouselAnimation data={coverImages} />}
       <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
         <CoursesSection products={products} />
       </Stack>

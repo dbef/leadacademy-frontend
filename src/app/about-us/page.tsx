@@ -4,6 +4,8 @@ import { CONFIG } from 'src/global-config';
 
 import { AboutView } from 'src/sections/about/view';
 
+import { baseUrl } from '../constants';
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
@@ -21,6 +23,14 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: 'საბადო - ჩვენს შესახებ.',
         description: `აკადემიის მუშაობა ეფუძნება იმ ძირითად ფასეულობებს, რომლებიც ლიდერების, მომავლის მოქალაქეების ჩამოყალიბებისთვის აუცილებელია და აკადემიის საქმიანობის, მისი თითოეული აქტივობის აუცილებელ საფუძველს წარმოადგენს.`,
+      },
+      metadataBase: baseUrl,
+      alternates: {
+        canonical: `/about-us`,
+        languages: {
+          en: `/en/about-us`,
+          ka: `/about-us`,
+        },
       },
     };
   } catch (error) {
