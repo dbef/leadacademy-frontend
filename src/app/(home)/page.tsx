@@ -5,11 +5,14 @@ import { CONFIG } from 'src/global-config';
 
 import { HomeView } from 'src/sections/home/view';
 
+import { baseUrl } from '../constants';
+
 // ----------------------------------------------------------------------
 
 export const metadata: Metadata = {
   title: 'საბადო: საუკეთესო პროგრამები',
-  keywords: 'საბადო, პროგრამები, სწავლა, განათლება',
+  keywords: `Sabado საზაფხულო სკოლა“, „საბადო მანგლისი“, „ლიდერობის ბანაკი
+საქართველო“, „საბადო ლიდერშიპ აკადემია“`,
   description: 'საბადო - საუკეთესო პროგრამები, რომლებიც დაგეხმარებათ თქვენი მიზნების მიღწევაში.',
   openGraph: {
     title: 'საბადო: საუკეთესო პროგრამები',
@@ -25,6 +28,14 @@ export const metadata: Metadata = {
       },
     ],
   },
+     metadataBase: baseUrl,
+        alternates: {
+          canonical: `/`,
+          languages: {
+            en: `/en/`,
+            ka: `/`,
+          },
+        },
 };
 
 export default async function Page() {

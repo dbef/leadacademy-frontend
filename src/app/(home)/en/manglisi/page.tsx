@@ -2,14 +2,15 @@ import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 
 import { NotFoundView } from 'src/sections/error';
 import { ManglisiView } from 'src/sections/manglisi/manglisi';
-import { TsinandaliView } from 'src/sections/tsinandali/tsinandali';
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
+      metadataBase: baseUrl,
       title: `Manglisi - Sabado`,
       description: 'Manglisi Campus',
       keywords: 'manglisi, sabado, education, learning',
@@ -32,6 +33,13 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `Manglisi - Sabado`,
         description: 'Manglisi Campus',
+      },
+      alternates: {
+        canonical: '/en/manglisi',
+        languages: {
+          en: '/en/manglisi',
+          ka: '/manglisi',
+        },
       },
     };
   } catch (error) {

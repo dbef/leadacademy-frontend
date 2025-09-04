@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 
 import { NewsDetailsView } from 'src/sections/news/news-details';
 
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 
     return {
+      metadataBase: baseUrl,
       title: `${news.title_ka} - ${CONFIG.appName}`,
       description: news.short_des_ka || 'News details and information.',
       keywords: news.keywords_ka,
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: `${news.title_ka} - ${CONFIG.appName}`,
         description: news.short_des_ka || 'News details and information.',
-        url: `https://sabado.edu.ge/courses/${id}`,
+        url: `https://sabado.edu.ge/news/${id}`,
         type: 'article',
         images: [
           {
@@ -48,6 +50,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             alt: news.title_ka,
           },
         ],
+      },
+      alternates: {
+        canonical: `/en/news/${id}`,
+        languages: {
+          en: `/en/news/${id}`,
+          ka: `/news/${id}`,
+        },
       },
     };
   } catch (error) {

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 
 import { RegisterOnCourseView } from 'src/sections/courses/course-register-view';
 
@@ -13,7 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: `რეგისტრაცია - ${CONFIG.appName}`,
       description: 'დარეგისტრირდი კურსზე.',
-      keywords: 'საბადო, სწავლება, განათლება, კურსი, რეგისტრაცია',
+      keywords: `„Sabado საზაფხულო სკოლა“, „საბადო მანგლისი“, „ლიდერობის ბანაკი
+საქართველო“, „საბადო ლიდერშიპ აკადემია“`,
       applicationName: CONFIG.appName,
       openGraph: {
         title: `რეგისტრაცია - ${CONFIG.appName}`,
@@ -33,6 +35,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         card: 'summary_large_image',
         title: `რეგისტრაცია - ${CONFIG.appName}`,
         description: 'დარეგისტრირდი აქ',
+      },
+      metadataBase: baseUrl,
+      alternates: {
+        canonical: `/courses/register`,
+        languages: {
+          en: `/en//courses/register`,
+          ka: `/courses/register`,
+        },
       },
     };
   } catch (error) {

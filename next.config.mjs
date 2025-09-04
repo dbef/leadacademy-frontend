@@ -10,7 +10,9 @@ const nextConfig = {
     BUILD_STATIC_EXPORT: isStaticExport,
   },
   images: {
-    domains: ['lead-for-test.s3.eu-north-1.amazonaws.com'], // Add your S3 domain here
+    domains: ['lead-for-test.s3.eu-north-1.amazonaws.com'],
+    remotePatterns: [{ protocol: 'https', hostname: 'lead-for-test.s3.eu-north-1.amazonaws.com' }],
+    formats: ['image/avif', 'image/webp'],
   },
   modularizeImports: {
     '@mui/icons-material': {

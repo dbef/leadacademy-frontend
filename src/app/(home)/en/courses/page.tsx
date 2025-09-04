@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 
 import { CourseListMain } from 'src/sections/courses/courses-view';
 
@@ -11,6 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
       title: `Programs - ${CONFIG.appName}`,
+      metadataBase: baseUrl,
       description: 'Sabado - Programs.',
       keywords: 'Programs, Sabado, learn, education',
       applicationName: CONFIG.appName,
@@ -32,6 +33,13 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `Programs - ${CONFIG.appName}`,
         description: 'Programs',
+      },
+       alternates: {
+        canonical: '/en/courses',
+        languages: {
+          en: '/en/courses',
+          ka: '/courses',
+        },
       },
     };
   } catch (error) {

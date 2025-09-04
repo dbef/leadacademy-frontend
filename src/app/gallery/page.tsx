@@ -4,6 +4,8 @@ import { CONFIG } from 'src/global-config';
 
 import { GalleryView } from 'src/sections/gallery/gallery-view';
 
+import { baseUrl } from '../constants';
+
 // ----------------------------------------------------------------------
 
 export const metadata: Metadata = {
@@ -17,6 +19,14 @@ export const metadata: Metadata = {
         alt: 'Sabado',
       },
     ],
+  },
+  metadataBase: baseUrl,
+  alternates: {
+    canonical: `/gallery`,
+    languages: {
+      en: `/en/gallery`,
+      ka: `/gallery`,
+    },
   },
 };
 

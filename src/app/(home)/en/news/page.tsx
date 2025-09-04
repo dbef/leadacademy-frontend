@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 
 import { AllNews } from 'src/sections/news-section/all-news';
 
@@ -10,6 +11,7 @@ import { AllNews } from 'src/sections/news-section/all-news';
 export async function generateMetadata(): Promise<Metadata> {
   try {
     return {
+      metadataBase: baseUrl,
       title: `News - Sabado`,
       description: 'Sabado - News.',
       keywords: 'Sabadom, news, education',
@@ -32,6 +34,13 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `News - ${CONFIG.appName}`,
         description: 'News',
+      },
+      alternates: {
+        canonical: `/en/news`,
+        languages: {
+          en: `/en/news`,
+          ka: `/news`,
+        },
       },
     };
   } catch (error) {

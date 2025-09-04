@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
+import { baseUrl } from 'src/app/constants';
 import axios, { endpoints } from 'src/lib/axios';
 
 import { RegisterOnCourseView } from 'src/sections/courses/course-register-view';
@@ -50,6 +51,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           },
         ],
       },
+      metadataBase: baseUrl,
+            alternates: {
+              canonical: `/courses/register/${id}`,
+              languages: {
+                en: `/en//courses/register/${id}`,
+                ka: `/courses/register/${id}`,
+              },
+            },
     };
   } catch (error) {
     console.error('Failed to fetch course metadata:', error);

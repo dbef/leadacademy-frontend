@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 
-import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
 
 import { CourseListMain } from 'src/sections/courses/courses-view';
+
+import { baseUrl } from '../constants';
 
 // ----------------------------------------------------------------------
 
@@ -12,12 +13,13 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       title: `პროგრამები - ${CONFIG.appName}`,
       description: 'Sabado - პროგრამები.',
-      keywords: 'პროგრამა, საბადო, სწავლება, განათლება',
+      keywords: `„Sabado საზაფხულო სკოლა“, „საბადო მანგლისი“, „ლიდერობის ბანაკი
+საქართველო“, „საბადო ლიდერშიპ აკადემია“`,
       applicationName: CONFIG.appName,
       openGraph: {
         title: `პროგრამები - ${CONFIG.appName}`,
         description: 'დარეგისტრირდი აქ',
-        url: `https://sabado.edu.ge/courses/register`,
+        url: `https://sabado.edu.ge/courses`,
         type: 'article',
         images: [
           {
@@ -32,6 +34,14 @@ export async function generateMetadata(): Promise<Metadata> {
         card: 'summary_large_image',
         title: `პროგრამები - ${CONFIG.appName}`,
         description: 'დარეგისტრირდი აქ',
+      },
+      metadataBase: baseUrl,
+      alternates: {
+        canonical: `/courses`,
+        languages: {
+          en: `/en/courses`,
+          ka: `/courses`,
+        },
       },
     };
   } catch (error) {
