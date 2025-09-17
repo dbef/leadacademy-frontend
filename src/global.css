@@ -43,6 +43,17 @@
   font-family: 'UpperCaseGeo';
   src: url('../public/fonts/NotoSansGeorgian-VariableFont_wdth\,wght.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'UpperCaseHelvetica2';
+  src: url('../public/fonts/NOVEMBERGELVARIABLE-VF.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'UpperCaseHelvetica1';
+  src: url('../public/fonts/GRETADISPLAYGELVARIABLE-VF.ttf') format('truetype');
+}
+
 html {
   height: 100%;
   -webkit-overflow-scrolling: touch;

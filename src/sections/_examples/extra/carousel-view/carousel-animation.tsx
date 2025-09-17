@@ -106,6 +106,7 @@ function CarouselItem({ item, index, selected }: CarouselItemProps) {
           component="img"
           alt={item.title_en}
           src={item.coverUrl}
+          fetchPriority='high'
           sx={{
             objectFit: 'cover',
             aspectRatio: { xs: '4/3', sm: '16/10' },

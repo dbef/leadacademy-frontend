@@ -2,3 +2,13 @@
     font-family: "UpperCaseGeo";
     src: url("./NotoSansGeorgian-VariableFont_wdth\,wght.ttf") format("truetype");
   }
+
+  @font-face {
+  font-family: 'UpperCaseGeo';
+  src: url('../public/fonts/NOVEMBERGELVARIABLE-VF.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'UpperCaseGeo';
+  src: url('../public/fonts/GRETADISPLAYGELVARIABLE-VF.ttf') format('truetype');
+}
