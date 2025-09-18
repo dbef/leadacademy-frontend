@@ -14,22 +14,22 @@ const texts = [
   {
     id: 1,
     ka: '15:00 - საბადოს გარე ტერიტორიაზე შეძლებთ ტურებზე რეგისტრაციას',
-    en: '15:00 - You can register for tours at the Sabado outdoor area',
+    en: '15:00 - Sign up for tours in Sabado Yard',
   },
   {
     id: 2,
     ka: 'გელოდებათ საჩუქრები - ბრენდირებული ნივთები და მცენარეები',
-    en: 'You will find gifts waiting – branded items and plants',
+    en: 'Gifts for You - Branded items and plants are waiting for you',
   },
   {
     id: 3,
     ka: 'გიმასპინძლებთ საკვებ ზონაში',
-    en: 'We will host you in the food zone',
+    en: 'We look forward to welcoming you in the food area',
   },
   {
     id: 4,
     ka: 'პატარა სტუმრებს გავართობთ ყვავილების გვირგვინებით, თამაშობანას სივრცით და სხვადასხვა თამაშებით',
-    en: 'Little guests will enjoy flower crowns, a play area, and various games',
+    en: 'Our little guests can enjoy making floral crowns, the Tamashobana space, and various fun activities',
   },
   {
     id: 5,
@@ -38,18 +38,23 @@ const texts = [
   },
   {
     id: 6,
-    ka: '16:00 - არ გამოტოვოთ დამფუძნებლის მიმართვა სცენაზე, რომ გაიგოთ რა არის საბადო, შემდეგ კი წამოგვყევით კინოდარბაზში სპეციალური კინოჩვენებისთვის',
-    en: '16:00 - Don’t miss the founder’s speech on stage to learn what Sabado is, then join us in the cinema hall for a special screening',
+    ka: '16:00 - არ გამოტოვოთ დამფუძნებლის მიმართვა სცენაზე, რომ გაიგოთ რა არის საბადო',
+    en: '16:00 - Don’t miss the speech by the founder on stage to learn more about Sabado',
   },
   {
     id: 7,
-    ka: '16:30 - საბავშვო კინოჩვენება კინოთეატრში',
-    en: '16:30 - Children’s movie screening in the cinema',
+    ka: '16:30 -  კინოჩვენება',
+    en: ' 16:30 -  Movie screening',
   },
   {
     id: 8,
-    ka: 'ღონისძიების დასკვნით ნაწილში გაიმართება ნიკოლოზ რაჭველის, სტეფანეს და ფანიკოს კონცერტი',
-    en: 'In the final part of the event, there will be a concert by Nikoloz Rachveli, Stephane, and Faniko',
+    ka: '17:00 -  ნიკოლოზ რაჭველის, სტეფანეს და ფანიკოს  კონცერტი',
+    en: '17:00 -  Performance by Nikoloz Rachveli, Stephane and Faniko',
+  },
+  {
+    id: 9,
+    ka: '17:00 -  საბავშვო ანიმაციები კინოთეატრში',
+    en: '17:00 -  Children’s Movie Screening',
   },
 ];
 
@@ -103,7 +108,7 @@ export function SeptemberEvent() {
             backgroundAttachment: 'fixed',
             backgroundPosition: 'center top',
             display: 'flex',
-            padding: '5px',
+            padding: '20px',
             justifyContent: 'flex-start',
             flexDirection: 'column',
             gap: '25px',
@@ -112,7 +117,7 @@ export function SeptemberEvent() {
             color: 'white',
           }}
         >
-          <Typography
+          {/* <Typography
             sx={{
               fontFamily: 'UpperCaseHelvetica1 !important',
               fontFeatureSettings: "'case' on",
@@ -121,7 +126,7 @@ export function SeptemberEvent() {
             }}
           >
             {renderLanguage('დღის გეგმა', 'Day plan')}
-          </Typography>
+          </Typography> */}
           {texts.map((item) => (
             <Box
               key={item.id}
@@ -178,7 +183,11 @@ export function SeptemberEvent() {
           <TransformWrapper initialScale={1} minScale={0.5} maxScale={5} centerOnInit>
             <TransformComponent>
               <Image
-                src="https://lead-for-test.s3.eu-north-1.amazonaws.com/%E1%83%92%E1%83%94%E1%83%92%E1%83%9B%E1%83%90_%E1%83%A1%E1%83%90%E1%83%91%E1%83%90%E1%83%93%E1%83%9D-01.jpg"
+                src={
+                  language === Language.KA
+                    ? 'https://lead-for-test.s3.eu-north-1.amazonaws.com/%E1%83%92%E1%83%94%E1%83%92%E1%83%9B%E1%83%90_%E1%83%A1%E1%83%90%E1%83%91%E1%83%90%E1%83%93%E1%83%9D-01.jpg'
+                    : 'https://lead-for-test.s3.eu-north-1.amazonaws.com/%E1%83%92%E1%83%94%E1%83%92%E1%83%9B%E1%83%90_%E1%83%A1%E1%83%90%E1%83%91%E1%83%90%E1%83%93%E1%83%9D-02.jpg'
+                }
                 sx={{
                   width: 'auto',
                   objectFit: 'contain',
