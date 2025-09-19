@@ -172,8 +172,8 @@ export function SeptemberEvent() {
               src={`${CONFIG.assetsDir}/assets/images/${language === Language.KA ? 'gegma-04.png' : 'gegma-05.png'}`}
               sx={{
                 objectFit: 'contain',
-                height: '120px',
-                width: '120px',
+                height: '150px',
+                width: '200px',
               }}
             />
           </Box>
