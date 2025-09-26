@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 
 import { fShortenNumber } from 'src/utils/format-number';
 
-import { useLanguage } from 'src/contexts/language-context';
+import { Language, useLanguage } from 'src/contexts/language-context';
 
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
@@ -56,6 +56,20 @@ export function CourseItem({ item, sx, ...other }: CarouselItemProps) {
       </Label>
     </Box>
   );
+
+  const {language} = useLanguage()
+
+    const url =  language === Language.KA
+                    ? `/courses/register/${item.course_id}`
+                    : `/en/courses/register/${item.course_id}`
+  
+      const renderRegistration = () => {
+      if(item?.registration_url) {
+        return item.registration_url
+      } else {
+         return url
+      }
+    }
 
   const renderFooter = () => (
     <Box

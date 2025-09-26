@@ -912,6 +912,8 @@ export interface components {
             /** @description kewords ka */
             keywords_ka?: string;
             /** @description kewords ka */
+            registration_url?: string;
+            /** @description kewords ka */
             keywords_en?: string;
             /** @description kewords ka */
             short_des_en?: string;
@@ -1079,6 +1081,8 @@ export interface components {
             /** @description kewords ka */
             keywords_en?: string;
             /** @description kewords ka */
+            registration_url?: string;
+            /** @description kewords ka */
             short_des_en?: string;
             /** @description kewords ka */
             short_des_ka?: string;
@@ -1129,6 +1133,8 @@ export interface components {
             course_files?: components["schemas"]["FileDto"][];
             /** @description kewords ka */
             keywords_ka?: string;
+            /** @description kewords ka */
+            registration_url?: string;
             /** @description kewords ka */
             keywords_en?: string;
             /** @description kewords ka */

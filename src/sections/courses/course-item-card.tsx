@@ -95,6 +95,18 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
     </Box>
   );
 
+  const url =  language === Language.KA
+                  ? `/courses/register/${item.course_id}`
+                  : `/en/courses/register/${item.course_id}`
+
+    const renderRegistration = () => {
+    if(item?.registration_url) {
+      return item.registration_url
+    } else {
+       return url
+    }
+  }
+  
   const renderFooter = () => (
     <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }}>
       <Button
@@ -113,11 +125,7 @@ export function CourseItemMain({ item, sx, ...other }: CarouselItemProps) {
           variant="contained"
           fullWidth
           LinkComponent={RouterLink}
-          href={
-            language === Language.KA
-              ? `/courses/register/${item.course_id}`
-              : `/en/courses/register/${item.course_id}`
-          }
+          href={renderRegistration()}
           target="_blank"
           sx={{ backgroundColor: '#7F9A16' }}
           size="large"

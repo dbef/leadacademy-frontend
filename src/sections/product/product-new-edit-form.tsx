@@ -71,6 +71,7 @@ export const CreateCourseSchema = zod.object({
   price: zod.number({ coerce: true }).min(0, { message: 'Price must be at least 0!' }),
   keywords_ka: zod.array(zod.string()).optional(),
   keywords_en: zod.array(zod.string()).optional(),
+  registration_url: zod.string().optional(),
   short_des_en: zod.string().optional(),
   short_des_ka: zod.string().optional(),
   is_published: zod.boolean(),
@@ -211,6 +212,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
     day_price: course ? course.day_price : 450,
     is_published: course ? course.is_published : false,
     language: course ? course.language : 'ka',
+    registration_url: course && course.registration_url ? course.registration_url : ''
   };
 
   const methods = useForm<NewCourseSchema>({
@@ -288,6 +290,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
           language: 'en',
           lecturers: selectedLecturers.map((item) => item.id),
           campus_id: selectedCampus?.campus_id,
+          registration_url: values?.registration_url ? values.registration_url : undefined,
           course_options: courseOptions.map((option) => ({
             start_date: new Date(option.start_date).toISOString(),
             end_date: new Date(option.end_date).toISOString(),
@@ -638,6 +641,15 @@ export function ProductNewEditForm({ course }: CourseProps) {
           <MenuItem value="ka">ქართული</MenuItem>
           <MenuItem value="eng">ინგლისური</MenuItem>
         </Select>
+         <Field.Text
+          name="registration_url"
+          label={renderLanguage('რეგისტრაციის ლინკი', 'Registration URL')}
+          placeholder="რეგისტრაციის ლინკი"
+          type="text"
+          slotProps={{
+            inputLabel: { shrink: true },
+          }}
+        />
         <Button variant="contained" onClick={handleAddNewCourseOption}>
           <Iconify icon="eva:plus-fill" />
           {renderLanguage('კურსის ოფშენის დამატება', 'Add Course Option')}
@@ -688,6 +700,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
               }}
               slotProps={{ textField: { fullWidth: true } }}
             />
+           
             <DatePicker
               openTo="year"
               views={['year', 'month', 'day']}

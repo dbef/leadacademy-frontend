@@ -62,6 +62,18 @@ export function CourseDetailsView(props: CourseEditViewProps) {
     return renderLanguage(`${minPrice?.option_price} დან`, `from ${minPrice?.option_price}`);
   };
 
+  const url =  language === Language.KA
+                ? `/courses/register/${course.course_id}`
+                : `/en/courses/register/${course.course_id}`
+
+  const renderRegistration = () => {
+    if(course?.registration_url) {
+      return course.registration_url
+    } else {
+       return url
+    }
+  }
+
   const renderDetails = () => (
     <Card
       sx={{
@@ -121,11 +133,7 @@ export function CourseDetailsView(props: CourseEditViewProps) {
               backgroundColor: '#7F9A16',
             }}
             component={RouterLink}
-            href={
-              language === Language.KA
-                ? `/courses/register/${course.course_id}`
-                : `/en/courses/register/${course.course_id}`
-            }
+            href={renderRegistration()}
             target="_blank"
             size="large"
           >
