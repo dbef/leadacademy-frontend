@@ -1182,6 +1182,11 @@ export interface components {
              * @default parent
              */
             relation: string;
+            /**
+             * @description Relationship to Student
+             * @default parent
+             */
+            school: string;
             /** @description Parent Date of Birth */
             parent_dob: string;
             /** @description Parent Gender */
@@ -1452,6 +1457,8 @@ export interface components {
             student_dob: string;
             /** @description Educational Program */
             program: string;
+            /** @description Educational Program */
+            school: string;
             /** @description Potential Roommate */
             potential_roommate: string;
             /** @description Allergens */
