@@ -101,6 +101,15 @@ export function ApplicationsTableRow({ row, handleApproveOrReject }: Props) {
         <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
           <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
             <Box component="span" sx={{ color: 'text.disabled' }}>
+              {row?.school}
+            </Box>
+          </Stack>
+        </Box>
+      </TableCell>
+      <TableCell>
+        <Box sx={{ gap: 2, display: 'flex', alignItems: 'center' }}>
+          <Stack sx={{ typography: 'body2', flex: '1 1 auto', alignItems: 'flex-start' }}>
+            <Box component="span" sx={{ color: 'text.disabled' }}>
               {row.alergens}
             </Box>
           </Stack>

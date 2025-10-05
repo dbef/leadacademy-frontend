@@ -73,7 +73,8 @@ export type StudentInfoType = {
   student_class: string;
   student_dob: string;
   student_gender: string;
-  program: string;
+  program?: string;
+  school?: string;
   potential_roommate: string | null;
   special_needs: string | null;
   relationship_with_peers: string | null;
@@ -142,6 +143,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
     student_gender: 'male',
     student_class: '',
     program: '',
+    school: '',
     potential_roommate: null,
     special_needs: null,
     relationship_with_peers: null,
@@ -165,6 +167,7 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
   });
 
   const [selectedCourse, setSelectedCourse] = useState<CourseDto | null>(null);
+    const [selectedSchool, setSelectedSchool] = useState('')
   const steps = [
     {
       id: 1,
@@ -295,6 +298,8 @@ export function RegisterOnCourseView(props: CourseEditViewProps) {
                   course={selectedCourse}
                   studentInfo={studentInfo}
                   setStudentInfo={setStudentInfo}
+                  selectedSchool={selectedSchool}
+                  setSelectedSchool={setSelectedSchool}
                   setActiveStep={setActiveStep}
                   parentInfo={parentInfo}
                 />

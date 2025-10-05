@@ -193,6 +193,8 @@ export function MedicalInfo(props: MedicalInfoProps) {
           ...parentInfo,
           ...studentInfo,
           ...medicalInfo,
+          program: studentInfo.program ? studentInfo.program : 'other',
+          school: studentInfo.school ? studentInfo.school : '',
           potential_roommate: studentInfo.potential_roommate ? studentInfo.potential_roommate : '',
           diet_restrictions: values.diet_restrictions ? values.diet_restrictions : '',
           alergens: values.alergens ? values.alergens : '',
