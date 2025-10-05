@@ -1,15 +1,13 @@
 'use client';
 
 import type { components } from 'interfaces/interface';
-import type { IDatePickerControl } from 'src/types/common';
 
 import dayjs from 'dayjs';
 import { z as zod } from 'zod';
-import { useState } from 'react';
+import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -20,9 +18,9 @@ import {
   MenuItem,
   RadioGroup,
   Typography,
+  InputLabel,
   FormControl,
   FormControlLabel,
-  InputLabel,
 } from '@mui/material';
 
 import { useRouter } from 'src/routes/hooks';
@@ -31,7 +29,6 @@ import { useLanguage } from 'src/contexts/language-context';
 
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
-import { CountrySelect } from 'src/components/country-select';
 
 import type { ParentInfoType, StudentInfoType } from './course-register-view';
 
@@ -48,23 +45,28 @@ export const RegisterStudentSchema = zod.object({
   student_class: zod.string().min(1, { message: '' }),
   student_dob: zod.string().min(1, { message: '' }),
   student_gender: zod.string().min(1, { message: '' }).default('male'),
-  program: zod.string().min(1, { message: '' }),
+  program: zod.string().optional(),
   potential_roommate: zod.string().nullable(),
   special_needs: zod.string().nullable(),
   relationship_with_peers: zod.string().nullable(),
   social_skills: zod.string().nullable(),
+  school: zod.string().optional(),
 });
 
 type StudentInfoProps = {
   course: components['schemas']['CourseDto'];
   studentInfo: StudentInfoType;
   setStudentInfo: (info: StudentInfoType) => void;
+  selectedSchool: string;
+  setSelectedSchool: (info: string) => void;
   setActiveStep: (step: number) => void;
   parentInfo: ParentInfoType;
 };
 
 export function RegisterStudentInfo(props: StudentInfoProps) {
-  const { course, studentInfo, setStudentInfo, setActiveStep, parentInfo } = props;
+  const { course, studentInfo, setStudentInfo, setActiveStep, parentInfo, selectedSchool, setSelectedSchool } = props;
+
+
 
   const classes = ['IX', 'X', 'XI', 'XII'];
   const programs = [
@@ -89,6 +91,20 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
       value: 'dyp',
     },
   ];
+
+  const schools = [
+    {
+      title_ka: 'ევროპული სკოლა',
+      title_en: 'Europian School',
+      value: 'europianschool',
+    },
+    {
+      title_ka: 'სხვა',
+      title_en: 'Other',
+      value: 'other',
+    },
+  ];
+
 
   const router = useRouter();
 
@@ -126,6 +142,8 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
 
   const values = watch();
 
+  console.log('Errors:', errors, values)
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       const isValid = /^\+995 5\d{2} \d{3} \d{3}$/.test(data.student_phone);
@@ -149,6 +167,27 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
 
         return;
       }
+
+      if (!selectedSchool || selectedSchool === '') {
+        toast.error(renderLanguage('გთხოვთ აირჩიოთ სკოლა', 'Please select school'))
+        return
+      }
+
+      if (selectedSchool === 'europianschool') {
+        if (!values.program || values.program === '') {
+          toast.error(renderLanguage('გთხოვთ აირჩიოთ პროგრამა', 'Please select program'))
+          setError('program', { message: '' })
+          return
+        }
+      }
+
+      if (selectedSchool === 'other') {
+        if (!values.school || values.school === '') {
+          setError('school', { message: '' })
+          return
+        }
+      }
+
       setStudentInfo(data);
       setActiveStep(3);
     } catch (error) {
@@ -236,6 +275,28 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
 
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">
+          {renderLanguage('სკოლა', 'School')}
+        </InputLabel>
+        <Select
+          id="demo-simple-select-school"
+          value={selectedSchool}
+          label={renderLanguage('სკოლა', 'School')}
+          onChange={(event) => {
+            setSelectedSchool(event.target.value)
+            setValue('program', '')
+            setValue('school', '')
+          }}
+        >
+          {schools.map((classItem, index) => (
+            <MenuItem key={classItem.value} value={classItem.value}>
+              {renderLanguage(classItem.title_ka, classItem.title_en)}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      {selectedSchool === 'europianschool' ? <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">
           {renderLanguage('პროგრამა', 'Program')}
         </InputLabel>
         <Select
@@ -243,7 +304,10 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
           value={values.program}
           error={Boolean(errors.program)}
           label={renderLanguage('პროგრამა', 'Program')}
-          onChange={(event) => setValue('program', event.target.value)}
+          onChange={(event) => {
+            setValue('program', event.target.value)
+          
+          }}
         >
           {programs.map((classItem, index) => (
             <MenuItem key={classItem.value} value={classItem.value}>
@@ -251,7 +315,11 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> : null}
+      {selectedSchool === 'other' ? <Field.Text
+        name="school"
+        label={renderLanguage('სკოლის სახელი', `School name`)}
+      /> : null}
     </Stack>
   );
 

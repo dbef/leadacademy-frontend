@@ -59,7 +59,7 @@ export function SuccessPage({ course }: Props) {
           <Link>{course.title_en}</Link>
           <br />
           <br />
-          You have siccessfully registered for the course
+          You have successfully registered for the course
           <br />{' '}
         </Typography>
 

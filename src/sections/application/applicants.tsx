@@ -52,7 +52,7 @@ export function ApplicantsTable({ course_id }: Props) {
   const TABLE_HEAD: TableHeadCellProps[] = [
     { id: 'parent', label: 'Parent', label_ka: 'მშობელი', width: 88 },
     { id: 'child', label: 'Child', label_ka: 'შვილი', width: 88 },
-
+    { id: 'school', label: 'School', label_ka: 'სკოლა', width: 88 },
     { id: 'alergens', label: 'Alergens', label_ka: 'ალერგიები', width: 88 },
     { id: 'medicaments', label: 'Medicaments', label_ka: 'მედიკამენტები', width: 88 },
     {
@@ -236,6 +236,7 @@ export function ApplicantsTable({ course_id }: Props) {
           'აპლიკანტის დაბადების თარიღი': item.student_dob,
           'აპლიკანტის სქესი': item.student_gender,
           'აპლიკანტის კლასი': item.student_class,
+          'სკოლა': item.school,
           პროგრამა: item.program,
           'სანდო კონტაქტი': `${item.emergency_contact_name}`,
           'სანდო კონტაქტის ნომერი': item.emergency_contact_phone,
