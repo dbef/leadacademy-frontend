@@ -55,7 +55,7 @@ export function CarouselThumbsX({ data }: Props) {
         <CarouselThumbs
           ref={carousel.thumbs.thumbsRef}
           options={carousel.options?.thumbs}
-          sx={{ width: { xs: 1, sm: 360 } }}
+          sx={{ width: { xs: 360, sm: 360 } }}
         >
           {data.map((item, index) => (
             <CarouselThumb
