@@ -295,7 +295,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** Create course */
+        get: operations["CoursesController_getAllCourses"];
         put?: never;
         /** Create course */
         post: operations["CoursesController_create"];
@@ -1092,6 +1093,10 @@ export interface components {
             campuse: components["schemas"]["CampusDto"];
             /** @description List of course options */
             course_options?: components["schemas"]["CourseOptionsDto"][];
+        };
+        CoursesRTDto: {
+            data: components["schemas"]["CourseDto"][];
+            count: number;
         };
         EditCourseDto: {
             /** @description Title in Georgian */
@@ -1906,6 +1911,47 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["FileDtoRt"];
+                };
+            };
+        };
+    };
+    CoursesController_getAllCourses: {
+        parameters: {
+            query?: {
+                /** @description Location of the course */
+                location?: string;
+                /** @description Location of the course */
+                season?: string;
+                /** @description Location of the course */
+                limit?: string;
+                /** @description Number of rows per page */
+                rowsPerPage?: number;
+                /** @description Current page number */
+                page?: number;
+                /** @description Text to search for */
+                searchText?: string;
+                /** @description Field to sort by */
+                sortBy?: string;
+                /** @description Field to sort by */
+                is_published?: string;
+                /** @description Direction of sorting */
+                direction?: string;
+                /** @description Direction of sorting */
+                status?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Course successfully created */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CoursesRTDto"];
                 };
             };
         };
