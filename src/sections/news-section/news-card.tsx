@@ -13,6 +13,8 @@ interface NewsCardProps {
 export function NewsCard({ news }: NewsCardProps) {
   const { language, renderLanguage } = useLanguage();
 
+  const rawUrl = news.news_media_assn[0]?.media?.media_url || '';
+
   return (
     <Card
       sx={{
@@ -26,7 +28,7 @@ export function NewsCard({ news }: NewsCardProps) {
         cursor: 'pointer',
         transition: 'transform 0.3s ease-in-out',
         overflow: 'hidden',
-        backgroundImage: `url(${encodeURIComponent(news.news_media_assn[0]?.media?.media_url || '')})`,
+        backgroundImage: rawUrl ? `url("${rawUrl.replace(/"/g, '\\"')}")` : 'none',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
