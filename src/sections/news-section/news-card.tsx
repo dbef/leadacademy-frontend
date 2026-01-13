@@ -26,7 +26,7 @@ export function NewsCard({ news }: NewsCardProps) {
         cursor: 'pointer',
         transition: 'transform 0.3s ease-in-out',
         overflow: 'hidden',
-        backgroundImage: `url(${encodeURI(news.news_media_assn[0]?.media?.media_url || '')})`,
+        backgroundImage: `url(${encodeURIComponent(news.news_media_assn[0]?.media?.media_url || '')})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

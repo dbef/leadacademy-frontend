@@ -47,7 +47,7 @@ export const navData: NavMainProps['data'] = [
   },
   {
     title_en: 'Gallery',
-    title: 'გალერია',
+    title: 'გალერეა',
     path: '/gallery',
     icon: <Iconify width={22} icon="mdi:image-multiple" />, // Gallery
   },

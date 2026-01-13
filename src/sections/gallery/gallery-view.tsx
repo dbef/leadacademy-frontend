@@ -83,7 +83,7 @@ export function GalleryView() {
       }}
     >
       <Typography variant="h2" sx={{ fontFeatureSettings: "'case' on" }}>
-        {renderLanguage('გალერია', 'Gallery')}
+        {renderLanguage('გალერეა', 'Gallery')}
       </Typography>
       <Box
         sx={{

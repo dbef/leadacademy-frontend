@@ -9,7 +9,7 @@ import { baseUrl } from '../constants';
 // ----------------------------------------------------------------------
 
 export const metadata: Metadata = {
-  title: `გალერია - ${CONFIG.appName}`,
+  title: `გალერეა - ${CONFIG.appName}`,
   openGraph: {
     images: [
       {
