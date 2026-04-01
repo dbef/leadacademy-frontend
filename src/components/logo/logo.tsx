@@ -5,6 +5,7 @@ import { useId, forwardRef } from 'react';
 import { mergeClasses } from 'minimal-shared/utils';
 
 import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 import { styled, useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
@@ -212,11 +213,18 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>((props, ref) => {
         height={Number(props.height ? props.height.toString() : '32')}
         alt='Sabado Logo'
         src={`${CONFIG.assetsDir}/logo/MainLogo.png`}
-        // viewBox={`0 0 ${props.width ? props.width.toString() : '51'} ${props.height ? props.height.toString() : '32'}`}
-        // fill="none"
-        // xmlns="http://www.w3.org/2000/svg"
       />
-        
+      {/* <Typography
+        sx={{
+          color: 'white',
+          fontFeatureSettings: "'case' on",
+          fontSize: 12,
+          ml: 1,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        კიდევაც დაიზრდებიან...
+      </Typography> */}
     </LogoRoot>
   );
 });
@@ -227,5 +235,6 @@ const LogoRoot = styled(Link)(() => ({
   flexShrink: 0,
   color: 'transparent',
   display: 'inline-flex',
+  alignItems: 'center',
   verticalAlign: 'middle',
 }));

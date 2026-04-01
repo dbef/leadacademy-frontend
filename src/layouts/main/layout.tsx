@@ -16,6 +16,8 @@ import { Logo } from 'src/components/logo';
 import { Iconify } from 'src/components/iconify';
 import { useSettingsContext } from 'src/components/settings';
 
+import { FloralDecoration } from 'src/components/floral-decoration/floral-decoration';
+
 import { Footer } from './footer';
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
@@ -157,6 +159,8 @@ export function MainLayout({
   ];
 
   return (
+    <>
+    <FloralDecoration />
     <LayoutSection
       /** **************************************
        * @Header
@@ -197,5 +201,6 @@ export function MainLayout({
         ))}
       </SpeedDial>
     </LayoutSection>
+    </>
   );
 }
