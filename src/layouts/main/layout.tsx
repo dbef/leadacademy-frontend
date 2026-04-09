@@ -160,7 +160,7 @@ export function MainLayout({
 
   return (
     <>
-    <FloralDecoration />
+    {/* <FloralDecoration /> */}
     <LayoutSection
       /** **************************************
        * @Header

@@ -68,7 +68,7 @@ export function RegisterStudentInfo(props: StudentInfoProps) {
 
 
 
-  const classes = ['IX', 'X', 'XI', 'XII'];
+  const classes = ['VIII','IX', 'X', 'XI', 'XII'];
   const programs = [
     {
       title_ka: 'ამერიკული პროგრამა',
