@@ -35,6 +35,7 @@ export const navData: NavMainProps['data'] = [
         items: [
           { title: 'მიმდინარე', title_en: 'Ongoing', path: '/courses?status=ongoing' },
           { title: 'დასრულებული', title_en: 'Completed', path: '/courses?status=completed' },
+          { title: 'საზაფხულო პროგრამები', title_en: 'Summer Programs', path: '/summer-programs' },
         ],
       },
     ],

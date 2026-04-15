@@ -80,7 +80,8 @@ export function NavList({ data, sx, ...other }: NavListProps) {
           position: 'absolute',
           top: '100%',
           left: '-25px',
-          width: '200px',
+          minWidth: '200px',
+          width: 'max-content',
           zIndex: 1000,
           mt: 1,
           '& div': {
