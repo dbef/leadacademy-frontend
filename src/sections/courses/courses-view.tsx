@@ -48,8 +48,6 @@ export function CourseListMain() {
         location: location ? location : '',
         season: season ? season : '',
         status: status && status === 'completed' ? 'completed' : '',
-        direction: 'desc',
-        sortBy: 'created_at'
       },
     });
     setLoading(false);
