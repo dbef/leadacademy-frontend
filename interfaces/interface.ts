@@ -582,6 +582,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/courses/summer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get summer courses (June, July, August) */
+        get: operations["CoursesController_findSummerCourses"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/courses/{id}": {
         parameters: {
             query?: never;
@@ -883,6 +900,8 @@ export interface components {
             start_date: string;
             /** @description Is the course published? */
             is_published: boolean;
+            /** @description Only visible to foreign partners (no register button) */
+            partners_only?: boolean;
             /** @description End date of the course */
             end_date: string;
             /**
@@ -1020,6 +1039,8 @@ export interface components {
             description_ka: string;
             /** @description Published or not */
             is_published: boolean;
+            /** @description Only visible to foreign partners (no register button) */
+            partners_only?: boolean;
             /** @description Description in English */
             description_en: string;
             /** @description language */
@@ -1132,6 +1153,8 @@ export interface components {
             lecturer_id?: string;
             /** @description Course media */
             is_published?: boolean;
+            /** @description Only visible to foreign partners (no register button) */
+            partners_only?: boolean;
             /** @description Course media */
             course_media?: components["schemas"]["FileDto"][];
             /** @description Course files */
@@ -2534,6 +2557,26 @@ export interface operations {
         requestBody?: never;
         responses: {
             /** @description List of all courses */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CourseDto"][];
+                };
+            };
+        };
+    };
+    CoursesController_findSummerCourses: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description List of summer courses */
             200: {
                 headers: {
                     [name: string]: unknown;

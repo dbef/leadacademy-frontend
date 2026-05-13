@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 
 import Grid from '@mui/material/Grid2';
-import { Box, Tab, Button } from '@mui/material';
+import { Box, Tab, Stack, Button, Typography } from '@mui/material';
 
 import apiClient from 'src/api/apiClient';
 import { CONFIG } from 'src/global-config';
@@ -105,68 +105,117 @@ export default function CoursesSection({ products }: HomeProps) {
       component={m.div}
       variants={varFade('inUp', { distance: 100 })}
       sx={{
-        padding: '128px 256px',
+        position: 'relative',
+        padding: '160px 256px',
         '@media (max-width: 1400px)': {
-          padding: '64px 128px',
+          padding: '120px 128px',
         },
         '@media (max-width: 1200px)': {
-          padding: '64px 64px',
+          padding: '120px 64px',
         },
         '@media (max-width: 1000px)': {
-          padding: '64px 24px',
-          marginTop: '50px',
+          padding: '100px 24px',
         },
         '@media (max-width: 760px)': {
-          padding: '24px !important',
+          padding: '80px 24px !important',
         },
         backgroundImage: `url(${CONFIG.assetsDir}/assets/background/Vector_1.png)`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'contain',
-        marginTop: '70px',
         backgroundColor: '#FAF6FD',
+        overflow: 'hidden',
       }}
     >
+      {/* Decorative blob */}
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '30px',
-          '@media (max-width: 550px)': {
-            flexDirection: 'column',
-            gap: '10px',
-          },
+          position: 'absolute',
+          top: -80,
+          right: -80,
+          width: 240,
+          height: 240,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(127,154,22,0.15) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          display: { xs: 'none', md: 'block' },
         }}
+      />
+
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2}
+        justifyContent="space-between"
+        alignItems={{ xs: 'flex-start', md: 'flex-end' }}
+        sx={{ mb: 5, position: 'relative' }}
       >
-        {/* <CustomTabs
-          value={selectedTab}
-          onChange={(e, value) => setSelectedTab(value)}
-          sx={{ borderRadius: 1, backgroundColor: '#F5EDFA' }}
-        >
-          {tabs
-            .filter((item) => item.title_en === 'Manglisi Campus')
-            .map((tab) => (
-              <Tab
-                key={tab.value}
-                value={tab.value}
-                sx={{ color: '#7C3C8F' }}
-                label={renderLanguage(tab.title_ka, tab.title_en)}
-              />
-            ))}
-        </CustomTabs> */}
+        <Stack spacing={1.5} sx={{ maxWidth: 640 }}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Box
+              sx={{
+                width: 32,
+                height: 4,
+                borderRadius: 2,
+                backgroundColor: '#7F9A16',
+              }}
+            />
+            <Typography
+              variant="overline"
+              sx={{
+                color: '#7F9A16',
+                fontWeight: 700,
+                letterSpacing: 1.5,
+                fontFeatureSettings: "'case' on",
+              }}
+            >
+              {renderLanguage('ჩვენი პროგრამები', 'Our Programs')}
+            </Typography>
+          </Stack>
+          <Typography
+            variant="h2"
+            sx={{
+              color: '#285C45',
+              fontFeatureSettings: "'case' on",
+              fontSize: { xs: 28, sm: 36, md: 44 },
+              lineHeight: 1.15,
+            }}
+          >
+            {renderLanguage(
+              'აღმოაჩინე საუკეთესო გამოცდილება',
+              'Discover our latest programs'
+            )}
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{ color: 'text.secondary', maxWidth: 520 }}
+          >
+            {renderLanguage(
+              'შეუერთდით ჩვენს არაფორმალური განათლების ჰაბს და აღმოაჩინეთ ახალი შესაძლებლობები',
+              'Join our informal education hub and discover new opportunities'
+            )}
+          </Typography>
+        </Stack>
 
         <Button
+          variant="outlined"
           sx={{
-            color: '#607516',
+            color: '#7F9A16',
+            borderColor: '#7F9A16',
+            borderRadius: 999,
+            px: 2.5,
+            flexShrink: 0,
+            '&:hover': {
+              borderColor: '#6B8312',
+              backgroundColor: 'rgba(127,154,22,0.06)',
+            },
           }}
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
           onClick={() => {
             router.push(language === Language.KA ? '/courses' : '/en/courses');
           }}
         >
-          {renderLanguage('იხილე ყველა პროგრამა', 'View all programs')}
+          {renderLanguage('იხილე ყველა', 'View all')}
         </Button>
-      </Box>
+      </Stack>
       {/* <Box
         sx={{
           display: 'flex',
@@ -198,6 +247,29 @@ export default function CoursesSection({ products }: HomeProps) {
         >
           {renderMonths()}
         </CustomTabs>
+      </Box>
+
+      {/* Wave divider transitioning to campuses (yellow) */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: -1,
+          left: 0,
+          right: 0,
+          lineHeight: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        <svg
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          style={{ display: 'block', width: '100%', height: 100 }}
+        >
+          <path
+            d="M0,80 C240,40 480,120 720,80 C960,40 1200,120 1440,80 L1440,120 L0,120 Z"
+            fill="#F4F9CE"
+          />
+        </svg>
       </Box>
     </Box>
   );

@@ -75,6 +75,7 @@ export const CreateCourseSchema = zod.object({
   short_des_en: zod.string().optional(),
   short_des_ka: zod.string().optional(),
   is_published: zod.boolean(),
+  partners_only: zod.boolean().optional(),
   language: zod.string(),
   day_price: zod.number(),
 });
@@ -211,6 +212,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
     short_des_ka: course ? course.short_des_ka : '',
     day_price: course ? course.day_price : 450,
     is_published: course ? course.is_published : false,
+    partners_only: course ? (course as any).partners_only ?? false : false,
     language: course ? course.language : 'ka',
     registration_url: course && course.registration_url ? course.registration_url : ''
   };
@@ -287,7 +289,6 @@ export function ProductNewEditForm({ course }: CourseProps) {
           keywords_ka: values.keywords_ka ? values.keywords_ka.join(',') : undefined,
           course_media: selectedFiles,
           course_files: selectedDocs,
-          language: 'en',
           lecturers: selectedLecturers.map((item) => item.id),
           campus_id: selectedCampus?.campus_id,
           registration_url: values?.registration_url ? values.registration_url : undefined,
@@ -640,6 +641,7 @@ export function ProductNewEditForm({ course }: CourseProps) {
         >
           <MenuItem value="ka">ქართული</MenuItem>
           <MenuItem value="eng">ინგლისური</MenuItem>
+          <MenuItem value="geo_eng">ქართული / ინგლისური</MenuItem>
         </Select>
          <Field.Text
           name="registration_url"
@@ -746,6 +748,17 @@ export function ProductNewEditForm({ course }: CourseProps) {
             inputProps={{ id: 'publish-switch' }}
             checked={values.is_published}
             onChange={(e) => setValue('is_published', e.target.checked)}
+          />
+        }
+        sx={{ pl: 3 }}
+      />
+      <FormControlLabel
+        label="Partners only"
+        control={
+          <Switch
+            inputProps={{ id: 'partners-only-switch' }}
+            checked={values.partners_only ?? false}
+            onChange={(e) => setValue('partners_only', e.target.checked)}
           />
         }
         sx={{ pl: 3, flexGrow: 1 }}

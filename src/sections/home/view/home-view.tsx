@@ -20,6 +20,7 @@ import { CarouselAnimation } from 'src/sections/_examples/extra/carousel-view/ca
 
 import CoursesSection from '../courses-section';
 import { LocationsSection } from '../campuses-section';
+import { SummerProgramsPopup } from '../summer-programs-popup';
 
 // ----------------------------------------------------------------------
 
@@ -49,24 +50,16 @@ export function HomeView({ products, images }: HomeProps) {
 
   return (
     <>
+      <SummerProgramsPopup />
       <ScrollProgress
         variant="linear"
         progress={pageProgress.scrollYProgress}
         sx={[(theme) => ({ position: 'fixed', zIndex: theme.zIndex.appBar + 1 })]}
       />
       {coverImages.length > 0 && <CarouselAnimation data={coverImages} />}
-      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
-        <CoursesSection products={products} />
-      </Stack>
-      {/* <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
-        <SmallDesc />
-      </Stack> */}
-      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
-        <LocationsSection />
-      </Stack>
-      <Stack sx={{ position: 'relative', bgcolor: 'background.default' }}>
-        <NewsSection />
-      </Stack>
+      <CoursesSection products={products} />
+      <LocationsSection />
+      <NewsSection />
       {/* <BackToTopButton isVisible={isVisible} onClick={onBackToTop} />
 
       <HomeHero />

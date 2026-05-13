@@ -78,13 +78,24 @@ export function SelectCourseItem({
           {renderLanguage(item?.campuse?.campus_name_ka || '', item?.campuse?.campus_name_en || '')}
         </Typography>
       </Box>
-      <Box sx={{ display: 'flex', gap: '10px' }}>
-        {item.language === 'ka' ? <FlagIcon code="GE" /> : <FlagIcon code="GB" />}
+      <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        {item.language === 'geo_eng' ? (
+          <Box sx={{ display: 'flex', gap: '4px' }}>
+            <FlagIcon code="GE" />
+            <FlagIcon code="GB" />
+          </Box>
+        ) : item.language === 'ka' ? (
+          <FlagIcon code="GE" />
+        ) : (
+          <FlagIcon code="GB" />
+        )}
         <Typography sx={{ fontSize: '15px' }}>
-          {renderLanguage(
-            `${item.language === 'ka' ? 'ქართული' : 'ინგლისური'}`,
-            `${item.language === 'ka' ? 'Georgian' : 'English'}`
-          )}
+          {item.language === 'geo_eng'
+            ? renderLanguage('ქართული / ინგლისური', 'Georgian / English')
+            : renderLanguage(
+                `${item.language === 'ka' ? 'ქართული' : 'ინგლისური'}`,
+                `${item.language === 'ka' ? 'Georgian' : 'English'}`
+              )}
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', gap: '10px' }}>
@@ -126,7 +137,7 @@ export function SelectCourseItem({
       >
         {renderLanguage('ინფორმაცია', 'Information')}
       </Button>
-      {new Date(item.start_date).getMonth() !== 6 && new Date(item.start_date).getMonth() !== 7 && (
+      {!item.partners_only && (
         <Button
           variant="contained"
           fullWidth
