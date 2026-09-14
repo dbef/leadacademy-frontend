@@ -20,7 +20,6 @@ import { CarouselAnimation } from 'src/sections/_examples/extra/carousel-view/ca
 
 import CoursesSection from '../courses-section';
 import { LocationsSection } from '../campuses-section';
-import { SummerProgramsPopup } from '../summer-programs-popup';
 
 // ----------------------------------------------------------------------
 
@@ -50,7 +49,6 @@ export function HomeView({ products, images }: HomeProps) {
 
   return (
     <>
-      <SummerProgramsPopup />
       <ScrollProgress
         variant="linear"
         progress={pageProgress.scrollYProgress}
